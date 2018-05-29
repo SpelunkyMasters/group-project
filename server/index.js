@@ -6,7 +6,7 @@ const Auth0Strategy=require('passport-auth0');
 const massive=require('massive');
 const cors=require('cors');
 const socket=require('socket.io');
-
+const controller=require('./controller');
 const app=express();
 
 const {
@@ -21,6 +21,8 @@ const {
     FAILURE_REDIRECT
 }=process.env;
 
+
+//limit for S3 size
 app.use(express.json({limit: '10mb'}));
 app.use(cors());
 
@@ -33,7 +35,7 @@ app.use(session({
     resave:false,
     saveUninitialized:true
 }))
-//
+
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -46,7 +48,6 @@ passport.use(new Auth0Strategy({
     },
     function(accessToken, refreshToken, extraParams, profile, done){
     //db calls
-    console.log(profile)
     const db=app.get('db');
     const {picture,id}=profile;
     const {value}=profile.emails[0];
@@ -85,11 +86,18 @@ app.get('/logout', function(req,res){
     req.logOut();
     res.redirect(FAILURE_REDIRECT)
     })
+
+//storing the message
+app.post('/api/message',controller.storeMessage)
+//getting messages by trip
+app.get('/api/messages/:id', controller.getMessages)
     
 
-
+//wrapping listen with socket
 const io=socket(app.listen(SERVER_PORT,()=>console.log('Listening on port:'+SERVER_PORT)));
 
+
+//setting up socket by the rooms
 io.on('connection', socket => {
     console.log('User Connected');
     socket.on('join room', data => {

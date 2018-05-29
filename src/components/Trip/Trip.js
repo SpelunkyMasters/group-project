@@ -6,7 +6,7 @@ class Trip extends Component {
     return (
       <div className="Trip">  
         Trip
-        <Chat/>
+        <Chat room={this.props.match.params.id}/>
       </div>
     );
   }
