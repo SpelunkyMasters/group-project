@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
 import preview from '../../assets/svg/trip_preview.svg';
+import {connect} from 'react-redux';
+import {getUser} from '../../ducks/reducer';
 
 class Home extends Component {
+  constructor(){
+    super()
+  }
+  componentDidMount(){
+    this.props.getUser()
+  }
   render() {
+    
     return (
       <div className="Home"> 
         <button>New Trip</button> 
@@ -15,4 +24,6 @@ class Home extends Component {
   }
 }
 
-export default Home;
+
+
+export default connect(null, {getUser})(Home);

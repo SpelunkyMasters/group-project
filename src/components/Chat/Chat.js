@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
+import {connect} from 'react-redux';
 
 
 class Chat extends Component {
@@ -48,10 +49,12 @@ class Chat extends Component {
 
 var message_text=this.state.input;
 var tripid=this.state.room;
+const {picture, first_name, last_name}=this.props.user;
+console.log(picture, first_name, last_name, "All my info")
 //posting new message in data base and sending it to socket
 axios.post('/api/message',{message_text, tripid} ).then(res=>{
   this.socket.emit('message sent', {
-      message:message_text,
+      message:{message_text, picture, first_name, last_name},
       room: this.state.room
     })
 })
@@ -67,7 +70,7 @@ scrollToBottom() {
   render() {
     //getting messages array
 var messages=this.state.messages.map((e,i)=>{
-    return <div id={i}><img src={e.picture} alt="profile picture" height='50px' width='50px'/>{e.first_name} {e.last_name} {e.message_text} </div>
+    return <div id={i}><img src={e.picture} alt="profile" height='50px' width='50px'/>{e.first_name} {e.last_name} {e.message_text} </div>
 })
 
     return (
@@ -83,16 +86,12 @@ var messages=this.state.messages.map((e,i)=>{
               {/* inputing and sending message */}
             <input value={this.state.input} onChange={e=>this.setState({input:e.target.value})}/>
             <button onClick={this.sendMessage}>Send </button>
-
-              
-                
-              
-
-      
       </div>
     );
   }
 }
 
-
-export default Chat;
+function mapStateToProps(state){
+  return {user:state.user}
+}
+export default connect(mapStateToProps)(Chat) ;
