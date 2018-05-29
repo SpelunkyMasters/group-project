@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
+import axios from 'axios';
 
 
 class Chat extends Component {
@@ -10,7 +11,7 @@ class Chat extends Component {
       input: ``,
       messages:[],
     //   trip num will go to room
-      room: 1
+      room: this.props.room
     }
 
     this.updateMessage = this.updateMessage.bind(this);
@@ -20,6 +21,11 @@ class Chat extends Component {
 
   }
   componentDidMount() {
+    //getting all the messages for this trip ordered by id
+    axios.get(`/api/messages/${this.state.room}`).then(res=>{
+      this.setState({messages:res.data})
+      this.scrollToBottom()
+    })
 // socket stuff
     this.socket = io();
     this.socket.on(`${this.state.room} dispatched`, data => {
@@ -32,6 +38,7 @@ class Chat extends Component {
     
   }
   updateMessage(message) {
+    //updating messages array once new message received
       this.setState({
     messages: [...this.state.messages, message],
     input:''})
@@ -39,11 +46,16 @@ class Chat extends Component {
   }
   sendMessage() {
 
-var message=this.state.input
-         this.socket.emit('message sent', {
-      message,
+var message_text=this.state.input;
+var tripid=this.state.room;
+//posting new message in data base and sending it to socket
+axios.post('/api/message',{message_text, tripid} ).then(res=>{
+  this.socket.emit('message sent', {
+      message:message_text,
       room: this.state.room
-    }) 
+    })
+})
+ 
 }
 
 
@@ -53,8 +65,9 @@ scrollToBottom() {
 }
 
   render() {
+    //getting messages array
 var messages=this.state.messages.map((e,i)=>{
-    return <div id={i}>{e} </div>
+    return <div id={i}><img src={e.picture} alt="profile picture" height='50px' width='50px'/>{e.first_name} {e.last_name} {e.message_text} </div>
 })
 
     return (
@@ -67,6 +80,7 @@ var messages=this.state.messages.map((e,i)=>{
                   }
                   <div ref={(el) => { this.el = el; }}></div>
               </div>
+              {/* inputing and sending message */}
             <input value={this.state.input} onChange={e=>this.setState({input:e.target.value})}/>
             <button onClick={this.sendMessage}>Send </button>
 
