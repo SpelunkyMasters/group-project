@@ -6,7 +6,8 @@ const Auth0Strategy=require('passport-auth0');
 const massive=require('massive');
 const cors=require('cors');
 const socket=require('socket.io');
-const controller=require('./controller');
+const controller=require('./message_trip_user');
+const controller2=require('./invite_dest')
 const app=express();
 
 const {
@@ -86,18 +87,26 @@ app.get('/logout', function(req,res){
     req.logOut();
     res.redirect(FAILURE_REDIRECT)
     })
+//                         MESSAGE TRIP USER
 
 //storing the message
 app.post('/api/message',controller.storeMessage)
 //getting messages by trip
 app.get('/api/messages/:id', controller.getMessages)
-//getting  all the users
-app.get('/api/users', controller.getAllUsers)
+//getting  all the users that not yet invited
+app.get('/api/notinvited/:id', controller.getAllUsers)
 //getting all the users for trip
 app.get('/api/users/:id', controller.getTripUsers)
 //getting trips of current user
 app.get('/api/trips/:id', controller.getUserTrips)
-    
+//deleting user from the trip
+app.delete('/api/trip/:userid/:tripid', controller.deleteFromTrip)
+
+//                           INVITE DESTINATION
+
+//sending invite to user
+app.post('/api/invite', controller2.sendInvite)
+
 
 //wrapping listen with socket
 const io=socket(app.listen(SERVER_PORT,()=>console.log('Listening on port:'+SERVER_PORT)));
