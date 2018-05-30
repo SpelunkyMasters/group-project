@@ -1,12 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function TripCover(props) {
     const { trip } = props
-        , { trip_name } = trip;
+        , { tripid, trip_name } = trip;
 
     return(
         <div>
-            <h1>{ trip_name }</h1>
+            <Link to={`/trip/${tripid}`}><h1>{ trip_name }</h1></Link>
         </div>
     )
 }
