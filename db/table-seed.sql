@@ -10,7 +10,9 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS trips (
     tripid SERIAL PRIMARY KEY,
     trip_name VARCHAR(100) NOT NULL,
-    userid INTEGER REFERENCES users(userid) NOT NULL
+    userid INTEGER REFERENCES users(userid) NOT NULL,
+    startdate TIMESTAMP,
+    enddate TIMESTAMP
 );
 
 CREATE TABLE IF NOT EXISTS user_trips (
