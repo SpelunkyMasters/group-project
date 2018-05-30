@@ -1,0 +1,1 @@
+SELECT * FROM user_trips JOIN users ON users.userid=user_trips.userid where tripid=$1

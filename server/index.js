@@ -91,6 +91,12 @@ app.get('/logout', function(req,res){
 app.post('/api/message',controller.storeMessage)
 //getting messages by trip
 app.get('/api/messages/:id', controller.getMessages)
+//getting  all the users
+app.get('/api/users', controller.getAllUsers)
+//getting all the users for trip
+app.get('/api/users/:id', controller.getTripUsers)
+//getting trips of current user
+app.get('/api/trips/:id', controller.getUserTrips)
     
 
 //wrapping listen with socket

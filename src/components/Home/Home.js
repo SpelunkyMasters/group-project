@@ -1,29 +1,37 @@
 import React, { Component } from 'react';
-import preview from '../../assets/svg/trip_preview.svg';
 import {connect} from 'react-redux';
-import {getUser} from '../../ducks/reducer';
+import {getUser, getTrips} from '../../ducks/reducer';
+import TripCover from './TripCover/TripCover';
 
 class Home extends Component {
   constructor(){
     super()
   }
   componentDidMount(){
-    this.props.getUser()
+    this.props.getUser().then(res=>{
+      this.props.getTrips(this.props.user.userid)
+    } )
+
   }
   render() {
-    
+    const tripList = this.props.trips.map( (trip, i) => {
+      return <TripCover trip={trip} key={ i }/>
+    })
+
     return (
       <div className="Home"> 
         <button>New Trip</button> 
         <h1>Trips</h1>
-        <img src={preview} alt="trip button" width="180px"/>
-        <img src={preview} alt="trip button" width="180px"/>
+        { tripList }
         <h1>Invites</h1>
       </div>
     );
   }
 }
 
+function mapStateToProps(state){
+  return {trips:state.trips,
+  user:state.user}
+}
 
-
-export default connect(null, {getUser})(Home);
+export default connect(mapStateToProps, {getUser, getTrips})(Home);
