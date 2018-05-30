@@ -12,7 +12,7 @@ class Chat extends Component {
       input: ``,
       messages:[],
     //   trip num will go to room
-      room: this.props.room
+      room: this.props.match.params.id
     }
 
     this.updateMessage = this.updateMessage.bind(this);

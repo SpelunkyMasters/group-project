@@ -17,5 +17,29 @@ module.exports={
         db.store_message([req.user.userid, tripid, message_text])
         .then(()=>res.status(200).send())
         .catch(err=>res.status(500).send(err))
-    }
+    },
+    //getting all the users based on trip
+    getTripUsers:(req,res,next)=>{
+        const db=req.app.get('db');
+        const {id}=req.params;
+        db.users.get_users(id)
+        .then(users=>res.status(200).send(users))
+        .catch(err=>res.status(500).send(err))
+    },
+    //getting all the trips for current user
+    getUserTrips:(req, res, next)=>{
+        const db=req.app.get('db')
+        const {id}=req.params;
+        db.trips.get_trips(id)
+        .then(trips=>res.status(200).send(trips))
+        .catch(err=>res.status(500).send(err))
+
+    },
+    //getting all the users
+    getAllUsers:(req,res,next)=>{
+        const db=req.app.get('db');
+        db.users.get_all_users()
+        .then(users=>res.status(200).send(users))
+        .catch(err=>res.status(500).send(err))
+    },
 }

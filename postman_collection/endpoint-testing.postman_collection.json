@@ -1,0 +1,54 @@
+{
+	"info": {
+		"name": "Enpoint Testing ",
+		"_postman_id": "19cc9f3c-5c32-bb75-dcf4-389952be47f0",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+                {
+                    "name": "GET - Messages By Tripid",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "body": {},
+                        "url": {
+                            "raw": "localhost:3004/api/messages/1",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3004",
+                            "path": [
+                                "api",
+                                "messages",
+                                "1"
+                            ]
+                        },
+                        "description": ""
+                    },
+                    "response": []
+                },
+                {
+                    "name": "GET - Users By Id",
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "body": {},
+                        "url": {
+                            "raw": "localhost:3004/api/users/1",
+                            "host": [
+                                "localhost"
+                            ],
+                            "port": "3004",
+                            "path": [
+                                "api",
+                                "users",
+                                "1"
+                            ]
+                        },
+                        "description": ""
+                    },
+                    "response": []
+                }
+            ]
+}

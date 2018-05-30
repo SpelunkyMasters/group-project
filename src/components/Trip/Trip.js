@@ -4,8 +4,14 @@ import Chat from '../Trip/Chat/Chat';
 import Map from '../Trip/Map/Map';
 import Itinerary from '../Trip/Itinerary/Itinerary';
 import TripMembers from '../Trip/TripMembers/TripMembers';
+import {connect} from 'react-redux';
+import {getAllUsers} from '../../ducks/reducer';
 
 class Trip extends Component {
+  componentDidMount(){
+    this.props.getAllUsers(this.props.match.params.id)
+  }
+  
   render() {
     return (
       <div className="Trip">  
@@ -31,4 +37,5 @@ class Trip extends Component {
   }
 }
 
-export default Trip;
+
+export default connect(null, {getAllUsers})(Trip) ;
