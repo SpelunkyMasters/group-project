@@ -4,9 +4,7 @@ import {getUser, getTrips} from '../../ducks/reducer';
 import TripCover from './TripCover/TripCover';
 
 class Home extends Component {
-  constructor(){
-    super()
-  }
+
   componentDidMount(){
     this.props.getUser().then(res=>{
       this.props.getTrips(this.props.user.userid)
@@ -14,6 +12,7 @@ class Home extends Component {
 
   }
   render() {
+    console.log('Trips: ', this.props.trips)
     const tripList = this.props.trips.map( (trip, i) => {
       return <TripCover trip={trip} key={ i }/>
     })
