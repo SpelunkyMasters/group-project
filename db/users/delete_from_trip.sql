@@ -1,0 +1,1 @@
+DELETE FROM user_trips WHERE userid=$1 AND tripid=$2

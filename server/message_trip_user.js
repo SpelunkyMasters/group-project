@@ -11,7 +11,6 @@ module.exports={
     storeMessage:(req,res,next)=>{
         const db=req.app.get('db');
         const{message_text,tripid}= req.body;
-        
         console.log('something', req.user.userid)
         console.log('body', message_text, tripid)
         db.store_message([req.user.userid, tripid, message_text])
@@ -38,8 +37,17 @@ module.exports={
     //getting all the users
     getAllUsers:(req,res,next)=>{
         const db=req.app.get('db');
-        db.users.get_all_users()
+        const {id}=req.params;
+        db.users.get_users_not_invited(id)
         .then(users=>res.status(200).send(users))
         .catch(err=>res.status(500).send(err))
     },
+    //deleting user from trip
+    deleteFromTrip:(req, res,next)=>{
+        const db=req.app.get('db');
+        const {userid, tripid}=req.params;
+        db.users.delete_from_trip([userid, tripid])
+        .then(()=>res.status(200).send())
+        .catch(err=>res.status(500).send(err))
+    }
 }
