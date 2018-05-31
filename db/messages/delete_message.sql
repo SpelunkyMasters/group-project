@@ -1,0 +1,1 @@
+DELETE FROM user_chat WHERE messageid=$1

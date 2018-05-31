@@ -93,6 +93,8 @@ app.get('/logout', function(req,res){
 app.post('/api/message',controller.storeMessage)
 //getting messages by trip
 app.get('/api/messages/:id', controller.getMessages)
+//deleting message
+app.delete('/api/message/:id', controller.deleteMessage)
 //getting  all the users that not yet invited
 app.get('/api/notinvited/:id', controller.getAllUsers)
 //getting all the users for trip
