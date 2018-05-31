@@ -10,11 +10,11 @@ import TripMembers from '../Trip/TripMembers/TripMembers';
 import {connect} from 'react-redux';
 import {getUser, getAllUsers, getTrips} from '../../ducks/reducer';
 
-import menuIcon from '../../assets/img/menu.png';
+// import menuIcon from '../../assets/img/menu.png';
 
 const StyledTripDiv = glamorous.div({
-  margin: "5px 0 0 5px",
-  width: 25
+  margin: '5px 0 0 5px',
+  textAlign: 'center'
 })
 
 class Trip extends Component {
@@ -43,9 +43,6 @@ class Trip extends Component {
 
     return (
       <StyledTripDiv>
-        <NavBar navType="menu"/>
-
-        <img src={ menuIcon } alt="menu icon" width="100%"/>
         <h1>{ trip_name }</h1>
         <Switch>
           <Route path="/trip/:id/nav" component={ NavBar } />
