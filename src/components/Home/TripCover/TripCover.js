@@ -7,7 +7,7 @@ function TripCover(props) {
 
     return(
         <div>
-            <Link to={`/trip/${tripid}`}><h1>{ trip_name }</h1></Link>
+            <Link to={`/trip/${tripid}/nav`}><h1>{ trip_name }</h1></Link>
         </div>
     )
 }
