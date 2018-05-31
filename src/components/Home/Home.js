@@ -12,7 +12,8 @@ class Home extends Component {
 
   }
   render() {
-    console.log('Trips: ', this.props.trips)
+
+    //map through the list of trips stored on Redux.
     const tripList = this.props.trips.map( (trip, i) => {
       return <TripCover trip={trip} key={ i }/>
     })

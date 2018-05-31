@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 
 import { getUser, getTrips } from '../../ducks/reducer';
 
-class Loader extends Component {
+class TripLoader extends Component {
   componentDidMount() {
     const { getUser, getTrips } = this.props;
 
@@ -18,7 +18,7 @@ class Loader extends Component {
 
   render() {
     return (
-      <div className="Loader">  
+      <div className="TripLoader">  
         {
           "<( '-' )> Loading <('-' <)"
         }
@@ -34,4 +34,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {getUser, getTrips})(withRouter(Loader));
+export default connect(mapStateToProps, {getUser, getTrips})(withRouter(TripLoader));

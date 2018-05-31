@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import glamorous from 'glamorous';
 
 import NavBar from '../NavBar/NavBar';
 import Chat from '../Trip/Chat/Chat';
@@ -9,6 +10,16 @@ import TripMembers from '../Trip/TripMembers/TripMembers';
 import {connect} from 'react-redux';
 import {getUser, getAllUsers, getTrips} from '../../ducks/reducer';
 
+import menuIcon from '../../assets/img/menu.png';
+
+const StyledTripDiv = glamorous.div({
+  margin: "5px 0 0 5px",
+  width: 25
+})
+
+const StyledMenuHolder = glamorous.div({
+
+})
 
 class Trip extends Component {
   componentDidMount(){
@@ -35,8 +46,10 @@ class Trip extends Component {
         
 
     return (
-      <div className="Trip">  
+      <StyledTripDiv>
         <NavBar navType="menu"/>
+
+        <img src={ menuIcon } alt="menu icon" width="100%"/>
         <h1>{ trip_name }</h1>
         <Switch>
           <Route path="/trip/:id/nav" component={ NavBar } />
@@ -47,7 +60,7 @@ class Trip extends Component {
           {/* <Route path="/trip/:id/group-history" component={} />
           <Route path="/trip/:id/timeline" component={} /> */}
         </Switch>
-      </div>
+      </StyledTripDiv>
     );
   }
 }

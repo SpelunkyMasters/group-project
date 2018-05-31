@@ -12,8 +12,5 @@ export default(
         <Route path='/home' component={Home}/>
         <Route path='/trip/:id' component={Trip}/>
         <Route path='/loader' component={Loader}/>
-
-
-
     </Switch>
 )
