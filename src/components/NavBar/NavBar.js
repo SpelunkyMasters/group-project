@@ -6,8 +6,10 @@ import glamorous from 'glamorous';
 import TripNavBtn from '../Trip/TripNavBtn';
 
 
-const StyledNavMenu = glamorous.nav({
-  
+const NavButtonGroup = glamorous.nav({
+  display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'space-around'
 })
 
 const StyledMenuLi = glamorous.li({
@@ -56,14 +58,19 @@ class NavBar extends Component {
         {
           this.props.navType === 'menu'
             ? (
-              <StyledNavMenu>
+              <nav>
                 <ol>
                   { navBar }
                 </ol>
-              </StyledNavMenu>
+              </nav>
 
             ) 
-            : navBtns
+            : (
+              <NavButtonGroup>
+                { navBtns }
+              </NavButtonGroup>
+
+            )
 
         }
       </div>

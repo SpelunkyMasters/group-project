@@ -1,10 +1,10 @@
 CREATE TABLE IF NOT EXISTS users (
     userid SERIAL PRIMARY KEY,
     authid TEXT NOT NULL,
-    first_name TEXT NOT NULL,
-    last_name TEXT NOT NULL,
-    email TEXT NOT NULL,
-    picture TEXT NOT NULL,
+    first_name VARCHAR(80) NULL,
+    last_name VARCHAR(80) NULL,
+    email VARCHAR(80) NULL,
+    picture TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS trips (
@@ -28,22 +28,20 @@ CREATE TABLE IF NOT EXISTS invitations (
 CREATE TABLE IF NOT EXISTS destinations (
     destid SERIAL PRIMARY KEY,
     tripid INTEGER REFERENCES trips(tripid) NOT NULL,
-    dest_city VARCHAR(80) NOT NULL,
-    dest_country VARCHAR(80) NOT NULL,
-    dest_num INTEGER NOT NULL
+    dest_name TEXT NOT NULL,
+    lat REAL NOT NULL,
+    lng REAL NOT NULL,
+    dest_ord INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS sub_dests (
     sub_destid SERIAL PRIMARY KEY,
     destid INTEGER REFERENCES destinations(destid) NOT NULL,
-    sub_dest_name VARCHAR(120) NOT NULL,
-    description VARCHAR(150),
-    sub_dest_num INTEGER NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS trip_itinerary (
-    tripid INTEGER REFERENCES trips(tripid) NOT NULL,
-    destid INTEGER REFERENCES destinations(destid) NOT NULL
+    sub_dest_name TEXT NOT NULL,
+    sub_address TEXT NOT NULL,
+    lat REAL NOT NULL,
+    lng REAL NOT NULL,
+    sub_ord INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS user_chat (

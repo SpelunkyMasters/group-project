@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Dosis|Open+Sans');
+
+html, body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+    font-family: 'Dosis', sans-serif;
+    font-weight: 500;
+    line-height: 45px;
+    font-size: 42px;
+}
+
+h2 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 900;
+    line-height: 20px;
+    font-size: 20px;
+}
