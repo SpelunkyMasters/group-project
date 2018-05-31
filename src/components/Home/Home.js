@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {getUser, getTrips} from '../../ducks/reducer';
 import TripCover from './TripCover/TripCover';
+import { NavLink } from 'react-router-dom';
 
 class Home extends Component {
 
@@ -21,6 +22,7 @@ class Home extends Component {
     return (
       <div className="Home"> 
         <button>New Trip</button> 
+        <NavLink to="/profile"><button>Profile</button></NavLink> 
         <h1>Trips</h1>
         { tripList }
         <h1>Invites</h1>

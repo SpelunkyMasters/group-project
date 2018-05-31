@@ -17,10 +17,6 @@ const StyledTripDiv = glamorous.div({
   width: 25
 })
 
-const StyledMenuHolder = glamorous.div({
-
-})
-
 class Trip extends Component {
   componentDidMount(){
     const { getUser, getAllUsers, getTrips } = this.props;

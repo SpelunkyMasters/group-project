@@ -3,20 +3,8 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import glamorous from 'glamorous';
 
-import './NavBar.css';
-
 import TripNavBtn from '../Trip/TripNavBtn';
 
-const menuHidden = {
-  display: 'none'
-}
-
-const menuOpen = {
-  display: 'inline',
-  width: 180,
-  backgroundColor: 'red'
-
-}
 
 const StyledNavMenu = glamorous.nav({
   
@@ -68,11 +56,11 @@ class NavBar extends Component {
         {
           this.props.navType === 'menu'
             ? (
-              <aside className="mobile_menu">
+              <StyledNavMenu>
                 <ol>
                   { navBar }
                 </ol>
-              </aside>
+              </StyledNavMenu>
 
             ) 
             : navBtns
