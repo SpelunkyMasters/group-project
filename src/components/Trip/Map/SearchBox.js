@@ -75,7 +75,7 @@ class SearchBox extends Component {
                   <select onChange={e => this.props.handleDestType(e.target.value)}>
                     <option value="">--Select One--</option>
                     <option value="Main Stop">Main Stop</option>
-                    <option value="Minor Stops">Minor Stops</option>
+                    <option value="Minor Stop">Minor Stop</option>
                   </select>
                   <button onClick={this.props.updateItinerary}>Add To Itinerary</button>
                 </div>

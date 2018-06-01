@@ -27,9 +27,17 @@ class Map extends Component {
     this.setState({ destType })
   }
 
+  tryingIt() {
+    axios.post(`/api/itinerary/${this.props.match.params.id}?destType=Main Stop`, this.currentMarker).then( (results) => {
+      console.log(results)
+    })
+  } 
+
   render() {
+    console.log(this.state.currentMarker)
     return (
       <div>
+        <button onClick={() => this.tryingIt()}>Try It</button>
           <SearchBox 
             updateCurrentMarker={this.updateCurrentMarker} 
             updateItinerary={this.updateItinerary}

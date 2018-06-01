@@ -8,6 +8,7 @@ const cors=require('cors');
 const socket=require('socket.io');
 const controller=require('./controllers/message_trip_user');
 const controller2=require('./controllers/invite_dest');
+const iController=require('./controllers/itinerary_controller')
 const S3=require('./controllers/S3');
 const app=express();
 
@@ -113,6 +114,13 @@ app.post('/api/invite', controller2.sendInvite)
 app.get('/api/tripusers/:id', controller2.getInvitedUsers)
 //deleting invite from table
 app.delete('/api/invite/:userid/:tripid', controller2.declineInvite)
+
+
+//                          ITINERARY STUFF
+//get entire trip itinerary
+app.get('/api/itinerary/:tripid', iController.getItinerary)
+//add location to trip itinerary
+app.post('/api/itinerary/:tripid', iController.addToItinerary)
 
 //s3 component
 S3(app);
