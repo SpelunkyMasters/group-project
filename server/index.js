@@ -6,9 +6,9 @@ const Auth0Strategy=require('passport-auth0');
 const massive=require('massive');
 const cors=require('cors');
 const socket=require('socket.io');
-const controller=require('./message_trip_user');
-const controller2=require('./invite_dest');
-const S3=require('./S3');
+const controller=require('./controllers/message_trip_user');
+const controller2=require('./controllers/invite_dest');
+const S3=require('./controllers/S3');
 const app=express();
 
 const {
