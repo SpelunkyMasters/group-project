@@ -13,10 +13,36 @@ class SearchBox extends Component {
     
       handleSelect = (address) => {
         geocodeByAddress(address)
-          .then(results => {
-              console.log(results[0])
-            this.props.updateCurrentMarker(results[0])
+        .then(results => {
+    
+          let currentAddress = results[0].formatted_address
+          let name = address.split(',')[0].toLowerCase()
+
+          name = this.lowerCaseIt(name)
+          let cityLocation = {
+            lat: results[0].geometry.location.lat(),
+            lng: results[0].geometry.location.lng()
+          }
+          if (currentAddress.includes(name)) {
+            cityLocation.name = currentAddress
+            cityLocation.address = ''
+          } else {
+            cityLocation.name = name 
+            cityLocation.address = currentAddress
+          }
+    
+            this.props.updateCityLocation(cityLocation)
         })
+      }
+    
+      lowerCaseIt(string) {
+        let splitStr = string.split(' ')    
+        for (let i = 0; i < splitStr.length; i++) {
+          let firstLetter = splitStr[i][0].toUpperCase()
+          let word = firstLetter + splitStr[i].substring(1, splitStr[i].length)
+          splitStr[i] = word
+        }
+        return splitStr.join(' ')
       }
     
       render() {
@@ -47,6 +73,11 @@ class SearchBox extends Component {
                       </div>
                     )
                   })}
+                  <select onChange={e => this.props.handleDestType(e.target.value)}>
+                    <option value="">--Select One--</option>
+                    <option value="Main Stop">Main Stop</option>
+                    <option value="Minor Stops">Minor Stops</option>
+                  </select>
                   <button onClick={this.props.updateItinerary}>Add To Itinerary</button>
                 </div>
               </div>

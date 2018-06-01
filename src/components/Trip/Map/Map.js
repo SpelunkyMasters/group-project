@@ -12,19 +12,30 @@ class Map extends Component {
     }
   }
 
-  updateCurrentMarker(marker) {
+  updateCurrentMarker = (marker) => {
     this.setState({ currentMarker: marker })
   }
 
-  updateItinerary() {
-    this.setState({ itinerary: [...this.state.itinerary, this.state.currentMarker]})
+  updateItinerary = () => {
+    if (this.state.currentMarker.geometry){
+      this.setState({ itinerary: [...this.state.itinerary, this.state.currentMarker]})
+    }
+  }
+
+  handleDestType = (destType) => {
+    this.setState({ destType })
   }
 
   render() {
     return (
       <div>
-          <SearchBox updateCurrentMarker={this.updateCurrentMarker} updateItinerary={this.updateItinerary}/>
-          <MapContainer currentMarker={this.state.currentMarker} itinerary={this.state.itinerary} />
+          <SearchBox 
+            updateCurrentMarker={this.updateCurrentMarker} 
+            updateItinerary={this.updateItinerary}
+            handleDestType={this.handleDestType} />
+          <MapContainer 
+            currentMarker={this.state.currentMarker} 
+            itinerary={this.state.itinerary} />
       </div>
     );
   }
