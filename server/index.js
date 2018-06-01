@@ -104,6 +104,9 @@ app.get('/api/users/:id', controller.getTripUsers)
 app.get('/api/trips/:id', controller.getUserTrips)
 //deleting user from the trip
 app.delete('/api/trip/:userid/:tripid', controller.deleteFromTrip)
+//update user info
+app.put('/api/user', controller.updateUser)
+
 
 //                           INVITE DESTINATION
 
