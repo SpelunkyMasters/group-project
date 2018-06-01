@@ -3,7 +3,7 @@ module.exports={
      getMessages:(req, res, next)=>{
         const db=req.app.get('db');
         const{id}=req.params;
-        db.get_messages(id)
+        db.messages.get_messages(id)
         .then(messages=>res.status(200).send(messages))
         .catch(err=>res.status(500).send(err))
     },
@@ -11,9 +11,15 @@ module.exports={
     storeMessage:(req,res,next)=>{
         const db=req.app.get('db');
         const{message_text,tripid}= req.body;
-        console.log('something', req.user.userid)
-        console.log('body', message_text, tripid)
-        db.store_message([req.user.userid, tripid, message_text])
+        db.messages.store_message([req.user.userid, tripid, message_text])
+        .then(message=>res.status(200).send(message))
+        .catch(err=>res.status(500).send(err))
+    },
+    //deleting message
+    deleteMessage:(req,res,next)=>{
+        const db=req.app.get('db');
+        const{id}= req.params;
+        db.messages.delete_message([id])
         .then(()=>res.status(200).send())
         .catch(err=>res.status(500).send(err))
     },
@@ -34,7 +40,7 @@ module.exports={
         .catch(err=>res.status(500).send(err))
 
     },
-    //getting all the users
+    //getting all the users that not invited to trip
     getAllUsers:(req,res,next)=>{
         const db=req.app.get('db');
         const {id}=req.params;

@@ -7,7 +7,8 @@ const massive=require('massive');
 const cors=require('cors');
 const socket=require('socket.io');
 const controller=require('./message_trip_user');
-const controller2=require('./invite_dest')
+const controller2=require('./invite_dest');
+const S3=require('./S3');
 const app=express();
 
 const {
@@ -93,6 +94,8 @@ app.get('/logout', function(req,res){
 app.post('/api/message',controller.storeMessage)
 //getting messages by trip
 app.get('/api/messages/:id', controller.getMessages)
+//deleting message
+app.delete('/api/message/:id', controller.deleteMessage)
 //getting  all the users that not yet invited
 app.get('/api/notinvited/:id', controller.getAllUsers)
 //getting all the users for trip
@@ -106,6 +109,13 @@ app.delete('/api/trip/:userid/:tripid', controller.deleteFromTrip)
 
 //sending invite to user
 app.post('/api/invite', controller2.sendInvite)
+//get invited to the trip users
+app.get('/api/tripusers/:id', controller2.getInvitedUsers)
+//deleting invite from table
+app.delete('/api/invite/:userid/:tripid', controller2.declineInvite)
+
+//s3 component
+S3(app);
 
 
 //wrapping listen with socket
