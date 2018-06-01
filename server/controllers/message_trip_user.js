@@ -55,5 +55,13 @@ module.exports={
         db.users.delete_from_trip([userid, tripid])
         .then(()=>res.status(200).send())
         .catch(err=>res.status(500).send(err))
+    },
+    //updating user info
+    updateUser:(req, res, next)=>{
+        const db=req.app.get('db');
+        const{userid, first_name, last_name, email}=req.body;
+        db.users.update_user([userid, first_name, last_name, email])
+        .then(()=>res.status(200).send())
+        .catch(err=>res.status(500).send(err))
     }
 }
