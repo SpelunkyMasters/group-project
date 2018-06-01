@@ -19,6 +19,7 @@ class Profile extends Component {
       <div className="Profile">
         <NavLink to="/home"><button>Home</button></NavLink>
         <h1>Profile</h1>
+        <img src={this.props.user.picture} alt="profile" width='100px' height='100px'/>
         {!this.state.edit?
         <div>
         <p>{this.state.first_name}</p>
@@ -32,7 +33,7 @@ class Profile extends Component {
         <input value={this.state.email} onChange={e=>this.setState({email:e.target.value})}/>
         </div>
         }
-        <button onClick={()=>this.setState({edit:true})}>Edit</button>
+        <button onClick={()=>this.setState({edit:true})}>Edit/Cancel</button>
         <FileUpload/>
       </div>
     );
