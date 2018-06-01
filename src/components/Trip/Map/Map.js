@@ -2,13 +2,16 @@ import React, { Component } from 'react';
 import SearchBox from './SearchBox'
 import MapContainer from './MapContainer'
 import { GoogleApiWrapper } from 'google-maps-react'
+import axios from 'axios'
 
 class Map extends Component {
   constructor() {
     super();
     this.state = {
       currentMarker: {},
-      itinerary: []
+      itinerary: [],
+      destType: null,
+      subDest: null
     }
   }
 
@@ -17,9 +20,7 @@ class Map extends Component {
   }
 
   updateItinerary = () => {
-    if (this.state.currentMarker.geometry){
-      this.setState({ itinerary: [...this.state.itinerary, this.state.currentMarker]})
-    }
+    console.log('butts')
   }
 
   handleDestType = (destType) => {

@@ -29,15 +29,18 @@ class MapContainer extends Component {
     }
 
   render() {
+      const {currentMarker} = this.props
       let center = {}
       let zoom = 18
       if (this.props.itinerary.length > 0) {
 
       }
 
-      if ( this.props.currentMarker.geometry) {
-          center = {lat: this.props.currentMarker.lat, lng: this.props.currentMarker.lng}
-          zoom = 15
+      if ( currentMarker.lat) {
+          center = {lat: currentMarker.lat, lng: currentMarker.lng}
+          if( !currentMarker.address ) {
+              zoom = 15
+          }
       }
 
     return (
@@ -57,13 +60,12 @@ class MapContainer extends Component {
               key={i}
                 onClick={this.onMarkerClick}
                 name={place.name}
-                title={point.address}
                 position={{lat: place.lat, lng: place.lng}}
               />
           )
       })}
       {
-                this.props.currentMarker.geometry ?
+                this.props.currentMarker.lat ?
                 <Marker
                   onClick={this.onMarkerClick}
                   name={this.props.currentMarker.name}
@@ -79,6 +81,7 @@ class MapContainer extends Component {
               >
                 <div>
                   <p>{this.state.selectedPlace.name}</p>
+
                   <p>{this.state.selectedPlace.title}</p>
                 </div>
             </InfoWindow>

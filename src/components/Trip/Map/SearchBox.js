@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete'
 
 class SearchBox extends Component {
     constructor(props) {
@@ -19,19 +19,18 @@ class SearchBox extends Component {
           let name = address.split(',')[0].toLowerCase()
 
           name = this.lowerCaseIt(name)
-          let cityLocation = {
+          let CurrentMarker = {
             lat: results[0].geometry.location.lat(),
             lng: results[0].geometry.location.lng()
           }
           if (currentAddress.includes(name)) {
-            cityLocation.name = currentAddress
-            cityLocation.address = ''
+            CurrentMarker.name = currentAddress
           } else {
-            cityLocation.name = name 
-            cityLocation.address = currentAddress
+            CurrentMarker.name = name 
+            CurrentMarker.address = currentAddress
           }
     
-            this.props.updateCityLocation(cityLocation)
+            this.props.updateCurrentMarker(CurrentMarker)
         })
       }
     
