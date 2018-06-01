@@ -51,6 +51,23 @@ CREATE TABLE IF NOT EXISTS user_chat (
     message_text VARCHAR(250) NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS tl_media (
+    postid SERIAL PRIMARY KEY,
+    post_name VARCHAR(90) NOT NULL,
+    message_text VARCHAR(250) NOT NULL
+    media_url 
+    userid INTEGER REFERENCES users(userid) NOT NULL,
+    tripid INTEGER REFERENCES trips(tripid) NOT NULL,
+);
+
+CREATE TABLE IF NOT EXISTS timeline (
+    userid INTEGER REFERENCES users(userid) NOT NULL,
+    tripid INTEGER REFERENCES trips(tripid) NOT NULL,
+    message_text VARCHAR(250) NOT NULL
+);
+
+
+
 
 
 

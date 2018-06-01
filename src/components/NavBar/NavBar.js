@@ -42,7 +42,7 @@ class NavBar extends Component {
     ];
 
     const navBtns = navData.map( (link, i) => {
-      if(i > 1 && i < 7) {
+      if(i > 1 && i < 8) {
         return <TripNavBtn key={ link.name }name={ link.name } path={ link.path }/>
       } else {
         return null
