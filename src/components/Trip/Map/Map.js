@@ -11,8 +11,7 @@ class Map extends Component {
       currentMarker: {},
       itinerary: [],
       destType: null,
-      subDestName: null,
-      subDestId: null
+      destid: null,
     }
   }
 
@@ -27,30 +26,27 @@ class Map extends Component {
   }
 
   updateItinerary = () => {
-    console.log('butts')
-  }
+    if(this.state.currentMarker.lat) {
 
+      axios.post(`/api/itinerary/${this.props.match.params.id}?destType=${this.state.destType}&destid=${this.state.destid}`, this.state.currentMarker).then( (results) => {
+        console.log(results)
+      })
+    } else {
+      return;
+    }
+  }
+    
   handleDestType = (destType) => {
     this.setState({ destType })
   }
 
-  handleSubDest = (subDest, e) => {
-    console.log(e.target)
-    console.log(e.target.value)
-    this.setState({ subDest })    
+  handleSubDest = (destid, e) => {
+    this.setState({ destid })    
   }
 
-  tryingIt() {
-    axios.post(`/api/itinerary/${this.props.match.params.id}?destType=Main Stop`, this.state.currentMarker).then( (results) => {
-      console.log(results)
-    })
-  } 
-
   render() {
-    console.log(this.state.itinerary)
     return (
       <div>
-        <button onClick={() => this.tryingIt()}>Try It</button>
           <SearchBox 
             updateCurrentMarker={this.updateCurrentMarker} 
             updateItinerary={this.updateItinerary}

@@ -49,7 +49,7 @@ module.exports = {
     },
     addToItinerary: (req, res) => {
         let location = req.body
-        const { destType, subDest } = req.query
+        const { destType, destid } = req.query
         const { tripid } = req.params
         const db = req.app.get('db')
 
@@ -72,10 +72,13 @@ module.exports = {
             db.trips.get_subDests().then(results => {
                 let flag = true;
                 results.forEach(place => {
-                    if(location.place_id === place.place_id) flag = false;
+                    if(place.place_id === location.place_id && place.destid === destid) flag = false;
                 })
-
-
+                if(flag) {
+                    db.trips.add_subDest([destid, location.name, location.address, location.lat, location.lng, location.place_id]).then(results =>{
+                        console.log(results)
+                    })
+                }
             })
         }
 
