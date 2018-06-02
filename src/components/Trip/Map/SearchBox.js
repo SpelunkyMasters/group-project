@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete'
+import { connect } from 'react-redux'
 
 class SearchBox extends Component {
     constructor(props) {
@@ -104,4 +105,10 @@ class SearchBox extends Component {
       }
     }
 
-export default SearchBox;
+    function mapStateToProps(state) {
+      return {
+        itinerary: state.itinerary
+      }
+    }
+
+export default connect(mapStateToProps)(SearchBox);
