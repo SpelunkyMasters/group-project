@@ -14,6 +14,8 @@ class SearchBox extends Component {
       handleSelect = (address) => {
         geocodeByAddress(address)
         .then(results => {
+          console.log(address)
+          console.log(results)
     
           let currentAddress = results[0].formatted_address
           let name = address.split(',')[0].toLowerCase()
@@ -21,7 +23,8 @@ class SearchBox extends Component {
           name = this.lowerCaseIt(name)
           let CurrentMarker = {
             lat: results[0].geometry.location.lat(),
-            lng: results[0].geometry.location.lng()
+            lng: results[0].geometry.location.lng(),
+            place_id: results[0].place_id
           }
           if (currentAddress.includes(name)) {
             CurrentMarker.name = currentAddress
@@ -45,6 +48,11 @@ class SearchBox extends Component {
       }
     
       render() {
+        let subDestMenu = this.props.itinerary.map(stop => {
+          return(
+            <option key={stop.destid} value={stop.dest_name} name={stop.destid}>{stop.dest_name}</option>
+          )
+        })
         return (
           <PlacesAutocomplete
             value={this.state.address}
@@ -76,6 +84,10 @@ class SearchBox extends Component {
                     <option value="">--Select One--</option>
                     <option value="Main Stop">Main Stop</option>
                     <option value="Minor Stop">Minor Stop</option>
+                  </select>
+                  <select onChange={e => this.props.handleSubDest(e.target.value, e)}>
+                  <option>--Select One--</option>
+                    {subDestMenu}
                   </select>
                   <button onClick={this.props.updateItinerary}>Add To Itinerary</button>
                 </div>

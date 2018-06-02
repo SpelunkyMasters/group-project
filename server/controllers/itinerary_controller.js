@@ -4,7 +4,7 @@ module.exports = {
     getItinerary: (req, res) => {
         const {tripid} = req.params
         const db = req.app.get('db')
-        db.trips.get_dests([tripid]).then(results => {
+        db.trips.get_all_dests([tripid]).then(results => {
             if(results.length === 0) {
                 res.status(200).send('No Trips')
             } else {
@@ -20,6 +20,7 @@ module.exports = {
                         dest_ord: place.dest_ord,
                         lat: +place.dest_lat,
                         lng: +place.dest_lng,
+                        place_id: place.dest_place_id,
                         sub_dests: []
                     }
                     trips[prop].forEach( trip => {
@@ -32,7 +33,8 @@ module.exports = {
                                 sub_ord: trip.sub_ord,
                                 sub_address: trip.sub_address,
                                 lat: +trip.sub_lat,
-                                lng: +trip.sub_lng
+                                lng: +trip.sub_lng,
+                                place_id: trip.dest_place_id,
                             }
                             subDests.push(subDest)
                         }
@@ -52,8 +54,28 @@ module.exports = {
         const db = req.app.get('db')
 
         if( destType === 'Main Stop') {
-            db.trips.add_dest([tripid, location.name, location.lat, location.lng]).then( (results) => {
-                res.status(200).send(results)
+            db.trips.get_dests().then(results => {
+                let flag = true
+                results.forEach(place => {
+                    if(location.place_id === place.place_id) flag = false;
+                })
+                if(flag) {
+                    db.trips.add_dest([tripid, location.name, location.lat, location.lng, location.place_id]).then( (results) => {
+                        res.status(200).send(results)
+                    })
+
+                } else {
+                    res.sendStatus(404)
+                }
+            })
+        } else if ( destType === 'Minor Stop') {
+            db.trips.get_subDests().then(results => {
+                let flag = true;
+                results.forEach(place => {
+                    if(location.place_id === place.place_id) flag = false;
+                })
+
+
             })
         }
 
