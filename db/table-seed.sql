@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS destinations (
     dest_name TEXT NOT NULL,
     lat REAL NOT NULL,
     lng REAL NOT NULL,
+    dest_address TEXT,
     dest_ord INTEGER NOT NULL
 );
 

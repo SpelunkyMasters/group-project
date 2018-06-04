@@ -10,6 +10,7 @@ const initialState={
 const GET_USER_INFO='GET_USER_INFO';
 const GET_TRIP_USERS='GET_TRIP_USERS'
 const GET_USER_TRIPS='GET_USER_TRIPS'
+const GET_ITINERARY='GET_ITINERARY'
 
 
 export function getTrips(user){
@@ -42,6 +43,16 @@ export function getAllUsers(trip){
       }
 }
 
+export function getItinerary(tripid) {
+    let itinerary = axios.get(`/api/itinerary/${tripid}`).then(res => {
+        return res.data
+    })
+    return {
+        type: GET_ITINERARY,
+        payload: itinerary
+    }
+}
+
 export default function reducer(state=initialState, action){
     switch (action.type){
         case GET_USER_INFO+'_FULFILLED':
@@ -53,6 +64,8 @@ export default function reducer(state=initialState, action){
         case GET_USER_TRIPS+'_FULFILLED':
         return Object.assign({}, state, {trips:action.payload})
 
+        case GET_ITINERARY + '_FULFILLED':
+        return Object.assign({}, state, {itinerary: action.payload})
 
         default: 
         return state

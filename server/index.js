@@ -9,6 +9,7 @@ const socket=require('socket.io');
 const controller=require('./controllers/message_trip_user');
 const controller2=require('./controllers/invite_dest');
 const controller3=require('./controllers/timeline')
+const iController=require('./controllers/itinerary_controller')
 const S3=require('./controllers/S3');
 const app=express();
 
@@ -128,6 +129,11 @@ app.get('/api/timeline/:tripid', controller3.getAllPosts)
 app.delete('/api/timeline/:postid', controller3.deletePost)
 //like/dislike post by postid
 app.put('/api/timeline', controller3.likePost)
+//                          ITINERARY STUFF
+//get entire trip itinerary
+app.get('/api/itinerary/:tripid', iController.getItinerary)
+//add location to trip itinerary
+app.post('/api/itinerary/:tripid', iController.addToItinerary)
 
 //s3 component
 S3(app);
