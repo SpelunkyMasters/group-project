@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete'
+import { connect } from 'react-redux'
 
 class SearchBox extends Component {
     constructor(props) {
@@ -21,15 +22,12 @@ class SearchBox extends Component {
           name = this.lowerCaseIt(name)
           let CurrentMarker = {
             lat: results[0].geometry.location.lat(),
-            lng: results[0].geometry.location.lng()
+            lng: results[0].geometry.location.lng(),
+            place_id: results[0].place_id
+,            name: name,
+            address: currentAddress
           }
-          if (currentAddress.includes(name)) {
-            CurrentMarker.name = currentAddress
-          } else {
-            CurrentMarker.name = name 
-            CurrentMarker.address = currentAddress
-          }
-    
+          
             this.props.updateCurrentMarker(CurrentMarker)
         })
       }
@@ -45,6 +43,11 @@ class SearchBox extends Component {
       }
     
       render() {
+        let subDestMenu = this.props.itinerary.map(stop => {
+          return(
+            <option key={stop.destid} value={stop.destid}>{stop.dest_name}</option>
+          )
+        })
         return (
           <PlacesAutocomplete
             value={this.state.address}
@@ -75,8 +78,20 @@ class SearchBox extends Component {
                   <select onChange={e => this.props.handleDestType(e.target.value)}>
                     <option value="">--Select One--</option>
                     <option value="Main Stop">Main Stop</option>
-                    <option value="Minor Stops">Minor Stops</option>
+                    <option value="Minor Stop">Minor Stop</option>
                   </select>
+
+                  {
+                    this.props.destType === 'Minor Stop' ?
+                    (
+                      <select onChange={e => this.props.handleSubDest(e.target.value, e)}>
+                  <option>--Select One--</option>
+                    {subDestMenu}
+                  </select>
+                    ) :
+                    null
+                  }
+                  
                   <button onClick={this.props.updateItinerary}>Add To Itinerary</button>
                 </div>
               </div>
@@ -86,4 +101,10 @@ class SearchBox extends Component {
       }
     }
 
-export default SearchBox;
+    function mapStateToProps(state) {
+      return {
+        itinerary: state.itinerary
+      }
+    }
+
+export default connect(mapStateToProps)(SearchBox);
