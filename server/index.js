@@ -120,6 +120,11 @@ app.post('/api/invite', controller2.sendInvite)
 app.get('/api/tripusers/:id', controller2.getInvitedUsers)
 //deleting invite from table
 app.delete('/api/invite/:userid/:tripid', controller2.declineInvite)
+// Get all user invites
+app.get('/api/invites/:userid', controller2.getInvites)
+// accepting invite by tripid(add to user_trips/delete from invitations)
+app.post('/api/invite/:tripid', controller2.acceptInvite)
+
 
 
 
