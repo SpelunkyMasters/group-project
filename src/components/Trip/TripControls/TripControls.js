@@ -17,10 +17,8 @@ class TripControls extends Component {
         this.state = {
             edit: false,
             tripName: '',
-            startDate: '',
-            startDateId: 'xjsnewji',
-            endDate: '',
-            endDateId: 'e3209xj',
+            startDate: null,
+            endDate: null,
             focusedInput: null
         }
     }
@@ -62,9 +60,7 @@ class TripControls extends Component {
                                 <br/>
                                 <DateRangePicker
                                     startDate={ this.state.startDate }    
-                                    startDateId={ this.state.startDateId }
                                     endDate={ this.state.endDate }
-                                    endDateId={ this.state.endDateId }
                                     onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
                                     focusedInput={this.state.focusedInput}
                                     onFocusChange={ focusedInput => this.setState({ focusedInput })}
