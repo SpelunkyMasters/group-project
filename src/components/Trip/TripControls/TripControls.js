@@ -24,7 +24,8 @@ class TripControls extends Component {
             tripName: '',
             startDate: null,
             endDate: null,
-            focusedInput: null
+            focusedInput: null,
+            deleteModal: false
         }
         this.saveTrip = this.saveTrip.bind(this);
         this.updateName = this.updateName.bind(this);
@@ -57,6 +58,27 @@ class TripControls extends Component {
             tripName: name
         })
     }
+
+    deleteTrip() {
+        axios.delete(`/api/trip/${this.props.match.params.id}`).then( () => {
+            this.props.getTrips();
+            this.props.history.push('/home');
+        })
+    }
+
+    // Delete trip
+    /*
+    app.delete('/api/trip/:tripid', controller.deleteTrip);
+
+
+
+    deleteTrip: (req, res, next) => {
+        const db = req.app.get('db')
+            , { tripid } = req.params;
+
+        db.trips.
+    }
+    */
     
     saveTrip() {
         // To store dates on DB, invoke moment with the date, followed by toString()
@@ -72,7 +94,7 @@ class TripControls extends Component {
             startdate: sd,
             enddate: ed
         }).then( () => {
-            this.props.getTrips(this.props.user.userid)
+            this.props.getTrips(this.props.user.userid).then( () => this.setState({edit: false}))
         })
         
         /*
@@ -126,7 +148,8 @@ class TripControls extends Component {
                                     endDatePlaceholderText="End"
                                 />
                                 <br/>
-                                <Button type="secondary" onClick={ () => this.setState({edit: false})}>Save</Button>
+                                <Button type="secondary" onClick={ this.saveTrip }>Save</Button>
+                                <Button type="danger">Delete Trip</Button>
                             </TripControlDiv>
                         )
                         : (
