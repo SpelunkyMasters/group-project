@@ -94,12 +94,11 @@ class MapContainer extends Component {
           }
 
       }
-
       if ( currentMarker.lat) {
-          center = {lat: currentMarker.lat, lng: currentMarker.lng}
-          if( !currentMarker.address ) {
-              zoom = 15
-          }
+        //   center = {lat: currentMarker.lat, lng: currentMarker.lng}
+        //   zoom = 15
+          bounds = new this.props.google.maps.LatLngBounds();          
+          bounds.extend({lat: currentMarker.lat, lng: currentMarker.lng})
       }
     return (
       <Map

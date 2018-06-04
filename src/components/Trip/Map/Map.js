@@ -28,7 +28,7 @@ class Map extends Component {
     if(this.state.currentMarker.lat) {
 
       axios.post(`/api/itinerary/${this.props.match.params.id}?destType=${this.state.destType}&destid=${this.state.destid}`, this.state.currentMarker).then( (results) => {
-        console.log(results)
+        this.props.getItinerary(this.props.match.params.id)
       })
     } else {
       return;
