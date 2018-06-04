@@ -110,7 +110,9 @@ var posts=this.state.posts.map((e,i)=>{
     <img src='https://cdn0.iconfinder.com/data/icons/basic-ui-elements-colored/700/08_heart-2-512.png' alt="like" height='20px' width='20px'/>
     </button> {e.likes.length}
     {/* deleting message button */}
-   {e.userid==this.props.user.userid? <button onClick={()=>this.deleteMessage(e.postid)}>delete </button>: <p> </p>}</div></div>
+   {e.userid==this.props.user.userid? <button onClick={()=>this.deleteMessage(e.postid)}>delete </button>: <p> </p>}</div>
+   
+   </div>
 })
     return (
       <div>
