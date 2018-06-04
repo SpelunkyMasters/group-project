@@ -36,7 +36,30 @@ module.exports={
                 db.timeline.dislike_post([postid, req.user.userid])
                 .then(()=>res.status(200).send())
                 .catch(err=>res.status(500).send(err))
-
             }
+        },
+        //posting new comment
+        postComment:(req, res, next)=>{
+            const db=req.app.get('db');
+            const {postid, comment_text}=req.body;
+            db.timeline.post_comment([postid, req.user.userid, comment_text])
+            .then(comment=>res.status(200).send(comment[0]))
+            .catch(err=>res.status(500).send(err))
+        },
+        //getting comments by postid with all user information
+        getComments:(req, res, next)=>{
+            const db=req.app.get('db');
+            const{ postid}=req.params;
+            db.timeline.get_comments(postid)
+            .then(comments=>res.status(200).send(comments))
+            .catch(err=>res.status(500).send(err))
+        },
+        //deleting comment by commentid
+        deleteComment:(req, res, next)=>{
+            const db=req.app.get('db');
+            const {commentid}=req.params;
+            db.timeline.delete_comment(commentid)
+            .then(()=>res.status(200).send())
+            .catch(err=>res.status(500).send(err))
         }
 }

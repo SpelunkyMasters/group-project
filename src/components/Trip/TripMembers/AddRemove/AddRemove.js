@@ -40,7 +40,7 @@ axios.get(`/api/notinvited/${this.props.tripid}`).then( res => {
 }
 componentWillReceiveProps(nextProps){
     //checking if props changed and filtering if they did
-    if(this.props.filter!=nextProps.filter){
+    if(this.props.filter!==nextProps.filter){
             //filtering string from parent
             var str=nextProps.filter.toLowerCase();
             var tripUsers=[];

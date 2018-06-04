@@ -42,7 +42,7 @@ class Chat extends Component {
     //sending null as first element in array if it was deleting and filtering it from messages
     if(message[0]===null) {
       console.log("ACHTUNG!!!")
-      var messages=this.state.messages.filter(e=> e.messageid!=message[1])
+      var messages=this.state.messages.filter(e=> e.messageid!==message[1])
       this.setState({messages})}
     else{
     //updating messages array once new message received
@@ -90,7 +90,7 @@ scrollToBottom() {
     //getting messages array
 var messages=this.state.messages.map((e,i)=>{
     return <div id={i}><img src={e.picture} alt="profile" height='50px' width='50px'/>
-    {e.first_name} {e.last_name} {e.message_text} {e.userid==this.props.user.userid? <button onClick={()=>this.deleteMessage(e.messageid)}>delete </button>: <p> </p>}</div>
+    {e.first_name} {e.last_name} {e.message_text} {e.userid===this.props.user.userid? <button onClick={()=>this.deleteMessage(e.messageid)}>delete </button>: <p> </p>}</div>
 })
 
     return (
