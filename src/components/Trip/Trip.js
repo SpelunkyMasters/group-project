@@ -50,8 +50,6 @@ class Trip extends Component {
     const currentTrip = trips.filter( trip => trip.tripid === +id)
         , { trip_name, userid } = currentTrip[0] || 'Trip Name';
 
-    
-
     return (
       <StyledTripDiv>
         <NavButtonDiv>

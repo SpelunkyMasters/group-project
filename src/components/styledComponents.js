@@ -9,6 +9,7 @@ export const colors = {
     primary: '#737373',
     secondary: '#ABABAB',
     default: '#CFCFCF',
+    danger: '#FF0000',
     light: '#F1F1F1',
     border: '#E7E7E7'
 }

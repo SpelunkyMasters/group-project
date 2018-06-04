@@ -11,8 +11,8 @@ CREATE TABLE IF NOT EXISTS trips (
     tripid SERIAL PRIMARY KEY,
     trip_name VARCHAR(100) NOT NULL,
     userid INTEGER REFERENCES users(userid) NOT NULL,
-    startdate TIMESTAMP,
-    enddate TIMESTAMP
+    startdate TEXT,
+    enddate TEXT
 );
 
 CREATE TABLE IF NOT EXISTS user_trips (
@@ -65,7 +65,12 @@ CREATE TABLE IF NOT EXISTS timeline_trips (
     tripid INTEGER REFERENCES trips(tripid) NOT NULL
 );
 
-
+CREATE TABLE IF NOT EXISTS post_comments (
+    commentid SERIAL PRIMARY KEY,
+    postid INTEGER REFERENCES timeline(postid) NOT NULL,
+    userid INTEGER REFERENCES users(userid) NOT NULL,
+    comment_text VARCHAR(250) NOT NULL
+);
 
 
 
