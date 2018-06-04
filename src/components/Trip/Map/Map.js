@@ -3,16 +3,21 @@ import SearchBox from './SearchBox'
 import MapContainer from './MapContainer'
 import { GoogleApiWrapper } from 'google-maps-react'
 import axios from 'axios'
+import { connect } from 'react-redux'
+import { getItinerary } from '../../../ducks/reducer'
 
 class Map extends Component {
   constructor() {
     super();
     this.state = {
       currentMarker: {},
-      itinerary: [],
-      destType: null,
-      subDest: null
+      destType: '',
+      destid: '',
     }
+  }
+
+  componentDidMount() {
+    this.props.getItinerary(this.props.match.params.id)
   }
 
   updateCurrentMarker = (marker) => {
@@ -20,11 +25,22 @@ class Map extends Component {
   }
 
   updateItinerary = () => {
-    console.log('butts')
-  }
+    if(this.state.currentMarker.lat) {
 
+      axios.post(`/api/itinerary/${this.props.match.params.id}?destType=${this.state.destType}&destid=${this.state.destid}`, this.state.currentMarker).then( (results) => {
+        this.props.getItinerary(this.props.match.params.id)
+      })
+    } else {
+      return;
+    }
+  }
+    
   handleDestType = (destType) => {
     this.setState({ destType })
+  }
+
+  handleSubDest = (destid, e) => {
+    this.setState({ destid })    
   }
 
   render() {
@@ -33,15 +49,22 @@ class Map extends Component {
           <SearchBox 
             updateCurrentMarker={this.updateCurrentMarker} 
             updateItinerary={this.updateItinerary}
-            handleDestType={this.handleDestType} />
+            handleDestType={this.handleDestType}
+            handleSubDest={this.handleSubDest}
+            destType={this.state.destType} />
           <MapContainer 
-            currentMarker={this.state.currentMarker} 
-            itinerary={this.state.itinerary} />
+            currentMarker={this.state.currentMarker} />
       </div>
     );
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    itinerary: state.itinerary
+  }
+}
+
 export default GoogleApiWrapper({
   apiKey: process.env.REACT_APP_GOOGLE_MAPS
-})(Map);
+})(connect(mapStateToProps, {getItinerary})(Map));
