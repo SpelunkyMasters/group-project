@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS destinations (
     dest_name TEXT NOT NULL,
     lat REAL NOT NULL,
     lng REAL NOT NULL,
+    dest_address TEXT,
     dest_ord INTEGER NOT NULL
 );
 
@@ -50,6 +51,21 @@ CREATE TABLE IF NOT EXISTS user_chat (
     tripid INTEGER REFERENCES trips(tripid) NOT NULL,
     message_text VARCHAR(250) NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS timeline (
+    postid SERIAL PRIMARY KEY,
+    post_name VARCHAR(90) NOT NULL,
+    post_image VARCHAR(250) NOT NULL,
+    likes INTEGER ARRAY[20],
+    userid INTEGER REFERENCES users(userid) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS timeline_trips (
+    postid INTEGER REFERENCES timeline(postid) NOT NULL,
+    tripid INTEGER REFERENCES trips(tripid) NOT NULL
+);
+
+
 
 
 

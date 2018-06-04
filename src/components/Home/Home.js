@@ -43,7 +43,7 @@ class Home extends Component {
   componentDidMount(){
     this.props.getUser().then(res=>{
       this.props.getTrips(this.props.user.userid)
-    } )
+    })
 
   }
   render() {
