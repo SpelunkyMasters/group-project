@@ -3,5 +3,5 @@
 INSERT INTO user_trips (userid, tripid)
 VALUES($1, $2);
 
-DELETE FROM invitations
+DELETE FROM invites
 WHERE userid = $1 AND tripid = $2;

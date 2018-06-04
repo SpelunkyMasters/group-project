@@ -108,6 +108,8 @@ app.get('/api/trips/:id', controller.getUserTrips)
 app.delete('/api/trip/:userid/:tripid', controller.deleteFromTrip)
 //update user info
 app.put('/api/user', controller.updateUser)
+// update trip details
+app.put('/api/trip/:tripid', controller.updateTrip);
 
 
 //                           INVITE DESTINATION
@@ -118,6 +120,12 @@ app.post('/api/invite', controller2.sendInvite)
 app.get('/api/tripusers/:id', controller2.getInvitedUsers)
 //deleting invite from table
 app.delete('/api/invite/:userid/:tripid', controller2.declineInvite)
+// Get all user invites
+app.get('/api/invites/:userid', controller2.getInvites)
+// accepting invite by tripid(add to user_trips/delete from invitations)
+app.post('/api/invite/:tripid', controller2.acceptInvite)
+
+
 
 
 //                         TIMELINE
@@ -129,11 +137,18 @@ app.get('/api/timeline/:tripid', controller3.getAllPosts)
 app.delete('/api/timeline/:postid', controller3.deletePost)
 //like/dislike post by postid
 app.put('/api/timeline', controller3.likePost)
+// posting comment 
+app.post('/api/comment', controller3.postComment)
+//getting comments by postid
+app.get('/api/comment/:postid',controller3.getComments)
+//deleting comment by commentid
+app.delete('/api/comment/:commentid', controller3.deleteComment)
 //                          ITINERARY STUFF
 //get entire trip itinerary
 app.get('/api/itinerary/:tripid', iController.getItinerary)
 //add location to trip itinerary
 app.post('/api/itinerary/:tripid', iController.addToItinerary)
+
 
 //s3 component
 S3(app);
@@ -145,18 +160,18 @@ const io=socket(app.listen(SERVER_PORT,()=>console.log('Listening on port:'+SERV
 
 //setting up socket by the rooms
 io.on('connection', socket => {
-    console.log('User Connected');
+    // console.log('User Connected');
     socket.on('join room', data => {
-      console.log('Room joined', data.room)
+    //   console.log('Room joined', data.room)
       socket.join(data.room);
       io.to(data.room).emit('room joined');
     })
     socket.on('message sent', data => {
-        console.log(data)
+        // console.log(data)
       io.emit(`${data.room} dispatched`, data.message);
     })
   
     socket.on('disconnect', () => {
-      console.log('User Disconnected');
+    //   console.log('User Disconnected');
     })
   });
