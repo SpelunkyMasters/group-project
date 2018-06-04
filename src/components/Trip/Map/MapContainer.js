@@ -87,7 +87,7 @@ class MapContainer extends Component {
       }
       if (this.props.itinerary.length> 0) {
           let points = this.findBounds(latPoints, lngPoints)
-          console.log(points)
+        //   console.log(points)
           bounds = new this.props.google.maps.LatLngBounds();
           for (let i = 0; i < points.length; i++) {
             bounds.extend(points[i])

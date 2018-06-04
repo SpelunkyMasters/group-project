@@ -18,7 +18,7 @@ const FULFILLED = '_FULFILLED'
 
 export function getTrips(user){
     let trips=axios.get(`/api/trips/${user}`).then(res=>{
-        return res.data
+        return res.data 
     });
     return {
         type: GET_USER_TRIPS,
