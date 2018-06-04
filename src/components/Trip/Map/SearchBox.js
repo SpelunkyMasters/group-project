@@ -24,14 +24,10 @@ class SearchBox extends Component {
             lat: results[0].geometry.location.lat(),
             lng: results[0].geometry.location.lng(),
             place_id: results[0].place_id
+,            name: name,
+            address: currentAddress
           }
-          if (currentAddress.includes(name)) {
-            CurrentMarker.name = currentAddress
-          } else {
-            CurrentMarker.name = name 
-            CurrentMarker.address = currentAddress
-          }
-    
+          
             this.props.updateCurrentMarker(CurrentMarker)
         })
       }
