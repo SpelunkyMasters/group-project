@@ -73,7 +73,7 @@ module.exports = {
                 db.trips.get_subDests().then(results => {
                     let flag = true;
                     results.forEach(place => {
-                        if(place.place_id === location.place_id && place.destid === destid) flag = false;
+                        if(place.place_id === location.place_id) flag = false;
                     })
                     if(flag) {
                         db.trips.add_subDest([destid, location.name, location.address, location.lat, location.lng, location.place_id]).then(results =>{
