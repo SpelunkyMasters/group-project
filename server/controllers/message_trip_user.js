@@ -63,5 +63,15 @@ module.exports={
         db.users.update_user([userid, first_name, last_name, email])
         .then(()=>res.status(200).send())
         .catch(err=>res.status(500).send(err))
+    },
+    //updating trip info
+    updateTrip: (req, res, next) => {
+        const db = req.app.get('db')
+            , { tripid } = req.params
+            , { trip_name, startdate, enddate } = req.body;
+
+        db.trips.update_trip([+tripid, trip_name, startdate, enddate])
+        .then( () => {res.status(200).send(`Details updated for trip ${tripid}`)})
+        .catch( err => res.status(500).send(err))
     }
 }

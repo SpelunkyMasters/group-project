@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FileSend from './FileSend/FileSend';
+import Comments from './Comments/Comments';
 import io from 'socket.io-client';
 import {connect} from 'react-redux';
 import axios from 'axios';
@@ -9,7 +10,7 @@ class Timeline extends Component {
     super(props);
     this.state={
       url:'',
-      input: ``,
+      input: '',
       posts:[],
     //   trip num will go to room
       room: "timeline"+this.props.match.params.id
@@ -39,11 +40,11 @@ this.componentDidMount=this.componentDidMount.bind(this);
   updateMessage(post) {
     //sending null as first element in array if it was deleting and filtering it from messages
     if(post[0]===null) {
-      var posts=this.state.posts.filter(e=> e.postid!=post[1])
+      let posts=this.state.posts.filter(e=> e.postid!==post[1])
       this.setState({posts})}
       // sending null as second element if like/dislike action happened
     else if(post[1]===null){
-      var posts=this.state.posts.slice()
+      let posts=this.state.posts.slice()
       //finding post that was liked/ disliked and push or remove userid based on like or dislike happened
       posts.forEach((e,i,arr)=>e.postid===post[2]? post[3]? arr[i].likes.push(post[0]): arr[i].likes.splice(arr[i].likes.indexOf(post[0]), 1):e)
       this.setState({posts})
@@ -62,10 +63,12 @@ this.componentDidMount=this.componentDidMount.bind(this);
     var post_name=this.state.input;
     var post_image=this.state.url;
     var tripid=this.props.match.params.id;
+    
 if(post_image==='') alert('Choose a photo')
 else{
     //posting new message in data base and sending it to socket
     axios.post('/api/timeline',{post_name, post_image, tripid} ).then(res=>{
+      console.log("POST DATA", res.data)
       this.socket.emit('message sent', {
           message:res.data,
           room: this.state.room
@@ -75,6 +78,7 @@ else{
 
   }
   deleteMessage(postid){
+    console.log("DELETING POST!")
     //deleting message from database
     axios.delete(`/api/timeline/${postid}`).then(res=>{
     // sending message to with null and messageid thru socket
@@ -111,14 +115,17 @@ var posts=this.state.posts.map((e,i)=>{
     </button> {e.likes.length}
     {/* deleting message button */}
    {e.userid==this.props.user.userid? <button onClick={()=>this.deleteMessage(e.postid)}>delete </button>: <p> </p>}</div>
-   
+
+  <Comments room={'comment'+e.postid} postid={e.postid}/>
    </div>
 })
     return (
       <div>
           Timeline
-          <input onChange={e=>this.setState({input:e.target.value})}/>
-          <img src={this.state.url} alt="post"/>
+          <input value={this.state.input} onChange={e=>this.setState({input:e.target.value})}/>
+          {this.state.url===''?
+          <p>your picture will be here</p>:
+          <img src={this.state.url} alt="post"/>}
           <FileSend getUrl={this.getUrl}/>
           <button onClick={this.sendMessage}> Post </button>
           {posts}
