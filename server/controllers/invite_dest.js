@@ -22,6 +22,23 @@ module.exports={
         db.invites.decline_invite([userid, tripid])
         .then(()=>res.status(200).send())
         .catch(err=>res.status(500).send(err))          
+    },
+    // get all user's invites
+    getInvites: (req, res, next) => {
+        const db = req.app.get('db')
+            , { userid } = req.params;
+  
+        db.invites.get_invites(+userid)
+        .then( invites => {res.status(200).send(invites);})
+        .catch( err => res.status(500).send(err) );
+    },
+    //accepting invite based on tripid
+    acceptInvite: (req, res, next)=>{
+        const db=req.app.get('db')
+        const {tripid}=req.params;
+        db.invites.accept_invite(req.user.userid, tripid)
+        .then(()=>res.status(200).send())
+        .catch(err=>res.status(500).send(err))
     }
 
 }
