@@ -11,6 +11,7 @@ import {connect} from 'react-redux';
 import {getUser, getAllUsers, getTrips} from '../../ducks/reducer';
 import Timeline from './Timeline/Timeline';
 import { IconButton } from '../styledComponents';
+import TripControls from './TripControls/TripControls';
 
 import home from '../../assets/img/home.png';
 
@@ -58,12 +59,11 @@ class Trip extends Component {
         <NavButtonDiv>
           <NavLink to="/home"><IconButton><img src={ home } alt="home button" width="30px"/></IconButton></NavLink>
         </NavButtonDiv>
-        <h1>{ trip_name }</h1>
-        {/* {
+        {
           userid === this.props.user.userid
-            ? <h2>Hello</h2>
-            : <h2>Goodbye</h2>
-        } */}
+            ? <TripControls/>
+            : <h1>{ trip_name }</h1>
+        }
         <Switch>
           <Route path="/trip/:id/nav" component={ NavBar } />
           <Route path="/trip/:id/map" component={ Map } />
