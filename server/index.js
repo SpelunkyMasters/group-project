@@ -8,6 +8,7 @@ const cors=require('cors');
 const socket=require('socket.io');
 const controller=require('./controllers/message_trip_user');
 const controller2=require('./controllers/invite_dest');
+const controller3=require('./controllers/timeline')
 const iController=require('./controllers/itinerary_controller')
 const S3=require('./controllers/S3');
 const app=express();
@@ -119,6 +120,15 @@ app.get('/api/tripusers/:id', controller2.getInvitedUsers)
 app.delete('/api/invite/:userid/:tripid', controller2.declineInvite)
 
 
+//                         TIMELINE
+//adding new post to timeline
+app.post('/api/timeline', controller3.postOnTimeline)
+//get all the posts from timeline
+app.get('/api/timeline/:tripid', controller3.getAllPosts)
+//delete post from by postid
+app.delete('/api/timeline/:postid', controller3.deletePost)
+//like/dislike post by postid
+app.put('/api/timeline', controller3.likePost)
 //                          ITINERARY STUFF
 //get entire trip itinerary
 app.get('/api/itinerary/:tripid', iController.getItinerary)

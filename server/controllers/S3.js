@@ -40,7 +40,32 @@ function uploadPhoto(req, res) {
 
     })
 }
+function sendPhoto(req, res) {
+    console.log('photo in back', req.body.filename, process.env.AWS_ACCESSKEY)
+    let photo = req.body,
+        buf = new Buffer(photo.file.replace(/^data:image\/\w+;base64,/, ""), 'base64'),
+        params = {
+            Bucket: process.env.AWS_S3_BUCKET,
+            Body: buf,
+            Key: photo.filename,
+            ContentType: photo.filetype,
+            ACL: 'public-read'
+        }
+
+    console.log(buf)
+
+    S3.upload(params, (err, data) => {
+        console.log(err, data)
+        if(err){
+            res.status(500).send(err);
+        } else {
+            // the data obj will include have key called Location that will have the uploaded file's URL.
+            res.status(200).send(data)
+        }
+    })
+}
 
 module.exports = function (app) {
     app.post('/api/photoUpload', uploadPhoto)
+    app.post('/api/photoSend', sendPhoto)
 }
