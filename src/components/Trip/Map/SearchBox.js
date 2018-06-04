@@ -29,6 +29,7 @@ class SearchBox extends Component {
           }
           
             this.props.updateCurrentMarker(CurrentMarker)
+            this.setState({ address: ''})
         })
       }
     
@@ -43,11 +44,14 @@ class SearchBox extends Component {
       }
     
       render() {
-        let subDestMenu = this.props.itinerary.map(stop => {
-          return(
-            <option key={stop.destid} value={stop.destid}>{stop.dest_name}</option>
-          )
-        })
+        let subDestMenu
+        if(this.props.itinerary.length > 0) {
+          subDestMenu = this.props.itinerary.map(stop => {
+            return(
+              <option key={stop.destid} value={stop.destid}>{stop.dest_name}</option>
+            )
+          })
+        }
         return (
           <PlacesAutocomplete
             value={this.state.address}
@@ -76,7 +80,11 @@ class SearchBox extends Component {
                     )
                   })}
                   <select onChange={e => this.props.handleDestType(e.target.value)}>
-                    <option value="">--Select One--</option>
+                  {/* { */}
+                    {/* this.props.destType === ''? */}
+                    <option value="" defaultValue>--Select One--</option> 
+                    {/* <option value="" >--Select One--</option>
+                  } */}
                     <option value="Main Stop">Main Stop</option>
                     <option value="Minor Stop">Minor Stop</option>
                   </select>
@@ -85,7 +93,7 @@ class SearchBox extends Component {
                     this.props.destType === 'Minor Stop' ?
                     (
                       <select onChange={e => this.props.handleSubDest(e.target.value, e)}>
-                  <option>--Select One--</option>
+                  <option >--Select One--</option>
                     {subDestMenu}
                   </select>
                     ) :

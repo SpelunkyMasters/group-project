@@ -6,7 +6,7 @@ module.exports = {
         const db = req.app.get('db')
         db.trips.get_all_dests([tripid]).then(results => {
             if(results.length === 0) {
-                res.status(200).send('No Trips')
+                res.sendStatus(204)
             } else {
                 let trips = _.groupBy(results, trip => trip.dest_ord)
                 let mainDests = []
@@ -60,7 +60,7 @@ module.exports = {
                     if(location.place_id === place.place_id) flag = false;
                 })
                 if(flag) {
-                    db.trips.add_dest([tripid, location.name, location.lat, location.lng, location.place_id]).then( (results) => {
+                    db.trips.add_dest([tripid, location.name, location.address, location.lat, location.lng, location.place_id]).then( (results) => {
                         res.status(200).send(results)
                     })
 

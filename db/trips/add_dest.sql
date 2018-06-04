@@ -3,6 +3,6 @@
 -- moved or deleted.
 --Cody-- updated columns
 
-INSERT INTO destinations (tripid, dest_name, lat, lng, place_id, dest_ord)
-VALUES ($1, $2, $3, $4, $5, (SELECT COUNT(*) FROM destinations WHERE tripid = $1) + 1)
+INSERT INTO destinations (tripid, dest_name, dest_address, lat, lng, place_id, dest_ord)
+VALUES ($1, $2, $3, $4, $5, $6, (SELECT COUNT(*) FROM destinations WHERE tripid = $1) + 1)
 RETURNING *;
