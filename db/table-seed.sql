@@ -52,19 +52,17 @@ CREATE TABLE IF NOT EXISTS user_chat (
     message_text VARCHAR(250) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS tl_media (
+CREATE TABLE IF NOT EXISTS timeline (
     postid SERIAL PRIMARY KEY,
     post_name VARCHAR(90) NOT NULL,
-    message_text VARCHAR(250) NOT NULL
-    media_url 
-    userid INTEGER REFERENCES users(userid) NOT NULL,
-    tripid INTEGER REFERENCES trips(tripid) NOT NULL,
+    post_image VARCHAR(250) NOT NULL,
+    likes INTEGER ARRAY[20],
+    userid INTEGER REFERENCES users(userid) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS timeline (
-    userid INTEGER REFERENCES users(userid) NOT NULL,
-    tripid INTEGER REFERENCES trips(tripid) NOT NULL,
-    message_text VARCHAR(250) NOT NULL
+CREATE TABLE IF NOT EXISTS timeline_trips (
+    postid INTEGER REFERENCES timeline(postid) NOT NULL,
+    tripid INTEGER REFERENCES trips(tripid) NOT NULL
 );
 
 
