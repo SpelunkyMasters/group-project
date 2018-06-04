@@ -53,6 +53,25 @@ class Home extends Component {
       return <TripCover trip={trip} key={ i }/>
     })
 
+    /*
+
+    // Get all user invites
+    app.get('/api/invites/:userid', controller.getInvites)
+
+
+
+    // For controller: 
+    getInvites: (req, res, next) => {
+      const db = req.app.get('db')
+          , { userid } = req.params;
+
+      db.invites.get_invites(+userid).then( invites => {
+        res.status(200).send(invites);
+      }).catch( err => res.status(500).send(err) );
+    }
+
+    */
+
     return (
       <HomeMainDiv> 
         <ButtonBar>
