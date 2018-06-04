@@ -17,6 +17,7 @@
     "passport-auth0": "^0.6.1",
     "prop-types": "^15.6.1",
     "react": "^16.4.0",
+    "react-contenteditable": "^2.1.0",
     "react-dom": "^16.4.0",
     "react-places-autocomplete": "^7.1.2",
     "react-redux": "^5.0.7",
