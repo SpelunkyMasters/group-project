@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
-import { connect } from 'react-redux'
 
 class MapContainer extends Component {
     constructor() {
@@ -164,12 +163,8 @@ class MapContainer extends Component {
     );
   }
 }
-function mapStateToProps(state) {
-    return {
-      itinerary: state.itinerary
-    }
-  }
+
 
 export default GoogleApiWrapper({
     apiKey: process.env.REACT_APP_GOOGLE_MAPS
-  })(connect(mapStateToProps)(MapContainer));
+  })(MapContainer);

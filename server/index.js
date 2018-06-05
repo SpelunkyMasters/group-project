@@ -167,6 +167,7 @@ app.delete('/api/itinerary/sub/:sub_destid', iController.deleteSubDestination)
 //                          TRAVEL HISTORY
 //get user travel history
 app.get('/api/travel-history', tController.getUserHistory)
+app.post('/api/travel-history', tController.addHistory)
 
 //s3 component
 S3(app);

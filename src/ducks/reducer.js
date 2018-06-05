@@ -5,7 +5,7 @@ const initialState={
     users:[],
     itinerary:[],
     trips:[],
-    invites: []
+    invites: [],
 }
 
 const FULFILLED = '_FULFILLED'
@@ -13,7 +13,7 @@ const FULFILLED = '_FULFILLED'
     , GET_TRIP_USERS='GET_TRIP_USERS'
     , GET_USER_TRIPS='GET_USER_TRIPS'
     , GET_ITINERARY='GET_ITINERARY'
-    , GET_INVITES = 'GET_INVITES';
+    , GET_INVITES = 'GET_INVITES'
 
 
 export function getTrips(user){
@@ -82,7 +82,7 @@ export default function reducer(state=initialState, action){
 
         case GET_INVITES + FULFILLED:
             return Object.assign({}, state, {invites: action.payload})
-
+            
         default: 
             return state
     }
