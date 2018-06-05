@@ -109,7 +109,16 @@ app.delete('/api/trip/:userid/:tripid', controller.deleteFromTrip)
 //update user info
 app.put('/api/user', controller.updateUser)
 // update trip details
-app.put('/api/trip/:tripid', controller.updateTrip);
+app.put('/api/trips/:tripid', controller.updateTrip);
+
+
+
+//////// Paul's Endpoints //////////
+// Delete trip (need to update DB tables)
+app.delete('/api/trips/:tripid', controller.deleteTrip)
+
+// Create new trip
+app.post('/api/trips/:userid', controller.createTrip)
 
 
 //                           INVITE DESTINATION

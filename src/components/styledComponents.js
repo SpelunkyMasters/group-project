@@ -20,8 +20,8 @@ export const colors = {
 // }
 
 export const IconButton = glamorous.button({
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     borderRadius: '50%',
     color: 'white',
     border: '1px solid',

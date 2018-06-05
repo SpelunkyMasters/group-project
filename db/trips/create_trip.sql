@@ -7,4 +7,5 @@ WITH trip_creation AS (
     RETURNING tripid
 )
 INSERT INTO user_trips(userid, tripid)
-VALUES ($1, (SELECT tripid from trip_creation));
+VALUES ($1, (SELECT tripid from trip_creation))
+RETURNING *;

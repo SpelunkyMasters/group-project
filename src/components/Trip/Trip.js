@@ -8,7 +8,7 @@ import Map from '../Trip/Map/Map';
 import Itinerary from '../Trip/Itinerary/Itinerary';
 import TripMembers from '../Trip/TripMembers/TripMembers';
 import {connect} from 'react-redux';
-import {getUser, getAllUsers, getTrips} from '../../ducks/reducer';
+import {getUser, getAllUsers, getTrips, getInvites} from '../../ducks/reducer';
 import Timeline from './Timeline/Timeline';
 import { IconButton } from '../styledComponents';
 import TripControls from './TripControls/TripControls';
@@ -29,13 +29,14 @@ const NavButtonDiv = glamorous.div({
 
 class Trip extends Component {
   componentDidMount(){
-    const { getUser, getAllUsers, getTrips } = this.props;
+    const { getUser, getAllUsers, getTrips, getInvites } = this.props;
     // If page refreshes and there is no user: retrieve user info from server and then get user trips again.
     if(!this.props.user.userid) {
       
       getUser().then(res=>{
         getTrips(this.props.user.userid)
-      } )
+        getInvites(this.props.user.userid)
+      })
     
     }
     // getAllUsers will fire regardless
@@ -53,7 +54,7 @@ class Trip extends Component {
     return (
       <StyledTripDiv>
         <NavButtonDiv>
-          <NavLink to="/home"><IconButton><img src={ home } alt="home button" width="30px"/></IconButton></NavLink>
+          <NavLink to="/home"><IconButton><img src={ home } alt="home button" width="20px"/></IconButton></NavLink>
         </NavButtonDiv>
         {
           userid === this.props.user.userid
@@ -80,4 +81,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, {getUser, getAllUsers, getTrips})(Trip) ;
+export default connect(mapStateToProps, {getUser, getAllUsers, getTrips, getInvites})(Trip) ;

@@ -27,10 +27,9 @@ module.exports={
     getInvites: (req, res, next) => {
         const db = req.app.get('db')
             , { userid } = req.params;
-  
         db.invites.get_invites(+userid)
         .then( invites => {res.status(200).send(invites);})
-        .catch( err => res.status(500).send(err) );
+        .catch( err => {res.status(500).send(err)});
     },
     //accepting invite based on tripid
     acceptInvite: (req, res, next)=>{
