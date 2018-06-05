@@ -29,7 +29,6 @@ this.componentDidMount=this.componentDidMount.bind(this);
 // socket stuff
     this.socket = io();
     this.socket.on(`${this.state.room} dispatched`, data => {
-      console.log(data)
       this.updateMessage(data);
     })
     this.socket.on('room joined', data => {
@@ -68,7 +67,6 @@ if(post_image==='') alert('Choose a photo')
 else{
     //posting new message in data base and sending it to socket
     axios.post('/api/timeline',{post_name, post_image, tripid} ).then(res=>{
-      console.log("POST DATA", res.data)
       this.socket.emit('message sent', {
           message:res.data,
           room: this.state.room
@@ -78,7 +76,6 @@ else{
 
   }
   deleteMessage(postid){
-    console.log("DELETING POST!")
     //deleting message from database
     axios.delete(`/api/timeline/${postid}`).then(res=>{
     // sending message to with null and messageid thru socket
