@@ -20,7 +20,7 @@ class MinorStop extends Component {
             <h5 onClick={this.handleNameClick}>{minorStop.sub_dest_name}</h5>
             {
                 this.state.clicked ? 
-                <button>Delete</button> :
+                <button onClick={() => this.props.deleteSubDest(minorStop.sub_destid)}>Delete</button> :
                 null
             }
         </div>

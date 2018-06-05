@@ -152,12 +152,16 @@ app.post('/api/comment', controller3.postComment)
 app.get('/api/comment/:postid',controller3.getComments)
 //deleting comment by commentid
 app.delete('/api/comment/:commentid', controller3.deleteComment)
+
 //                          ITINERARY STUFF
 //get entire trip itinerary
 app.get('/api/itinerary/:tripid', iController.getItinerary)
 //add location to trip itinerary
 app.post('/api/itinerary/:tripid', iController.addToItinerary)
-
+//delete a destination
+app.delete('/api/itinerary/dest/:destid', iController.deleteDestination)
+//delete sub destination
+app.delete('/api/itinerary/sub/:sub_destid', iController.deleteSubDestination)
 
 //s3 component
 S3(app);
