@@ -11,10 +11,14 @@ class UserTravelHistory extends Component {
     super();
     this.state = {
       currentMarker: {},
+      history: []
     }
   }
 
   componentDidMount() {
+    axios.get('/api/travel-history').then(res => {
+      this.setState({ history: res.data })
+    })
   }
 
   updateCurrentMarker = (marker) => {
@@ -38,12 +42,14 @@ class UserTravelHistory extends Component {
 //   }
     
   render() {
+    console.log(this.state.history)
     return (
       <div>
           <Search 
           currentMarker={this.state.currentMarker}
           updateCurrentMarker={this.updateCurrentMarker} />
           <UserTravelMap
+          history={this.state.history}
           currentMarker={this.state.currentMarker} />
       </div>
     );

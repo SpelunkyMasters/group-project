@@ -10,6 +10,7 @@ const controller=require('./controllers/message_trip_user');
 const controller2=require('./controllers/invite_dest');
 const controller3=require('./controllers/timeline')
 const iController=require('./controllers/itinerary_controller')
+const tController=require('./controllers/travel_history')
 const S3=require('./controllers/S3');
 const app=express();
 
@@ -162,6 +163,10 @@ app.post('/api/itinerary/:tripid', iController.addToItinerary)
 app.delete('/api/itinerary/dest/:destid', iController.deleteDestination)
 //delete sub destination
 app.delete('/api/itinerary/sub/:sub_destid', iController.deleteSubDestination)
+
+//                          TRAVEL HISTORY
+//get user travel history
+app.get('/api/travel-history', tController.getUserHistory)
 
 //s3 component
 S3(app);
