@@ -20,12 +20,15 @@ export const colors = {
 // }
 
 export const IconButton = glamorous.button({
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     borderRadius: '50%',
     color: 'white',
     border: '1px solid',
-    borderColor: colors['border']
+    borderColor: colors['border'],
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
 }, props => ({
     backgroundColor: colors[props.type] || colors['default']
 }))
@@ -34,6 +37,20 @@ export const Button = glamorous.button(
     {
         width: 90,
         height: 40,
+        borderRadius: 4,
+        border: '1px solid',
+        borderColor: colors.border,
+        color: 'white'
+    },
+    props => ({
+        backgroundColor: colors[props.type] || colors['default']
+    })
+)
+
+export const SmallButton = glamorous.button(
+    {
+        width: 70,
+        height: 30,
         borderRadius: 4,
         border: '1px solid',
         borderColor: colors.border,

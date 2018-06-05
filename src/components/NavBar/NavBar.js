@@ -7,6 +7,8 @@ import { IconButton } from '../styledComponents';
 
 import TripNavBtn from '../Trip/TripNavBtn';
 
+import cross from '../../assets/img/cross.png'
+
 
 const NavButtonGroup = glamorous.nav({
   display: 'flex',
@@ -15,15 +17,19 @@ const NavButtonGroup = glamorous.nav({
 })
 
 const MobileMenu = glamorous.nav({
-  backgroundColor: 'rgba(0, 0, 0, 0.698)',
+  backgroundColor: '#001C55',
   height: '100vh',
   width: '100%',
   position: 'fixed',
+  textAlign: 'center',
+  left: 0,
+  top: 0,
   backdropFilter: 'blur(5px)',
   WebkitBackdropFilter: 'blur(5px)'
 })
 
 const MenuCloseButton = glamorous.div({
+  padding: 10,
   display: 'flex',
   justifyContent: 'flex-end'
 })
@@ -86,7 +92,7 @@ class NavBar extends Component {
             ? (
               <MobileMenu>
                 <MenuCloseButton>
-                  <IconButton onClick={ this.props.closeMenu }>X</IconButton>
+                  <IconButton onClick={ this.props.closeMenu }><img src={ cross } alt="close menu" width="15px"/></IconButton>
                 </MenuCloseButton>
                 <ol>
                   { navBar }
