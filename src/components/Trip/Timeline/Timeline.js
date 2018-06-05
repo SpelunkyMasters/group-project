@@ -9,6 +9,7 @@ class Timeline extends Component {
   constructor(props){
     super(props);
     this.state={
+      flag: true,
       url:'',
       input: '',
       posts:[],
@@ -40,7 +41,8 @@ this.componentDidMount=this.componentDidMount.bind(this);
     //sending null as first element in array if it was deleting and filtering it from messages
     if(post[0]===null) {
       let posts=this.state.posts.filter(e=> e.postid!==post[1])
-      this.setState({posts})}
+      this.setState({posts,
+      flag:true})}
       // sending null as second element if like/dislike action happened
     else if(post[1]===null){
       let posts=this.state.posts.slice()
@@ -62,13 +64,15 @@ this.componentDidMount=this.componentDidMount.bind(this);
     var post_name=this.state.input;
     var post_image=this.state.url;
     var tripid=this.props.match.params.id;
-    
+    var {userid, picture, first_name, last_name, email}=this.props.user
 if(post_image==='') alert('Choose a photo')
 else{
     //posting new message in data base and sending it to socket
     axios.post('/api/timeline',{post_name, post_image, tripid} ).then(res=>{
+      console.log("POST DATA", res.data)
+      var{postid, tripid, post_image, post_name, likes}=res.data
       this.socket.emit('message sent', {
-          message:res.data,
+          message:{postid, tripid, post_image, post_name, likes, userid, picture, first_name, last_name, email},
           room: this.state.room
         })
   })  
@@ -76,13 +80,15 @@ else{
 
   }
   deleteMessage(postid){
-    //deleting message from database
-    axios.delete(`/api/timeline/${postid}`).then(res=>{
+    this.setState({flag: false})
     // sending message to with null and messageid thru socket
       this.socket.emit('message sent', {
         message:[null, postid],
         room: this.state.room
       })
+    //deleting message from database
+    axios.delete(`/api/timeline/${postid}`).then(res=>{
+      console.log("ACHTUNG!")
     })
   }
 getUrl(url){
@@ -93,17 +99,17 @@ likeIt(postid, likes){
 var like=true
 // checking if array of likes includes this user and assign false if it is
 if(likes)like=!likes.includes(this.props.user.userid)
-axios.put('/api/timeline',{postid,like})
 this.socket.emit('message sent', {
   message:[this.props.user.userid ,  null, postid, like],
   room: this.state.room
 })
+axios.put('/api/timeline',{postid,like})
 
 }
   render() {
         //getting messages array
 var posts=this.state.posts.map((e,i)=>{
-  return <div id={i}><div><img src={e.picture} alt="profile" height='50px' width='50px'/>
+  return <div key={i}><div><img src={e.picture} alt="profile" height='50px' width='50px'/>
   {e.first_name} {e.last_name}</div> <div> {e.post_name}</div> <img src={e.post_image} alt="profile" height='200px' width='200px'/>
   <div>
     {/* like/dislike button */}
@@ -113,7 +119,7 @@ var posts=this.state.posts.map((e,i)=>{
     {/* deleting message button */}
    {e.userid==this.props.user.userid? <button onClick={()=>this.deleteMessage(e.postid)}>delete </button>: <p> </p>}</div>
 
-  <Comments room={'comment'+e.postid} postid={e.postid}/>
+  {this.state.flag && <Comments room={'comment'+e.postid} postid={e.postid}/>}
    </div>
 })
     return (

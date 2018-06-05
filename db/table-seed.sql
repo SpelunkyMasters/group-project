@@ -54,15 +54,11 @@ CREATE TABLE IF NOT EXISTS user_chat (
 
 CREATE TABLE IF NOT EXISTS timeline (
     postid SERIAL PRIMARY KEY,
+    tripid INTEGER REFERENCES trips(tripid) NOT NULL,
     post_name VARCHAR(90) NOT NULL,
     post_image VARCHAR(250) NOT NULL,
     likes INTEGER ARRAY[20],
     userid INTEGER REFERENCES users(userid) NOT NULL
-);
-
-CREATE TABLE IF NOT EXISTS timeline_trips (
-    postid INTEGER REFERENCES timeline(postid) NOT NULL,
-    tripid INTEGER REFERENCES trips(tripid) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS post_comments (

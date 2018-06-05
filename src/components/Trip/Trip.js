@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route, NavLink } from 'react-router-dom';
 import glamorous from 'glamorous';
+import axios from 'axios';
 
 import NavBar from '../NavBar/NavBar';
 import Chat from '../Trip/Chat/Chat';
@@ -51,14 +52,17 @@ class Trip extends Component {
     const currentTrip = trips.filter( trip => trip.tripid === +id)
         , { trip_name, userid } = currentTrip[0] || 'Trip Name';
 
+    console.log('Trip name: ', trip_name)
+
     return (
       <StyledTripDiv>
         <NavButtonDiv>
           <NavLink to="/home"><IconButton><img src={ home } alt="home button" width="20px"/></IconButton></NavLink>
+          <a href='http://localhost:3004/logout'><IconButton type="primary">L</IconButton></a>
         </NavButtonDiv>
         {
           userid === this.props.user.userid
-            ? <TripControls/>
+            ? <TripControls trip={ currentTrip[0]}/>
             : <h1>{ trip_name }</h1>
         }
         <Switch>
