@@ -42,8 +42,8 @@ class Comments extends Component {
   updateMessage(comment) {
     //sending null as first element in array if it was deleting and filtering it from comments
     if(comment[0]===null) {
-      var comments=this.state.comments.filter(e=> e.commentid!=comment[1])
-      this.setState({comments})}
+
+      this.setState({comments:comment[1]})}
     else{
     //updating messages array once new comment received
       this.setState({
@@ -68,14 +68,19 @@ class Comments extends Component {
 })
 }
 deleteMessage(commentid){
-  //deleting message from database
-  axios.delete(`/api/comment/${commentid}`).then(res=>{
-  // sending message to with null and messageid thru socket
+  var comments=this.state.comments.filter(e=> e.commentid!=commentid)
+  console.log(comments)
+  this.setState({comments},()=>{  
     this.socket.emit('message sent', {
-      message:[null, commentid],
+      message:[null, comments],
       room: this.state.room
     })
-  })
+    axios.delete(`/api/comment/${commentid}`).then(res=>{
+  // sending message to with null and messageid thru socket
+console.log("ACHTUNG!!!")
+  })})
+  //deleting message from database
+
 }
 selectName(first_name, last_name){
   //putting name in front of the message
@@ -91,7 +96,7 @@ selectName(first_name, last_name){
 
 }
   render() {
-
+console.log("THE ROOM", this.state.room, this.props.postid)
 var comments=this.state.comments.map((e,i)=>{
     return <div id={i}><div onClick={()=>this.selectName(e.first_name, e.last_name.charAt(0))} ><img src={e.picture} alt="profile" height='50px' width='50px'/>
     {e.first_name} {e.last_name} {e.comment_text} </div>{e.userid==this.props.user.userid? <button onClick={()=>this.deleteMessage(e.commentid)}>delete </button>: <p> </p>}</div>
