@@ -69,7 +69,6 @@ module.exports={
         const db = req.app.get('db')
             , { tripid } = req.params
             , { trip_name, startdate, enddate } = req.body;
-
         db.trips.update_trip([+tripid, trip_name, startdate, enddate])
         .then( () => {res.status(200).send(`Details updated for trip ${tripid}`)})
         .catch( err => res.status(500).send(err))
