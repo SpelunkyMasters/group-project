@@ -24,9 +24,8 @@ const MobileMenu = glamorous.nav({
 })
 
 const MenuCloseButton = glamorous.div({
-  position: 'relative',
-  left: 155,
-  top: 7
+  display: 'flex',
+  justifyContent: 'flex-end'
 })
 
 const StyledMenuLi = glamorous.li({
