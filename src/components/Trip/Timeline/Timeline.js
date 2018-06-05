@@ -63,14 +63,15 @@ this.componentDidMount=this.componentDidMount.bind(this);
     var post_name=this.state.input;
     var post_image=this.state.url;
     var tripid=this.props.match.params.id;
-    
+    var {userid, picture, first_name, last_name, email}=this.props.user
 if(post_image==='') alert('Choose a photo')
 else{
     //posting new message in data base and sending it to socket
     axios.post('/api/timeline',{post_name, post_image, tripid} ).then(res=>{
       console.log("POST DATA", res.data)
+      var{postid, tripid, post_image, post_name, likes}=res.data
       this.socket.emit('message sent', {
-          message:res.data,
+          message:{postid, tripid, post_image, post_name, likes, userid, picture, first_name, last_name, email},
           room: this.state.room
         })
   })  
