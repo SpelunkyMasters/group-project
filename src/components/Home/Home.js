@@ -11,7 +11,7 @@ import Invite from './Invite/Invite';
 import {getUser, getTrips, getInvites} from '../../ducks/reducer';
 
 const HomeHeader = glamorous.h1({
-  margin: 20
+  margin: 5
 })
 
 const HomeH2 = glamorous.h2({
@@ -24,8 +24,9 @@ const ButtonBar = glamorous.div({
   justifyContent: 'space-between'
 })
 const HomeMainDiv = glamorous.div({
-  padding: 10,
+  padding: 20,
   height: '100vh',
+  overflow:'hidden',
   textAlign: 'center'
 }, ({ theme }) => ({
   backgroundColor: theme.mainBg,
@@ -33,10 +34,15 @@ const HomeMainDiv = glamorous.div({
 }))
 
 const HomeContainer = glamorous.div({
-  padding: 20,
+  padding: 6,
   borderRadius: 5,
   margin: 'auto',
-  width: '80%'
+  height: 180,
+  width: '80%',
+  overflowY: 'scroll',
+  '&::-webkit-scrollbar': {
+    width: 0
+  }
 }, ({ theme }) => ({
   backgroundColor: theme.lighterBg,
 }))
@@ -46,6 +52,8 @@ class Home extends Component {
     super();
 
     this.createTrip = this.createTrip.bind(this);
+    this.acceptInvite = this.acceptInvite.bind(this);
+    this.declineInvite = this.declineInvite.bind(this);
   }
 
   componentDidMount(){
@@ -58,7 +66,7 @@ class Home extends Component {
 
   createTrip() {
     const { userid } = this.props.user;
-
+    // New trip is created, then trip data is re-retrieved before redirecting to the new trip page
     axios.post(`/api/trips/${ userid }`).then( res => {
       console.log(res.data);
       this.props.getTrips( userid ).then( () => {
@@ -67,6 +75,21 @@ class Home extends Component {
     })
   }
 
+  acceptInvite(tripid) {
+    // Request is sent to server to accept invite, then home screen will reload the trips and invites.
+    axios.post(`/api/invite/${tripid}`).then( () => {
+      this.props.getTrips(this.props.user.userid);
+      this.props.getInvites(this.props.user.userid);
+    })
+
+  }
+
+  declineInvite(tripid) {
+    axios.delete(`/api/invite/${this.props.user.userid}/${tripid}`).then( () => {
+      this.props.getInvites(this.props.user.userid)
+    })
+    
+  }
   render() {
 
     //map through the list of trips stored on Redux.
@@ -75,24 +98,8 @@ class Home extends Component {
     })
 
     const invites = this.props.invites.map( (invite, i) => {
-      return <Invite invite={invite} index={ i } key={ invite.tripid }/>
+      return <Invite invite={invite} index={ i } key={ invite.tripid } accept={ this.acceptInvite } decline={ this.declineInvite }/>
     })
-
-    /*
-
-
-
-    // For controller: 
-    getInvites: (req, res, next) => {
-      const db = req.app.get('db')
-          , { userid } = req.params;
-
-      db.invites.get_invites(+userid).then( invites => {
-        res.status(200).send(invites);
-      }).catch( err => res.status(500).send(err) );
-    }
-
-    */
 
     return (
       <HomeMainDiv> 
@@ -108,7 +115,7 @@ class Home extends Component {
         <HomeContainer>
           {
             this.props.invites.length < 1
-              ? <HomeH2>No invites yet!</HomeH2>
+              ? <HomeH2>No current invites...</HomeH2>
               : <div>{invites}</div>
           }
         </HomeContainer>
