@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route, NavLink } from 'react-router-dom';
 import glamorous from 'glamorous';
+import axios from 'axios';
 
 import NavBar from '../NavBar/NavBar';
 import Chat from '../Trip/Chat/Chat';
@@ -13,7 +14,8 @@ import Timeline from './Timeline/Timeline';
 import { IconButton } from '../styledComponents';
 import TripControls from './TripControls/TripControls';
 
-import home from '../../assets/img/home.png';
+// import home from '../../assets/img/home.png';
+import menu from '../../assets/img/menu.png';
 
 // import menuIcon from '../../assets/img/menu.png';
 
@@ -28,6 +30,15 @@ const NavButtonDiv = glamorous.div({
 })
 
 class Trip extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      menuOpen: false
+    }
+    this.openMenu = this.openMenu.bind(this);
+    this.closeMenu = this.closeMenu.bind(this);
+  }
+
   componentDidMount(){
     const { getUser, getAllUsers, getTrips, getInvites } = this.props;
     // If page refreshes and there is no user: retrieve user info from server and then get user trips again.
@@ -43,6 +54,14 @@ class Trip extends Component {
     getAllUsers(this.props.match.params.id)
 
   }
+
+  openMenu() {
+    this.setState({menuOpen: true})
+  }
+
+  closeMenu() {
+    this.setState({menuOpen: false})
+  }
   
   render() {
     const { id } = this.props.match.params
@@ -51,16 +70,23 @@ class Trip extends Component {
     const currentTrip = trips.filter( trip => trip.tripid === +id)
         , { trip_name, userid } = currentTrip[0] || 'Trip Name';
 
+    console.log('Trip name: ', trip_name)
+
     return (
       <StyledTripDiv>
         <NavButtonDiv>
-          <NavLink to="/home"><IconButton><img src={ home } alt="home button" width="20px"/></IconButton></NavLink>
+          {
+            this.state.menuOpen
+              ? <NavBar navType="menu" closeMenu={ this.closeMenu }/>
+              : <IconButton onClick={ this.openMenu }><img src={ menu } alt="menu" width="20px"/></IconButton>
+          }
         </NavButtonDiv>
-        {
-          userid === this.props.user.userid
-            ? <TripControls/>
-            : <h1>{ trip_name }</h1>
-        }
+          {
+            userid === this.props.user.userid
+              ? <TripControls trip={ currentTrip[0]}/>
+              : <h1>{ trip_name }</h1>
+          }
+        
         <Switch>
           <Route path="/trip/:id/nav" component={ NavBar } />
           <Route path="/trip/:id/map" component={ Map } />

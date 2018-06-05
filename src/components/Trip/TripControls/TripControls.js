@@ -4,7 +4,7 @@ import axios from 'axios';
 import glamorous from 'glamorous';
 import { withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
-import { Button } from '../../styledComponents';
+import { Button, IconButton } from '../../styledComponents';
 import { START_DATE, END_DATE } from 'react-dates/constants';
 import moment from 'moment';
 
@@ -48,7 +48,12 @@ class TripControls extends Component {
                 startDate: newStartDate,
                 endDate: newEndDate
             })
-
+        } else {
+            this.setState({
+                tripName: trip_name,
+                startDate: null,
+                endDate: null
+            })
         }
     }
 
@@ -82,48 +87,29 @@ class TripControls extends Component {
     
     saveTrip() {
         // To store dates on DB, invoke moment with the date, followed by toString()
-        
-        let sd = moment(this.state.startDate).toString();
-        let ed = moment(this.state.endDate).toString();
-        
-        // console.log('Start date: ', sd)
-        // let newDate = moment('Mon Jul 02 2018 12:00:00 GMT-0600');
-        // console.log('New date: ', newDate)
-        axios.put(`/api/trips/${this.props.match.params.id}/`, {
-            trip_name: this.state.tripName,
-            startdate: sd,
-            enddate: ed
-        }).then( () => {
-            this.props.getTrips(this.props.user.userid).then( () => this.setState({edit: false}))
-        })
-        
-        /*
-        // Update trip details
-        app.put('/api/trip/:tripid', controller.updateTrip)
-        */
-
-        /*
-        updateTrip: (req, res, next) => {
-            const db = req.app.get('db')
-                , { tripid } = req.params
-                , { trip_name, startdate, enddate } = req.body;
-
-            db.trips.update_trip([+tripid, trip_name, startdate, enddate]).then( () => {
-                res.status(200).send(`Details updated for trip ${tripid}`)
-            }).catch( err => res.status(500).send(err))
+        if( !this.state.startDate || !this.state.endDate) {
+            alert('Please enter your trip dates.')
+        } else {
+            let sd = moment(this.state.startDate).toString();
+            let ed = moment(this.state.endDate).toString();
+            
+            axios.put(`/api/trips/${this.props.match.params.id}/`, {
+                trip_name: this.state.tripName,
+                startdate: sd,
+                enddate: ed
+            }).then( () => {
+                this.props.getTrips(this.props.user.userid).then( () => this.setState({edit: false}))
+            })
         }
-        */
-
     }
 
 
     render() {
-        const { id } = this.props.match.params
-        , { trips } = this.props;
+        // const { id } = this.props.match.params
+        // , { trips } = this.props;
         
-        const currentTrip = trips.filter( trip => trip.tripid === +id)
-        , { trip_name, userid } = currentTrip[0] || 'Trip Name'
-        , { tripName } = this.state;
+        // // const { trip_name, userid } = this.props.trip
+        const { tripName } = this.state;
 
 
 
@@ -148,6 +134,7 @@ class TripControls extends Component {
                                     endDatePlaceholderText="End"
                                 />
                                 <br/>
+                                <IconButton type="primary" onClick={ () => this.setState({edit: false})}>X</IconButton>
                                 <Button type="secondary" onClick={ this.saveTrip }>Save</Button>
                                 <Button type="danger">Delete Trip</Button>
                             </TripControlDiv>

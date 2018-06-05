@@ -3,6 +3,8 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import glamorous from 'glamorous';
 
+import { IconButton } from '../styledComponents';
+
 import TripNavBtn from '../Trip/TripNavBtn';
 
 
@@ -12,13 +14,35 @@ const NavButtonGroup = glamorous.nav({
   justifyContent: 'space-around'
 })
 
+const MobileMenu = glamorous.nav({
+  backgroundColor: 'rgba(0, 0, 0, 0.698)',
+  height: '100vh',
+  width: '100%',
+  position: 'fixed',
+  backdropFilter: 'blur(5px)',
+  WebkitBackdropFilter: 'blur(5px)'
+})
+
+const MenuCloseButton = glamorous.div({
+  position: 'relative',
+  left: 155,
+  top: 7
+})
+
 const StyledMenuLi = glamorous.li({
   padding: "10px 0 0 10px",
-  width: 100,
-  height: 30,
+  // width: '70%',
+  height: 50,
+  marginBottom: 5,
   // backgroundColor: 'blue',
   textDecoration: 'none',
-  color: 'blue'
+  color: 'white',
+  borderBottom: '1px solid white',
+})
+
+const StyledA = glamorous.a({
+  textDecoration: 'none',
+  color: 'white'
 })
 
 class NavBar extends Component {
@@ -49,8 +73,11 @@ class NavBar extends Component {
       }
     })
 
-    const navBar = navData.map( link => {
-      return <NavLink key={ link.path } to={ link.path }><StyledMenuLi>{ link.name }</StyledMenuLi></NavLink>
+    const navBar = navData.map( (link, index) => {
+      if(index === navData.length - 1) {
+        return <StyledMenuLi key={ link.path }><StyledA href='http://localhost:3004/logout'>{ link.name }</StyledA></StyledMenuLi>
+      }
+      return <NavLink onClick={ this.props.closeMenu }key={ link.path } to={ link.path }><StyledMenuLi>{ link.name }</StyledMenuLi></NavLink>
     })
 
     return (
@@ -58,11 +85,14 @@ class NavBar extends Component {
         {
           this.props.navType === 'menu'
             ? (
-              <nav>
+              <MobileMenu>
+                <MenuCloseButton>
+                  <IconButton onClick={ this.props.closeMenu }>X</IconButton>
+                </MenuCloseButton>
                 <ol>
                   { navBar }
                 </ol>
-              </nav>
+              </MobileMenu>
 
             ) 
             : (
