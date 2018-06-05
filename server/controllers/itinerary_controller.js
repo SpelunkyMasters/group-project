@@ -52,7 +52,6 @@ module.exports = {
         const { destType, destid } = req.query
         const { tripid } = req.params
         const db = req.app.get('db')
-
         if( destType === 'Main Stop') {
             db.trips.get_dests().then(results => {
                 let flag = true
@@ -87,6 +86,19 @@ module.exports = {
         } else {
             res.sendStatus(404)
         }
-
+    },
+    deleteDestination: (req, res) => {
+        const { destid } = req.params
+        const db = req.app.get('db')
+        db.trips.rmv_dest([destid]).then( () => {
+            res.sendStatus(200)
+        }).catch( err => console.log(err))
+    },
+    deleteSubDestination: (req, res) => {
+        const { sub_destid } = req.params
+        const db = req.app.get('db')
+        db.trips.rmv_subDest([sub_destid]).then(() => {
+            res.sendStatus(200)
+        }).catch( err => console.log(err))
     }
 }

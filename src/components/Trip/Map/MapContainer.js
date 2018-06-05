@@ -29,11 +29,40 @@ class MapContainer extends Component {
         }
     }
 
+    bubble(arr) {
+        let newArr = [...arr]
+        function bubbleSort(arr){
+            for (var j=0; j<arr.length; j++) {
+                let swapped = false;
+                for (var i = 0; i< arr.length - j - 1; i++) {
+                    if (arr[i] > arr[i + 1]) {
+                        swap(arr, i, i+1)
+                        swapped = true;
+                    }
+                }
+                if(!swapped) {
+                    return
+                }
+            }
+        }
+        
+        function swap(arr, i, j) {
+            let temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+            return arr;
+        }
+        bubbleSort(newArr)
+        return newArr
+    }
+
     findBounds(latPoints, lngPoints) {
-        let maxLat = latPoints.sort()[0]
-        let minLat = latPoints.sort()[latPoints.length-1]
-        let maxLng = lngPoints.sort()[0]
-        let minLng = lngPoints.sort()[lngPoints.length-1]
+        let sortedLat = this.bubble(latPoints)
+        let sortedLng = this.bubble(lngPoints)
+        let maxLat = sortedLat[sortedLat.length - 1]
+        let minLat = sortedLat[0]
+        let maxLng = sortedLng[sortedLng.length - 1]
+        let minLng = sortedLng[0]
         let points = [
             {lat: maxLat, lng: maxLng},
             {lat: maxLat, lng: minLng},
@@ -50,7 +79,7 @@ class MapContainer extends Component {
       let itin = []
       let latPoints = []
       let lngPoints = []
-      let bounds
+      let bounds = null
       if (this.props.itinerary.length > 0) {
         itin = this.props.itinerary.map((place, i) => {
             let sub = []
@@ -64,7 +93,7 @@ class MapContainer extends Component {
                             onClick={this.onMarkerClick}
                             name={subDest.sub_dest_name}
                             title={subDest.sub_address}
-                            position={{lat: subDest.lat, lng: subDest.lng}}
+                            position={{lat: subDest.lat, lng: subDest.lng}}                            
                             />
                     )
                 })
@@ -87,19 +116,24 @@ class MapContainer extends Component {
       }
       if (this.props.itinerary.length> 0) {
           let points = this.findBounds(latPoints, lngPoints)
-        //   console.log(points)
           bounds = new this.props.google.maps.LatLngBounds();
           for (let i = 0; i < points.length; i++) {
             bounds.extend(points[i])
           }
 
       }
+      
       if ( currentMarker.lat) {
-        //   center = {lat: currentMarker.lat, lng: currentMarker.lng}
-        //   zoom = 15
-          bounds = new this.props.google.maps.LatLngBounds();          
-          bounds.extend({lat: currentMarker.lat, lng: currentMarker.lng})
+          center = {lat: currentMarker.lat, lng: currentMarker.lng}
+        //   bounds = null
+          zoom = 25
+        //   bounds = new this.props.google.maps.LatLngBounds();          
       }
+
+      if ( this.state.selectedPlace.position) {
+          center = this.state.selectedPlace.position
+      }
+
     return (
       <Map
         google={this.props.google}
@@ -112,7 +146,7 @@ class MapContainer extends Component {
         zoom={zoom}
         bounds={bounds}
       >
-      {itin}
+        {itin}
       {
                 this.props.currentMarker.lat ?
                 <Marker
