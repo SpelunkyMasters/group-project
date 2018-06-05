@@ -76,19 +76,12 @@ class Itinerary extends Component {
     return (
       <div>
           <h1>Itinerary</h1>
-          {/* <SearchBox 
-          currentMarker={this.state.currentMarker}
-          updateCurrentMarker={this.updateCurrentMarker}
-          updateItinerary={this.updateItinerary}
-          handleDestType={this.handleDestType}
-          handleSubDest={this.handleSubDest}
-          destType={this.state.destType}
-          /> */}
+          
           <button onClick={this.handleAdd}>Add Main Stop</button>
           {
             this.state.addClick ?
             <Search 
-            addToItinerary={this.addToItinerary} /> :
+            callback={this.addToItinerary} /> :
             null
           }
           {itin}

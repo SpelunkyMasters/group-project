@@ -66,7 +66,7 @@ class MainStop extends Component {
             {
                 this.state.addClick ?
                 <Search
-                addToItinerary={this.addToItinerary} /> :
+                callback={this.addToItinerary} /> :
                 null
             }
             {subDests}
