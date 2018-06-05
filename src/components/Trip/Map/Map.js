@@ -31,7 +31,8 @@ class Map extends Component {
         this.props.getItinerary(this.props.match.params.id)
         this.setState({
           destType: '',
-          destid: ''
+          destid: '',
+          currentMarker: {}
         })
       })
     } else {

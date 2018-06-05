@@ -4,4 +4,5 @@ UPDATE trips
 SET trip_name = $2,
 startdate = $3,
 enddate = $4
-WHERE tripid = $1;
+WHERE tripid = $1
+RETURNING *;

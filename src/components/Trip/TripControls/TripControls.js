@@ -89,7 +89,7 @@ class TripControls extends Component {
         // console.log('Start date: ', sd)
         // let newDate = moment('Mon Jul 02 2018 12:00:00 GMT-0600');
         // console.log('New date: ', newDate)
-        axios.put(`/api/trip/${this.props.match.params.id}/`, {
+        axios.put(`/api/trips/${this.props.match.params.id}/`, {
             trip_name: this.state.tripName,
             startdate: sd,
             enddate: ed

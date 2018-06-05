@@ -70,7 +70,22 @@ module.exports={
             , { tripid } = req.params
             , { trip_name, startdate, enddate } = req.body;
         db.trips.update_trip([+tripid, trip_name, startdate, enddate])
-        .then( () => {res.status(200).send(`Details updated for trip ${tripid}`)})
+        .then( trip => {res.status(200).send(trip[0])})
         .catch( err => res.status(500).send(err))
+    },
+    deleteTrip: (req, res, next) => {
+        const db = req.app.get('db')
+            , { tripid } = req.params;
+
+        
+    },
+    createTrip: (req, res, next) => {
+        const db = req.app.get('db')
+            , { userid } = req.params;
+        
+        db.trips.create_trip(+userid).then( trip => {
+            res.status(200).send(trip[0])
+        }).catch( err => res.status(500).send(err))
     }
+
 }
