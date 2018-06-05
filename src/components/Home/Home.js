@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import {connect} from 'react-redux';
-import {getUser, getTrips} from '../../ducks/reducer';
-import TripCover from './TripCover/TripCover';
 import { NavLink } from 'react-router-dom';
 import glamorous from 'glamorous';
 
+import TripCover from './TripCover/TripCover';
 import { Button } from '../styledComponents';
+import Invite from './Invite/Invite';
+
+import {getUser, getTrips, getInvites} from '../../ducks/reducer';
 
 const HomeHeader = glamorous.h1({
   margin: 20
@@ -39,13 +42,31 @@ const HomeContainer = glamorous.div({
 }))
 
 class Home extends Component {
+  constructor() {
+    super();
+
+    this.createTrip = this.createTrip.bind(this);
+  }
 
   componentDidMount(){
     this.props.getUser().then(res=>{
       this.props.getTrips(this.props.user.userid)
+      this.props.getInvites(this.props.user.userid)
     })
 
   }
+
+  createTrip() {
+    const { userid } = this.props.user;
+
+    axios.post(`/api/trips/${ userid }`).then( res => {
+      console.log(res.data);
+      this.props.getTrips( userid ).then( () => {
+        this.props.history.push(`/trip/${res.data.tripid}/nav`)
+      })
+    })
+  }
+
   render() {
 
     //map through the list of trips stored on Redux.
@@ -53,10 +74,11 @@ class Home extends Component {
       return <TripCover trip={trip} key={ i }/>
     })
 
-    /*
+    const invites = this.props.invites.map( (invite, i) => {
+      return <Invite invite={invite} index={ i } key={ invite.tripid }/>
+    })
 
-    // Get all user invites
-    app.get('/api/invites/:userid', controller.getInvites)
+    /*
 
 
 
@@ -76,7 +98,7 @@ class Home extends Component {
       <HomeMainDiv> 
         <ButtonBar>
           <NavLink to="/profile"><Button type="primary">Profile</Button></NavLink> 
-          <Button type="secondary">New Trip</Button> 
+          <Button type="secondary" onClick={ this.createTrip }>New Trip</Button> 
         </ButtonBar>
         <HomeHeader>Trips</HomeHeader>
         <HomeContainer>
@@ -84,7 +106,11 @@ class Home extends Component {
         </HomeContainer>
         <HomeHeader>Invites</HomeHeader>
         <HomeContainer>
-          <HomeH2>No invites yet!</HomeH2>
+          {
+            this.props.invites.length < 1
+              ? <HomeH2>No invites yet!</HomeH2>
+              : <div>{invites}</div>
+          }
         </HomeContainer>
       </HomeMainDiv>
     );
@@ -92,8 +118,11 @@ class Home extends Component {
 }
 
 function mapStateToProps(state){
-  return {trips:state.trips,
-  user:state.user}
+  return {
+    trips:state.trips,
+    user:state.user,
+    invites: state.invites
+  }
 }
 
-export default connect(mapStateToProps, {getUser, getTrips})(Home);
+export default connect(mapStateToProps, {getUser, getTrips, getInvites})(Home);

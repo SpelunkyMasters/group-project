@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS user_trips (
     tripid INTEGER REFERENCES trips(tripid) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS invitations (
+CREATE TABLE IF NOT EXISTS invites (
     userid INTEGER REFERENCES users(userid) NOT NULL,
     tripid INTEGER REFERENCES trips(tripid)
 );

@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { getUser, getTrips } from '../../ducks/reducer';
+import { getUser, getTrips, getInvites } from '../../ducks/reducer';
 
 class TripLoader extends Component {
   componentDidMount() {
-    const { getUser, getTrips } = this.props;
+    const { getUser, getTrips, getInvites} = this.props;
 
     getUser().then(res=>{
       getTrips(this.props.user.userid).then( () => {
-        this.props.history.push("/home")
+        getInvites(this.props.user.userid).then( () => {
+          this.props.history.push("/home")
+        })
 
       })
     })
@@ -34,4 +36,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps, {getUser, getTrips})(withRouter(TripLoader));
+export default connect(mapStateToProps, {getUser, getTrips, getInvites})(withRouter(TripLoader));
