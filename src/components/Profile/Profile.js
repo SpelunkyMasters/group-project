@@ -4,6 +4,7 @@ import FileUpload from './FileUpload/FileUpload';
 import {connect} from 'react-redux';
 import {getUser,getTrips} from '../../ducks/reducer';
 import axios from 'axios';
+import UserTravelHistory from './UserTravelHistory/UserTravelHistory'
 
 
 class Profile extends Component {
@@ -63,6 +64,7 @@ class Profile extends Component {
       
         
         <FileUpload />
+        <UserTravelHistory />
       </div>
     );
   }

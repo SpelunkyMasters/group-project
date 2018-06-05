@@ -31,7 +31,11 @@ class SearchMain extends Component {
             name: name,
             address: currentAddress
           }
-          this.props.addToItinerary(currentMarker)
+          if (this.props.currentMarker) {
+            this.props.updateCurrentMarker(currentMarker)
+          } else {
+            this.props.callback(currentMarker)
+          }
         })
       }
     
