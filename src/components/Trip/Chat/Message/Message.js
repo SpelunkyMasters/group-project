@@ -32,7 +32,9 @@ const MessageText=glamorous.div({
     borderRadius:'5px',
     maxWidth:'80%',
     marginTop:'5px',
-    marginBottom: '5px'
+    marginBottom: '5px',
+    wordWrap:'break-word',
+    color:'white'
 },
 ({check}) => MessageTextStyle[check]
 )
