@@ -15,7 +15,7 @@ const caravanTheme = {
   white: '#F9FBFF',
   charcoal: '#37414E',
   independence: '#384E77',
-  sunglow: 'FFD23E'
+  sunglow: '#FFD23E'
 }
 
 class App extends Component {
