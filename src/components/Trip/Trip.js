@@ -20,7 +20,8 @@ import menu from '../../assets/img/menu.png';
 // import menuIcon from '../../assets/img/menu.png';
 
 const StyledTripDiv = glamorous.div({
-  padding: 10
+  padding: 10,
+  height:'100vh'
 }, ({ theme }) => ({
   backgroundColor: theme.mainBg
 }))

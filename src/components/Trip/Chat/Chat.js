@@ -2,7 +2,33 @@ import React, { Component } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
 import {connect} from 'react-redux';
+import glamorous from 'glamorous';
+import Message from './Message/Message';
 
+const ChatBox=glamorous.div({
+  height:'75vh',
+  padding: '10px',
+  width:'100%',
+  overflow: 'auto'
+},({theme})=>({
+  backgroundColor:theme.white
+}))
+
+const InputField = glamorous.input({
+  fontSize: "12px",
+  width: '66.5vw',
+  padding: '5px',
+  borderRadius: "35px"
+})
+
+const SendButton = glamorous.button({
+  backgroundColor: 'purple'
+
+},
+({theme}) => ({
+  backgroundColor: theme.
+})
+)
 
 class Chat extends Component {
   constructor(props) {
@@ -19,6 +45,7 @@ class Chat extends Component {
     this.sendMessage = this.sendMessage.bind(this);
     this.componentDidMount=this.componentDidMount.bind(this);
     this.scrollToBottom=this.scrollToBottom.bind(this);
+    this.deleteMessage=this.deleteMessage.bind(this)
 
   }
   componentDidMount() {
@@ -85,23 +112,22 @@ scrollToBottom() {
   render() {
     //getting messages array
 var messages=this.state.messages.map((e,i)=>{
-    return <div id={i}><img src={e.picture} alt="profile" height='50px' width='50px'/>
-    {e.first_name} {e.last_name} {e.message_text} {e.userid===this.props.user.userid? <button onClick={()=>this.deleteMessage(e.messageid)}>delete </button>: <p> </p>}</div>
+    return  <Message e={e} key={i} deleteMessage={this.deleteMessage} userid={this.props.user.userid}  />
 })
 
     return (
       <div className="Tiermessages">
       
               
-            <div id="chat">
+            <ChatBox>
                   {
                   messages
                   }
                   <div ref={(el) => { this.el = el; }}></div>
-              </div>
+              </ChatBox>
               {/* inputing and sending message */}
-            <input value={this.state.input} onChange={e=>this.setState({input:e.target.value})}/>
-            <button onClick={this.sendMessage}>Send </button>
+            <InputField placeholder="Type it, bitch" value={this.state.input} onChange={e=>this.setState({input:e.target.value})}/>
+            <SendButton onClick={this.sendMessage}>Send </SendButton>
       </div>
     );
   }
