@@ -6,11 +6,11 @@ import glamorous from 'glamorous';
 
 export const colors = {
     base: '#464646',
-    primary: '#737373',
-    secondary: '#ABABAB',
-    default: '#CFCFCF',
+    primary: '#384E77',
+    secondary: '#FFD23E',
+    default: '#37414E',
     danger: '#FF0000',
-    light: '#F1F1F1',
+    light: '#384E77',
     border: '#E7E7E7'
 }
 
@@ -33,6 +33,19 @@ export const IconButton = glamorous.button({
     backgroundColor: colors[props.type] || colors['default']
 }))
 
+export const LargeIcon = glamorous.button({
+    width: 55,
+    height: 55,
+    borderRadius: '50%',
+    border: '1px solid',
+    borderColor: colors['border'],
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+}, props => ({
+    backgroundColor: colors[props.type] || colors['default']
+}))
+
 export const Button = glamorous.button(
     {
         width: 90,
@@ -40,10 +53,10 @@ export const Button = glamorous.button(
         borderRadius: 4,
         border: '1px solid',
         borderColor: colors.border,
-        color: 'white'
     },
     props => ({
-        backgroundColor: colors[props.type] || colors['default']
+        backgroundColor: colors[props.type] || colors['default'],
+        // color:
     })
 )
 
