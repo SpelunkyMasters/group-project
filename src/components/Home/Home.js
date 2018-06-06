@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import glamorous from 'glamorous';
 
 import TripCover from './TripCover/TripCover';
-import { Button, LargeIcon } from '../styledComponents';
+import { Button, LargeIcon, ButtonBar } from '../styledComponents';
 import Invite from './Invite/Invite';
 
 import {getUser, getTrips, getInvites} from '../../ducks/reducer';
@@ -21,11 +21,7 @@ const HomeH2 = glamorous.h2({
 }, ({ theme }) => ({
   color: theme.lighterText
 }))
-const ButtonBar = glamorous.div({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center'
-})
+
 const HomeMainDiv = glamorous.div({
   padding: 20,
   height: '100vh',
