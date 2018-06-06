@@ -21,7 +21,9 @@ import menu from '../../assets/img/menu.png';
 
 const StyledTripDiv = glamorous.div({
   padding: 10
-})
+}, ({ theme }) => ({
+  backgroundColor: theme.mainBg
+}))
 
 const NavButtonDiv = glamorous.div({
   position: 'fixed',
@@ -80,7 +82,7 @@ class Trip extends Component {
           {
             this.state.menuOpen
               ? <NavBar navType="menu" closeMenu={ this.closeMenu }/>
-              : <IconButton onClick={ this.openMenu }><img src={ menu } alt="menu" width="15px"/></IconButton>
+              : <IconButton type="secondary" onClick={ this.openMenu }><img src={ menu } alt="menu" width="15px"/></IconButton>
           }
         </NavButtonDiv>
         <TripContainer>

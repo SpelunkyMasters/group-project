@@ -41,14 +41,16 @@ const StyledMenuLi = glamorous.li({
   marginBottom: 5,
   // backgroundColor: 'blue',
   textDecoration: 'none',
-  color: 'white',
   borderBottom: '1px solid white',
-})
+}, ({ theme }) => ({
+  color: theme.white
+}))
 
 const StyledA = glamorous.a({
   textDecoration: 'none',
-  color: 'white'
-})
+}, ({ theme }) => ({
+  color: theme.white
+}))
 
 class NavBar extends Component {
   render() {

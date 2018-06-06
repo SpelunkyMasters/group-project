@@ -5,7 +5,7 @@ import glamorous from 'glamorous';
 import { withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { SmallButton, IconButton } from '../../styledComponents';
-import { START_DATE, END_DATE } from 'react-dates/constants';
+import { START_DATE, END_DATE, VERTICAL_ORIENTATION } from 'react-dates/constants';
 import moment from 'moment';
 
 
@@ -142,6 +142,9 @@ class TripControls extends Component {
                                     startDateId={ START_DATE }    
                                     endDate={ this.state.endDate }
                                     endDateId={ END_DATE }
+                                    orientation={ VERTICAL_ORIENTATION }
+                                    numberOfMonths={ 200 }
+                                    daySize={1}
                                     onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
                                     focusedInput={this.state.focusedInput}
                                     onFocusChange={ focusedInput => this.setState({ focusedInput })}
@@ -149,8 +152,8 @@ class TripControls extends Component {
                                     endDatePlaceholderText="End"
                                 />
                                 <br/>
-                                <IconButton onClick={ () => this.setState({edit: false})}><img src={cross} alt="close" width="15px"/> </IconButton>
-                                <IconButton onClick={ this.saveTrip }><img src={save} alt="save" width="15px"/></IconButton>
+                                <IconButton type="secondary" onClick={ () => this.setState({edit: false})}><img src={cross} alt="close" width="15px"/> </IconButton>
+                                <IconButton type="secondary" onClick={ this.saveTrip }><img src={save} alt="save" width="15px"/></IconButton>
                                 <SmallButton type="danger">Delete Trip</SmallButton>
                             </TripControlDiv>
                         )
@@ -158,7 +161,7 @@ class TripControls extends Component {
                             <TripControlDiv>
                                 <h1>{ tripName }</h1>
                                 <EditPosition>
-                                    <IconButton onClick={ () => this.setState({edit: true})}><img src={edit} alt="edit details" width="15px"/></IconButton>
+                                    <IconButton type="secondary" onClick={ () => this.setState({edit: true})}><img src={edit} alt="edit details" width="15px"/></IconButton>
                                 </EditPosition>
                             </TripControlDiv>
                         )

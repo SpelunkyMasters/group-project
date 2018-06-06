@@ -7,11 +7,12 @@ import { ThemeProvider } from 'glamorous'
 import 'react-dates/lib/css/_datepicker.css';
 
 const caravanTheme = {
-  mainBg: '#464646',
-  mainText: 'white',
-  lighterBg: '#E8E8E8',
-  lighterText: '#464646',
-  primary: '#737373'
+  mainBg: '#001C55',
+  mainText: '#F9FBFF',
+  lighterBg: '#F9FBFF',
+  lighterText: '#000000',
+  primary: '#737373',
+  white: '#F9FBFF'
 }
 
 class App extends Component {
