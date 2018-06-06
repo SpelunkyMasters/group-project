@@ -6,8 +6,9 @@ const ContentSquare = glamorous.div({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    height: 150,
-    width: 150,
+    flexWrap: 'wrap',
+    height: 145,
+    width: 145,
     borderRadius: 4,
     border: '1px solid lightgrey'
 }, ({ theme }) => ({

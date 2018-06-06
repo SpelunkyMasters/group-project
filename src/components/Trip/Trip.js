@@ -20,13 +20,17 @@ import menu from '../../assets/img/menu.png';
 // import menuIcon from '../../assets/img/menu.png';
 
 const StyledTripDiv = glamorous.div({
-  margin: '5px 0 0 5px',
-  textAlign: 'center'
+  padding: 10
 })
 
 const NavButtonDiv = glamorous.div({
-  display: 'flex',
-  justifyContent: 'space-between'
+  position: 'fixed',
+  top: 8,
+  left: 8
+})
+
+const TripContainer = glamorous.div({
+  marginTop: 25
 })
 
 class Trip extends Component {
@@ -70,33 +74,32 @@ class Trip extends Component {
     const currentTrip = trips.filter( trip => trip.tripid === +id)
         , { trip_name, userid } = currentTrip[0] || 'Trip Name';
 
-    console.log('Trip name: ', trip_name)
-
     return (
       <StyledTripDiv>
         <NavButtonDiv>
           {
             this.state.menuOpen
               ? <NavBar navType="menu" closeMenu={ this.closeMenu }/>
-              : <IconButton onClick={ this.openMenu }><img src={ menu } alt="menu" width="20px"/></IconButton>
+              : <IconButton onClick={ this.openMenu }><img src={ menu } alt="menu" width="15px"/></IconButton>
           }
         </NavButtonDiv>
+        <TripContainer>
           {
             userid === this.props.user.userid
               ? <TripControls trip={ currentTrip[0]}/>
               : <h1>{ trip_name }</h1>
           }
-        
-        <Switch>
-          <Route path="/trip/:id/nav" component={ NavBar } />
-          <Route path="/trip/:id/map" component={ Map } />
-          <Route path="/trip/:id/itinerary" component={ Itinerary } />
-          <Route path="/trip/:id/chat" component={ Chat } />
-          <Route path="/trip/:id/trip-members" component={ TripMembers } />
-          <Route path="/trip/:id/timeline" component={ Timeline } />
-          {/* <Route path="/trip/:id/group-history" component={} />
-          <Route path="/trip/:id/timeline" component={} /> */}
-        </Switch>
+          <Switch>
+            <Route path="/trip/:id/nav" component={ NavBar } />
+            <Route path="/trip/:id/map" component={ Map } />
+            <Route path="/trip/:id/itinerary" component={ Itinerary } />
+            <Route path="/trip/:id/chat" component={ Chat } />
+            <Route path="/trip/:id/trip-members" component={ TripMembers } />
+            <Route path="/trip/:id/timeline" component={ Timeline } />
+            {/* <Route path="/trip/:id/group-history" component={} />
+            <Route path="/trip/:id/timeline" component={} /> */}
+          </Switch>
+        </TripContainer>
       </StyledTripDiv>
     );
   }
