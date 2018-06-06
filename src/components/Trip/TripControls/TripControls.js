@@ -4,7 +4,7 @@ import axios from 'axios';
 import glamorous from 'glamorous';
 import { withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
-import { SmallButton, IconButton } from '../../styledComponents';
+import { SmallButton, IconButton, TripHeader } from '../../styledComponents';
 import { START_DATE, END_DATE, VERTICAL_ORIENTATION } from 'react-dates/constants';
 import moment from 'moment';
 
@@ -32,6 +32,7 @@ class TripControls extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            showEdit: false,
             edit: false,
             tripName: '',
             startDate: null,
@@ -41,6 +42,7 @@ class TripControls extends Component {
         }
         this.saveTrip = this.saveTrip.bind(this);
         this.updateName = this.updateName.bind(this);
+        this.toggleEditBtn = this.toggleEditBtn.bind(this);
     }
 
     componentDidMount() {
@@ -69,7 +71,12 @@ class TripControls extends Component {
         }
     }
 
-    
+    toggleEditBtn() {
+        this.state.showEdit
+            ? this.setState({showEdit: false})
+            : this.setState({showEdit: true})
+    }
+
     updateName(name) {
         this.setState({
             tripName: name
@@ -117,11 +124,6 @@ class TripControls extends Component {
 
 
     render() {
-        console.log('Props: ', this.props)
-        // const { id } = this.props.match.params
-        // , { trips } = this.props;
-        
-        // // const { trip_name, userid } = this.props.trip
         const { tripName } = this.state;
 
         let tripId = this.props.match.params.id;
@@ -159,10 +161,16 @@ class TripControls extends Component {
                         )
                         : (
                             <TripControlDiv>
-                                <h1>{ tripName }</h1>
-                                <EditPosition>
-                                    <IconButton type="secondary" onClick={ () => this.setState({edit: true})}><img src={edit} alt="edit details" width="15px"/></IconButton>
-                                </EditPosition>
+                                <TripHeader onClick={ this.toggleEditBtn }>{ tripName }</TripHeader>
+                                {
+                                    this.state.showEdit
+                                        ? (
+                                            <EditPosition>
+                                                <IconButton type="secondary" onClick={ () => this.setState({edit: true})}><img src={edit} alt="edit details" width="15px"/></IconButton>
+                                            </EditPosition>
+                                        )
+                                        : null
+                                }
                             </TripControlDiv>
                         )
                 }
