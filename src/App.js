@@ -12,7 +12,10 @@ const caravanTheme = {
   lighterBg: '#F9FBFF',
   lighterText: '#000000',
   primary: '#737373',
-  white: '#F9FBFF'
+  white: '#F9FBFF',
+  charcoal: '#37414E',
+  independence: '#384E77',
+  sunglow: '#FFD23E'
 }
 
 class App extends Component {

@@ -22,11 +22,10 @@ const InputField = glamorous.input({
 })
 
 const SendButton = glamorous.button({
-  backgroundColor: 'purple'
-
+color: 'purple'
 },
 ({theme}) => ({
-  backgroundColor: theme.
+  backgroundColor: theme.sunglow
 })
 )
 

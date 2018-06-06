@@ -11,8 +11,10 @@ import TripMembers from '../Trip/TripMembers/TripMembers';
 import {connect} from 'react-redux';
 import {getUser, getAllUsers, getTrips, getInvites} from '../../ducks/reducer';
 import Timeline from './Timeline/Timeline';
-import { IconButton } from '../styledComponents';
+import { IconButton, TripHeader } from '../styledComponents';
 import TripControls from './TripControls/TripControls';
+import MemberControls from './TripControls/MemberControls';
+
 
 // import home from '../../assets/img/home.png';
 import menu from '../../assets/img/menu.png';
@@ -21,10 +23,12 @@ import menu from '../../assets/img/menu.png';
 
 const StyledTripDiv = glamorous.div({
   padding: 10,
-  height:'100vh'
+  height: '100vh'
 }, ({ theme }) => ({
   backgroundColor: theme.mainBg
 }))
+
+
 
 const NavButtonDiv = glamorous.div({
   position: 'fixed',
@@ -33,7 +37,7 @@ const NavButtonDiv = glamorous.div({
 })
 
 const TripContainer = glamorous.div({
-  marginTop: 25
+  
 })
 
 class Trip extends Component {
@@ -90,7 +94,7 @@ class Trip extends Component {
           {
             userid === this.props.user.userid
               ? <TripControls trip={ currentTrip[0]}/>
-              : <h1>{ trip_name }</h1>
+              : <MemberControls tripName={ trip_name }/>
           }
           <Switch>
             <Route path="/trip/:id/nav" component={ NavBar } />
