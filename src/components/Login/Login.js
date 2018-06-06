@@ -9,8 +9,8 @@ const LoginDiv = glamorous.div({
   justifyContent: 'center',
   alignItems: 'center'
 }, ({ theme }) => ({
-  backgroundColor: theme.lighterBg,
-  color: theme.lighterText
+  backgroundColor: theme.mainBg,
+  color: theme.white
 }))
 const LoginHeader = glamorous.h1({
   margin: 30
@@ -20,8 +20,9 @@ class Login extends Component {
   render() {
     return (
       <LoginDiv>
+        <p>LOGO GOES HERE</p>
         <LoginHeader>Caravan</LoginHeader>
-        <a href={process.env.REACT_APP_LOGIN}><Button type="base">Login</Button></a>
+        <a href={process.env.REACT_APP_LOGIN}><Button type="secondary">Login</Button></a>
       </LoginDiv>
     );
   }

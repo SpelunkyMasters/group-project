@@ -4,15 +4,27 @@ import axios from 'axios';
 import glamorous from 'glamorous';
 import { withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
-import { Button, IconButton } from '../../styledComponents';
-import { START_DATE, END_DATE } from 'react-dates/constants';
+import { SmallButton, IconButton } from '../../styledComponents';
+import { START_DATE, END_DATE, VERTICAL_ORIENTATION } from 'react-dates/constants';
 import moment from 'moment';
 
+
 import { getTrips } from '../../../ducks/reducer';
+
+import edit from '../../../assets/img/edit.png';
+import save from '../../../assets/img/save.png';
+import cross from '../../../assets/img/cross.png';
 
 const TripControlDiv = glamorous.div({
   margin: '5px 0 0 5px',
   textAlign: 'center'
+})
+
+const EditPosition = glamorous.div({
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    marginBottom: 5
 })
 
 
@@ -105,11 +117,14 @@ class TripControls extends Component {
 
 
     render() {
+        console.log('Props: ', this.props)
         // const { id } = this.props.match.params
         // , { trips } = this.props;
         
         // // const { trip_name, userid } = this.props.trip
         const { tripName } = this.state;
+
+        let tripId = this.props.match.params.id;
 
 
 
@@ -127,6 +142,9 @@ class TripControls extends Component {
                                     startDateId={ START_DATE }    
                                     endDate={ this.state.endDate }
                                     endDateId={ END_DATE }
+                                    orientation={ VERTICAL_ORIENTATION }
+                                    numberOfMonths={ 200 }
+                                    daySize={1}
                                     onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
                                     focusedInput={this.state.focusedInput}
                                     onFocusChange={ focusedInput => this.setState({ focusedInput })}
@@ -134,15 +152,17 @@ class TripControls extends Component {
                                     endDatePlaceholderText="End"
                                 />
                                 <br/>
-                                <IconButton type="primary" onClick={ () => this.setState({edit: false})}>X</IconButton>
-                                <Button type="secondary" onClick={ this.saveTrip }>Save</Button>
-                                <Button type="danger">Delete Trip</Button>
+                                <IconButton type="secondary" onClick={ () => this.setState({edit: false})}><img src={cross} alt="close" width="15px"/> </IconButton>
+                                <IconButton type="secondary" onClick={ this.saveTrip }><img src={save} alt="save" width="15px"/></IconButton>
+                                <SmallButton type="danger">Delete Trip</SmallButton>
                             </TripControlDiv>
                         )
                         : (
                             <TripControlDiv>
                                 <h1>{ tripName }</h1>
-                                <Button type="secondary" onClick={ () => this.setState({edit: true})}>Edit</Button>
+                                <EditPosition>
+                                    <IconButton type="secondary" onClick={ () => this.setState({edit: true})}><img src={edit} alt="edit details" width="15px"/></IconButton>
+                                </EditPosition>
                             </TripControlDiv>
                         )
                 }

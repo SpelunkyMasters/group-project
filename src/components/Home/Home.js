@@ -5,10 +5,12 @@ import { NavLink } from 'react-router-dom';
 import glamorous from 'glamorous';
 
 import TripCover from './TripCover/TripCover';
-import { Button } from '../styledComponents';
+import { Button, LargeIcon } from '../styledComponents';
 import Invite from './Invite/Invite';
 
 import {getUser, getTrips, getInvites} from '../../ducks/reducer';
+
+import plus from '../../assets/img/plus.png';
 
 const HomeHeader = glamorous.h1({
   margin: 5
@@ -21,7 +23,8 @@ const HomeH2 = glamorous.h2({
 }))
 const ButtonBar = glamorous.div({
   display: 'flex',
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
+  alignItems: 'center'
 })
 const HomeMainDiv = glamorous.div({
   padding: 20,
@@ -30,7 +33,7 @@ const HomeMainDiv = glamorous.div({
   textAlign: 'center'
 }, ({ theme }) => ({
   backgroundColor: theme.mainBg,
-  color: theme.mainText,
+  color: theme.white,
 }))
 
 const HomeContainer = glamorous.div({
@@ -44,7 +47,7 @@ const HomeContainer = glamorous.div({
     width: 0
   }
 }, ({ theme }) => ({
-  backgroundColor: theme.lighterBg,
+  backgroundColor: theme.white,
 }))
 
 class Home extends Component {
@@ -104,8 +107,8 @@ class Home extends Component {
     return (
       <HomeMainDiv> 
         <ButtonBar>
-          <NavLink to="/profile"><Button type="primary">Profile</Button></NavLink> 
-          <Button type="secondary" onClick={ this.createTrip }>New Trip</Button> 
+          <NavLink to="/profile"><Button type="light">Profile</Button></NavLink> 
+          <LargeIcon type="secondary" onClick={ this.createTrip }><img src={ plus } alt="new trip" width="25px"/></LargeIcon> 
         </ButtonBar>
         <HomeHeader>Trips</HomeHeader>
         <HomeContainer>

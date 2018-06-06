@@ -37,7 +37,6 @@ class TripMembers extends Component {
       //removing this user from the list
       var invited=this.state.invited.slice();
       invited.splice(i,1);
-      console.log("INVITED", invited)
       this.setState({invited})
     })
   }
