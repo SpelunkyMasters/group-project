@@ -81,13 +81,13 @@ class MapContainer extends Component {
       let bounds = null
       if (this.props.history.length > 0) {
         hist = this.props.history.map((place, i) => {
-            console.log(place)
                 latPoints.push(+place.lat)
                 lngPoints.push(+place.lng)
                 return (
                     <Marker 
                         key={i}
                         onClick={this.onMarkerClick}
+                        onDblclick={() => console.log('a')}
                         name={place.dest_name}
                         title={place.dest_address}
                         position={{lat: +place.lat, lng: +place.lng}}
@@ -95,8 +95,6 @@ class MapContainer extends Component {
                 )
             })
       }
-      console.log(latPoints)
-      console.log(lngPoints)
       if (this.props.history.length> 0) {
           let points = this.findBounds(latPoints, lngPoints)
           bounds = new this.props.google.maps.LatLngBounds();

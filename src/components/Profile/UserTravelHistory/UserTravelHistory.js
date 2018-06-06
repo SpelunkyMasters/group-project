@@ -36,8 +36,6 @@ class UserTravelHistory extends Component {
   }
     
   render() {
-    console.log(this.state.history)
-    console.log(this.state.currentMarker)
     return (
       <div>
           <Search 
