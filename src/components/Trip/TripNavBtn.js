@@ -12,8 +12,8 @@ const ContentSquare = glamorous.div({
     borderRadius: 4,
     border: '1px solid lightgrey'
 }, ({ theme }) => ({
-    backgroundColor: theme.primary,
-    color: theme.mainText
+    backgroundColor: theme.independence,
+    color: theme.white
 }))
 function TripNavBtn(props) {
     const { name, path } = props

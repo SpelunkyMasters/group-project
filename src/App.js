@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import 'react-dates/initialize';
 import './assets/styles/reset.css';
 import './assets/styles/global.css'
+import 'react-dates/lib/css/_datepicker.css';
 import routes from './routes';
 import { ThemeProvider } from 'glamorous'
-import 'react-dates/lib/css/_datepicker.css';
 
 const caravanTheme = {
   mainBg: '#001C55',

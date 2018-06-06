@@ -11,13 +11,12 @@ import TripMembers from '../Trip/TripMembers/TripMembers';
 import {connect} from 'react-redux';
 import {getUser, getAllUsers, getTrips, getInvites} from '../../ducks/reducer';
 import Timeline from './Timeline/Timeline';
-import { IconButton, TripHeader } from '../styledComponents';
-import TripControls from './TripControls/TripControls';
-import MemberControls from './TripControls/MemberControls';
-
+import { SmallButton, TripHeader, EditPosition } from '../styledComponents';
+import IconButton from '../IconButton/IconButton';
 
 // import home from '../../assets/img/home.png';
 import menu from '../../assets/img/menu.png';
+import edit from '../../assets/img/edit.png';
 
 // import menuIcon from '../../assets/img/menu.png';
 
@@ -44,10 +43,11 @@ class Trip extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      menuOpen: false
+      menuOpen: false,
+      tripControls: false
     }
-    this.openMenu = this.openMenu.bind(this);
-    this.closeMenu = this.closeMenu.bind(this);
+    this.toggleMenu = this.toggleMenu.bind(this);
+    this.toggleControls = this.toggleControls.bind(this);
   }
 
   componentDidMount(){
@@ -66,12 +66,16 @@ class Trip extends Component {
 
   }
 
-  openMenu() {
-    this.setState({menuOpen: true})
+  toggleMenu() {
+    this.state.menuOpen
+      ? this.setState({menuOpen: false})
+      : this.setState({menuOpen: true})
   }
 
-  closeMenu() {
-    this.setState({menuOpen: false})
+  toggleControls() {
+    this.state.tripControls
+      ? this.setState({tripControls: false})
+      : this.setState({tripControls: true})
   }
   
   render() {
@@ -86,15 +90,27 @@ class Trip extends Component {
         <NavButtonDiv>
           {
             this.state.menuOpen
-              ? <NavBar navType="menu" closeMenu={ this.closeMenu }/>
-              : <IconButton type="secondary" onClick={ this.openMenu }><img src={ menu } alt="menu" width="15px"/></IconButton>
+              ? <NavBar navType="menu" closeMenu={ this.toggleMenu }/>
+              : <IconButton type="secondary" icon="menu" onClick={ this.toggleMenu }/>
           }
         </NavButtonDiv>
         <TripContainer>
+          <TripHeader onClick={ this.toggleControls }>{ trip_name }</TripHeader>
           {
-            userid === this.props.user.userid
-              ? <TripControls trip={ currentTrip[0]}/>
-              : <MemberControls tripName={ trip_name }/>
+            this.state.tripControls
+              ? (
+                  userid === this.props.user.userid
+                    ? (
+                      <EditPosition>
+                        <NavLink to={ `/edit/${id}` }><IconButton type="white" icon="edit" onClick={ this.toggleControls }/></NavLink>
+                      </EditPosition>)
+                    : (
+                      <EditPosition>
+                        <NavLink to={ `/leave/${id}` }><SmallButton type="danger" onClick={ this.toggleControls }>Leave</SmallButton></NavLink>
+                      </EditPosition>
+                    )
+              )
+              : null
           }
           <Switch>
             <Route path="/trip/:id/nav" component={ NavBar } />
@@ -103,6 +119,7 @@ class Trip extends Component {
             <Route path="/trip/:id/chat" component={ Chat } />
             <Route path="/trip/:id/trip-members" component={ TripMembers } />
             <Route path="/trip/:id/timeline" component={ Timeline } />
+            
             {/* <Route path="/trip/:id/group-history" component={} />
             <Route path="/trip/:id/timeline" component={} /> */}
           </Switch>

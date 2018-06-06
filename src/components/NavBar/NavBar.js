@@ -3,7 +3,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import glamorous from 'glamorous';
 
-import { IconButton } from '../styledComponents';
+import IconButton from '../IconButton/IconButton';
 
 import TripNavBtn from '../Trip/TripNavBtn';
 
@@ -12,8 +12,10 @@ import cross from '../../assets/img/cross.png'
 
 const NavButtonGroup = glamorous.nav({
   display: 'flex',
+  height: '80vh',
   flexWrap: 'wrap',
-  justifyContent: 'space-around'
+  justifyContent: 'space-around',
+  alignItems: 'space-around'
 })
 
 const MobileMenu = glamorous.nav({
@@ -94,7 +96,7 @@ class NavBar extends Component {
             ? (
               <MobileMenu>
                 <MenuCloseButton>
-                  <IconButton onClick={ this.props.closeMenu }><img src={ cross } alt="close menu" width="15px"/></IconButton>
+                  <IconButton type="secondary" icon="cancel" onClick={ this.props.closeMenu }/>
                 </MenuCloseButton>
                 <ol>
                   { navBar }

@@ -2,38 +2,46 @@ import React, { Component } from 'react';
 import { DateRangePicker } from 'react-dates';
 import axios from 'axios';
 import glamorous from 'glamorous';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import {connect} from 'react-redux';
-import { SmallButton, IconButton, TripHeader } from '../../styledComponents';
 import { START_DATE, END_DATE, VERTICAL_ORIENTATION } from 'react-dates/constants';
 import moment from 'moment';
 
-
 import { getTrips } from '../../../ducks/reducer';
 
-import edit from '../../../assets/img/edit.png';
-import save from '../../../assets/img/save.png';
-import cross from '../../../assets/img/cross.png';
+import { SmallButton, ButtonBar, TripControlDiv } from '../../styledComponents';
 
-const TripControlDiv = glamorous.div({
-  margin: '5px 0 0 5px',
-  textAlign: 'center'
+import IconButton from '../../IconButton/IconButton.js';
+
+import '../../../assets/styles/react_dates_overrides.css'
+
+const TripNameInput = glamorous.input({
+    width: 200,
+    height: 30,
+    marginBottom: 5,
+    textAlign: 'center',
+    fontSize: 33
 })
 
-const EditPosition = glamorous.div({
-    width: '100%',
+export const TripControlBtns = glamorous.span({
     display: 'flex',
-    justifyContent: 'flex-end',
-    marginBottom: 5
-})
+    justifyContent: 'space-around',
+    alignItems: 'center'
+  })
+
+
+// const EditPosition = glamorous.div({
+//     width: '100%',
+//     display: 'flex',
+//     justifyContent: 'flex-end',
+//     marginBottom: 5
+// })
 
 
 class TripControls extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showEdit: false,
-            edit: false,
             tripName: '',
             startDate: null,
             endDate: null,
@@ -42,7 +50,6 @@ class TripControls extends Component {
         }
         this.saveTrip = this.saveTrip.bind(this);
         this.updateName = this.updateName.bind(this);
-        this.toggleEditBtn = this.toggleEditBtn.bind(this);
     }
 
     componentDidMount() {
@@ -69,12 +76,6 @@ class TripControls extends Component {
                 endDate: null
             })
         }
-    }
-
-    toggleEditBtn() {
-        this.state.showEdit
-            ? this.setState({showEdit: false})
-            : this.setState({showEdit: true})
     }
 
     updateName(name) {
@@ -117,7 +118,9 @@ class TripControls extends Component {
                 startdate: sd,
                 enddate: ed
             }).then( () => {
-                this.props.getTrips(this.props.user.userid).then( () => this.setState({edit: false}))
+                this.props.getTrips(this.props.user.userid).then( () => {
+                    this.props.history.push(this.props.history[1])
+                })
             })
         }
     }
@@ -132,49 +135,37 @@ class TripControls extends Component {
 
 
         return (
-            <div>
-                {
-                    this.state.edit
-                        ? (
-                            <TripControlDiv>
-                                <input type="text" value={ tripName } placeholder={ tripName } onChange={ e => this.updateName(e.target.value) }/>
-                                <br/>
-                                <DateRangePicker
-                                    startDate={ this.state.startDate }
-                                    startDateId={ START_DATE }    
-                                    endDate={ this.state.endDate }
-                                    endDateId={ END_DATE }
-                                    orientation={ VERTICAL_ORIENTATION }
-                                    numberOfMonths={ 200 }
-                                    daySize={1}
-                                    onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
-                                    focusedInput={this.state.focusedInput}
-                                    onFocusChange={ focusedInput => this.setState({ focusedInput })}
-                                    startDatePlaceholderText="Start"
-                                    endDatePlaceholderText="End"
-                                />
-                                <br/>
-                                <IconButton type="secondary" onClick={ () => this.setState({edit: false})}><img src={cross} alt="close" width="15px"/> </IconButton>
-                                <IconButton type="secondary" onClick={ this.saveTrip }><img src={save} alt="save" width="15px"/></IconButton>
-                                <SmallButton type="danger">Delete Trip</SmallButton>
-                            </TripControlDiv>
-                        )
-                        : (
-                            <TripControlDiv>
-                                <TripHeader onClick={ this.toggleEditBtn }>{ tripName }</TripHeader>
-                                {
-                                    this.state.showEdit
-                                        ? (
-                                            <EditPosition>
-                                                <IconButton type="secondary" onClick={ () => this.setState({edit: true})}><img src={edit} alt="edit details" width="15px"/></IconButton>
-                                            </EditPosition>
-                                        )
-                                        : null
-                                }
-                            </TripControlDiv>
-                        )
-                }
-            </div>
+            <TripControlDiv>
+                <TripNameInput type="text" value={ tripName } placeholder={ tripName } onChange={ e => this.updateName(e.target.value) }/>
+                <br/>
+                <DateRangePicker
+                    showClearDates={ true }
+                    showDefaultInputIcon={ true }
+                    hideKeyboardShortcutsPanel={ true }
+                    small={ true }
+                    
+                    startDate={ this.state.startDate }
+                    startDateId={ START_DATE }    
+                    endDate={ this.state.endDate }
+                    endDateId={ END_DATE }
+                    orientation={ VERTICAL_ORIENTATION }
+                    numberOfMonths={ 1 }
+                    daySize={35}
+                    onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+                    focusedInput={this.state.focusedInput}
+                    onFocusChange={ focusedInput => this.setState({ focusedInput })}
+                    startDatePlaceholderText="Start"
+                    endDatePlaceholderText="End"
+                />
+                <br/>
+                <TripControlBtns>
+                    <IconButton type="secondary" icon="close" onClick={ () => this.props.history.push(this.props.history[1])}/>
+                    
+                    <IconButton type="secondary" icon="save" onClick={ this.saveTrip }/>
+                    
+                    <IconButton type="danger" icon="dlt"/>
+                </TripControlBtns>
+            </TripControlDiv>
         );
     }
 }

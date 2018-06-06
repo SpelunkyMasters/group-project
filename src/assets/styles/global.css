@@ -7,6 +7,10 @@ html, body {
     /* background-color: #001C55 */
 }
 
+input {
+    font-family: 'Open Sans', sans-serif;
+}
+
 h1 {
     font-family: 'Dosis', sans-serif;
     font-weight: 500;
