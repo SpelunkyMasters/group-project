@@ -64,7 +64,7 @@ class Profile extends Component {
       
         
         <FileUpload />
-        <UserTravelHistory />
+        {/* <UserTravelHistory /> */}
       </div>
     );
   }
