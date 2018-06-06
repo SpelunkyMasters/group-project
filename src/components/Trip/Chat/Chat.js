@@ -2,6 +2,51 @@ import React, { Component } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
 import {connect} from 'react-redux';
+import glamorous from 'glamorous';
+import Message from './Message/Message';
+import image from '../../../assets/img/text_background.jpg'
+import sendIcon from '../../../assets/img/send-button.svg'
+
+const ChatBox=glamorous.div({
+  height:'calc(100vh - 60px)',
+  padding: '20px',
+  width:'106.5%',
+  background: `url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png') center, no-repeat`,
+  backgroundSize: 'cover',
+  marginLeft: '-10px'
+  
+}
+// ({theme})=>({
+  //   backgroundColor:theme.white
+  // })
+)
+const ChatView=glamorous.div({
+  overflow: 'auto',
+  height: 'calc(100vh - 135px)',
+  marginBottom: '5px'
+})
+
+const InputField = glamorous.input({
+  fontSize: '18px',
+  width: '66.5vw',
+  height: '25px',
+  padding: '5px',
+  borderRadius: '35px'
+})
+
+const SendButton = glamorous.button({
+width: '39px',
+height: '39px',
+borderRadius: '50%',
+marginLeft: '10px',
+position:'fixed',
+padding:'6px',
+paddingLeft:'10px'
+},
+({theme}) => ({
+  backgroundColor: theme.sunglow
+})
+)
 
 
 class Chat extends Component {
@@ -19,6 +64,7 @@ class Chat extends Component {
     this.sendMessage = this.sendMessage.bind(this);
     this.componentDidMount=this.componentDidMount.bind(this);
     this.scrollToBottom=this.scrollToBottom.bind(this);
+    this.deleteMessage=this.deleteMessage.bind(this)
 
   }
   componentDidMount() {
@@ -27,7 +73,7 @@ class Chat extends Component {
       this.setState({messages:res.data})
       this.scrollToBottom()
     })
-// socket stuff
+    // socket stuff
     this.socket = io();
     this.socket.on(`${this.state.room} dispatched`, data => {
       this.updateMessage(data);
@@ -53,17 +99,18 @@ class Chat extends Component {
     this.scrollToBottom()
   }
   sendMessage() {
-
-  var message_text=this.state.input;
-  var tripid=this.state.room;
-  const {picture, first_name, last_name, userid}=this.props.user;
-  //posting new message in data base and sending it to socket
-  axios.post('/api/message',{message_text, tripid} ).then(res=>{
-    this.socket.emit('message sent', {
-        message:{message_text, picture, first_name, last_name, userid, messageid:res.data[0].messageid},
-        room: this.state.room
-      })
-})
+    if(this.state.input !== '') {
+      var message_text=this.state.input;
+      var tripid=this.state.room;
+      const {picture, first_name, last_name, userid}=this.props.user;
+      //posting new message in data base and sending it to socket
+      axios.post('/api/message',{message_text, tripid} ).then(res=>{
+        this.socket.emit('message sent', {
+            message:{message_text, picture, first_name, last_name, userid, messageid:res.data[0].messageid},
+            room: this.state.room
+          })
+    })
+    } 
 }
 deleteMessage(messageid){
   //deleting message from database
@@ -85,24 +132,21 @@ scrollToBottom() {
   render() {
     //getting messages array
 var messages=this.state.messages.map((e,i)=>{
-    return <div id={i}><img src={e.picture} alt="profile" height='50px' width='50px'/>
-    {e.first_name} {e.last_name} {e.message_text} {e.userid===this.props.user.userid? <button onClick={()=>this.deleteMessage(e.messageid)}>delete </button>: <p> </p>}</div>
+    return  <Message e={e} key={i} deleteMessage={this.deleteMessage} userid={this.props.user.userid}  />
 })
 
     return (
-      <div className="Tiermessages">
-      
-              
-            <div id="chat">
-                  {
-                  messages
-                  }
-                  <div ref={(el) => { this.el = el; }}></div>
-              </div>
-              {/* inputing and sending message */}
-            <input value={this.state.input} onChange={e=>this.setState({input:e.target.value})}/>
-            <button onClick={this.sendMessage}>Send </button>
-      </div>
+      <ChatBox>
+        <ChatView>
+          {
+            messages
+          }
+          <div ref={(el) => { this.el = el; }}></div>
+        </ChatView>
+        {/* inputing and sending message */}
+        <InputField placeholder="Type a message" value={this.state.input} onChange={e=>this.setState({input:e.target.value})}/>
+        <SendButton onClick={this.sendMessage}><img  width='80%' height='80%' src={sendIcon}/></SendButton>
+      </ChatBox>
     );
   }
 }
