@@ -22,7 +22,7 @@ class Login extends Component {
       <LoginDiv>
         <p>LOGO GOES HERE</p>
         <LoginHeader>Caravan</LoginHeader>
-        <a href={process.env.REACT_APP_LOGIN}><Button type="secondary">Login</Button></a>
+        <a href={process.env.REACT_APP_LOGIN}><Button id="login" type="secondary">Login</Button></a>
       </LoginDiv>
     );
   }

@@ -3,17 +3,18 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import glamorous from 'glamorous';
 
-import { IconButton } from '../styledComponents';
+import IconButton from '../IconButton/IconButton';
 
 import TripNavBtn from '../Trip/TripNavBtn';
 
-import cross from '../../assets/img/cross.png'
-
+import * as tripFns from '../../utils/trips';
 
 const NavButtonGroup = glamorous.nav({
   display: 'flex',
+  height: '80vh',
   flexWrap: 'wrap',
-  justifyContent: 'space-around'
+  justifyContent: 'space-around',
+  alignItems: 'space-around'
 })
 
 const MobileMenu = glamorous.nav({
@@ -57,8 +58,9 @@ class NavBar extends Component {
     const { trips } = this.props
         , { id } = this.props.match.params;
     
-    const currentTrip = trips.filter( trip => trip.tripid === +id)
-        , { trip_name } = currentTrip[0] || 'Trip Name';
+    const currentTrip = tripFns.getCurrentTrip(trips, +id)
+        , { trip_name } = currentTrip || 'Trip Name';
+
 
     const navData = [
       {name: "Home", path: "/home"},
@@ -94,7 +96,7 @@ class NavBar extends Component {
             ? (
               <MobileMenu>
                 <MenuCloseButton>
-                  <IconButton onClick={ this.props.closeMenu }><img src={ cross } alt="close menu" width="15px"/></IconButton>
+                  <IconButton type="secondary" icon="close" onClick={ this.props.closeMenu }/>
                 </MenuCloseButton>
                 <ol>
                   { navBar }

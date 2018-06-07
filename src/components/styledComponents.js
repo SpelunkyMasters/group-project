@@ -8,10 +8,12 @@ export const colors = {
     base: '#464646',
     primary: '#384E77',
     secondary: '#FFD23E',
+    ind: '#384E77',
     default: '#37414E',
     danger: '#FF0000',
     light: '#384E77',
-    border: '#E7E7E7'
+    border: '#E7E7E7',
+    white: '#F9FBFF'
 }
 
 // export const icons = {
@@ -19,7 +21,13 @@ export const colors = {
 //     home: home
 // }
 
-export const IconButton = glamorous.button({
+export const ButtonBar = glamorous.span({
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  })
+
+export const IconBtn = glamorous.button({
     width: 30,
     height: 30,
     borderRadius: '50%',
@@ -54,9 +62,17 @@ export const Button = glamorous.button(
         border: '1px solid',
         borderColor: colors.border,
     },
+    {
+        ':hover': {
+            color: 'white'
+        }
+    }, ({ theme }) => ({
+        color: theme.white
+
+    }),
     props => ({
         backgroundColor: colors[props.type] || colors['default'],
-        // color:
+    
     })
 )
 
@@ -75,22 +91,31 @@ export const SmallButton = glamorous.button(
 )
 
 export const TripHeader = glamorous.h1({
-    color: '#F9FBFF'
+    color: '#F9FBFF',
+    fontSize: 32,
+    marginBottom: 5,
+    textAlign: 'center'
 })
 
 // Trip Component & Children
 
 export const TripControlDiv = glamorous.div({
-    margin: '5px 0 0 5px',
-    textAlign: 'center'
-  })
+    textAlign: 'center',
+    height: '100vh'
+  }, ({ theme }) => ({
+      backgroundColor: theme.mainBg
+  }))
 
 export const EditPosition = glamorous.div({
     width: '100%',
     display: 'flex',
     justifyContent: 'flex-end',
-    marginBottom: 5,
-    marginTop: 10
+    position: 'fixed',
+    right: 0,
+    top: 48,
+    paddingBottom: 10,
+    paddingRight: 15,
+    backgroundColor: 'rgba(0, 0, 0, 0)'
 })
 
 export const ModalMain = glamorous.div({
@@ -107,7 +132,7 @@ export const ModalMain = glamorous.div({
 
 export const ModalBg = glamorous.div({
     position: 'fixed',
-    top: 0,
+    top: -1,
     left: 0,
     width: '100vw',
     height: '100vh',

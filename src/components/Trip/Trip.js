@@ -11,15 +11,11 @@ import TripMembers from '../Trip/TripMembers/TripMembers';
 import {connect} from 'react-redux';
 import {getUser, getAllUsers, getTrips, getInvites} from '../../ducks/reducer';
 import Timeline from './Timeline/Timeline';
-import { IconButton, TripHeader } from '../styledComponents';
-import TripControls from './TripControls/TripControls';
-import MemberControls from './TripControls/MemberControls';
+import { SmallButton, TripHeader, EditPosition } from '../styledComponents';
+import IconButton from '../IconButton/IconButton';
 
-
-// import home from '../../assets/img/home.png';
-import menu from '../../assets/img/menu.png';
-
-// import menuIcon from '../../assets/img/menu.png';
+import * as tripFns from '../../utils/trips';
+import Modal from './TripControls/Modal';
 
 const StyledTripDiv = glamorous.div({
   padding: 10,
@@ -44,10 +40,14 @@ class Trip extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      menuOpen: false
+      menuOpen: false,
+      tripControls: false,
+      leaveModal: false
     }
-    this.openMenu = this.openMenu.bind(this);
-    this.closeMenu = this.closeMenu.bind(this);
+    this.toggleMenu = this.toggleMenu.bind(this);
+    this.toggleLeaveModal = this.toggleLeaveModal.bind(this);
+    this.toggleControls = this.toggleControls.bind(this);
+    this.leaveTrip = this.leaveTrip.bind(this);
   }
 
   componentDidMount(){
@@ -66,35 +66,81 @@ class Trip extends Component {
 
   }
 
-  openMenu() {
-    this.setState({menuOpen: true})
+  toggleMenu() {
+    if( this.state.tripControls ) {
+      this.setState({tripControls: false})
+    }
+
+    this.state.menuOpen
+      ? this.setState({menuOpen: false})
+      : this.setState({menuOpen: true})
   }
 
-  closeMenu() {
-    this.setState({menuOpen: false})
+  toggleControls() {
+    this.state.tripControls
+      ? this.setState({tripControls: false})
+      : this.setState({tripControls: true})
   }
+
+  toggleLeaveModal() {
+    console.log('Toggling modal')
+    if(this.state.tripControls) {
+      this.setState({tripControls: false})
+    }
+    this.state.leaveModal
+      ? this.setState({leaveModal: false})
+      : this.setState({leaveModal: true})
+  }
+
+  leaveTrip() {
+    const { userid } = this.props.user;
+    axios.delete(`/api/trip/${userid}/${this.props.match.params.id}`).then( () => {
+        this.props.getTrips(userid);
+        this.toggleLeaveModal();
+        this.props.history.push('/home');
+    })
+}
+
+
   
   render() {
     const { id } = this.props.match.params
         , { trips } = this.props;
 
-    const currentTrip = trips.filter( trip => trip.tripid === +id)
-        , { trip_name, userid } = currentTrip[0] || 'Trip Name';
+    const currentTrip = tripFns.getCurrentTrip(trips, +id)
+        , { trip_name, userid } = currentTrip || 'Trip Name';
 
     return (
       <StyledTripDiv>
         <NavButtonDiv>
           {
             this.state.menuOpen
-              ? <NavBar navType="menu" closeMenu={ this.closeMenu }/>
-              : <IconButton type="secondary" onClick={ this.openMenu }><img src={ menu } alt="menu" width="15px"/></IconButton>
+              ? <NavBar navType="menu" closeMenu={ this.toggleMenu }/>
+              : <IconButton type="secondary" icon="menu" onClick={ this.toggleMenu }/>
           }
         </NavButtonDiv>
         <TripContainer>
+          <TripHeader onClick={ this.toggleControls }>{ trip_name }</TripHeader>
           {
-            userid === this.props.user.userid
-              ? <TripControls trip={ currentTrip[0]}/>
-              : <MemberControls tripName={ trip_name }/>
+            this.state.tripControls
+              ? (
+                  userid === this.props.user.userid
+                    ? (
+                      <EditPosition>
+                        <NavLink to={ `/edit/${id}` }><IconButton type="white" icon="edit" onClick={ this.toggleControls }/></NavLink>
+                      </EditPosition>)
+                    : (
+                      <EditPosition>
+                        <SmallButton type="danger" onClick={ this.toggleLeaveModal }>Leave</SmallButton>
+                      </EditPosition>
+                    )
+              )
+              : null
+          }
+          {
+            this.state.leaveModal
+              ? <Modal text={`Are you sure you want to leave ${trip_name}?`} affirm={ this.leaveTrip } cancel={ this.toggleLeaveModal}/>
+              : null
           }
           <Switch>
             <Route path="/trip/:id/nav" component={ NavBar } />
@@ -103,6 +149,7 @@ class Trip extends Component {
             <Route path="/trip/:id/chat" component={ Chat } />
             <Route path="/trip/:id/trip-members" component={ TripMembers } />
             <Route path="/trip/:id/timeline" component={ Timeline } />
+            
             {/* <Route path="/trip/:id/group-history" component={} />
             <Route path="/trip/:id/timeline" component={} /> */}
           </Switch>
