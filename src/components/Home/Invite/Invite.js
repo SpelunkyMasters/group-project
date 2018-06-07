@@ -1,6 +1,6 @@
 import React from 'react';
 import glamorous from 'glamorous';
-import IconButton from '../../IconButton/IconButton';
+import IconButton from '../../buttons/IconButton/IconButton';
 
 const InviteContainer = glamorous.div({
     border: '1px solid',
