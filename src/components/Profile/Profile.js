@@ -5,7 +5,66 @@ import {connect} from 'react-redux';
 import {getUser,getTrips} from '../../ducks/reducer';
 import axios from 'axios';
 import UserTravelHistory from './UserTravelHistory/UserTravelHistory'
+import glamorous from 'glamorous';
+import arrow from '../../assets/svg/thin-arrow-pointing-left.svg'
+import {Button} from '../styledComponents'
 
+const Header=glamorous.div({
+  height:'20vh',
+  width:'100%',
+  display:'flex',
+  justifyContent: 'flex-start',
+  alignItems: 'flex-end',
+  padding:'  0 0 20px 30px'
+  
+
+}, ({ theme }) => ({
+    backgroundColor: theme.mainBg,
+    color: theme.mainText
+}))
+const HeaderText=glamorous.h1({
+  marginLeft:47,
+  fontSize:30
+})
+const PictureEdit=glamorous.div({
+  display:'flex',
+  height:'30vh',
+  flexDirection:'row',
+  alignItems: 'center',
+})
+const ProfilePicture=glamorous.img({
+  borderRadius:'50%',
+  width:'120px',
+   height:'120px',
+   marginLeft:20
+})
+const InfoPart=glamorous.div({
+  height:'50vh',
+  display: 'flex',
+  flexDirection:'column',
+  justifyContent: 'space-around',
+  padding:'50px 25px'
+})
+const P=glamorous.p({
+  margin:'10px 0',
+  height:19,
+  color:'grey'
+})
+const Input=glamorous.input({
+  fontSize:12,
+  width:165,
+  margin:0
+})
+const PHeader=glamorous.p({
+  color:'black',
+  display:'inline-block'
+})
+const ButtonDiv=glamorous.div({
+  display:'flex',
+  alignItems: 'center',
+  justifyContent: 'space-around',
+
+})
 
 class Profile extends Component {
   constructor(){
@@ -42,28 +101,40 @@ class Profile extends Component {
   render() {
     return (
       <div className="Profile">
-        <NavLink to="/home"><button>Home</button></NavLink>
-        <h1>Profile</h1>
-        <img src={this.props.user.picture} alt="profile" width='100px' height='100px'/>
+      <Header>
+        <NavLink to="/home"><button><img  width='30px' height='30px'  src={arrow}/></button></NavLink>
+        <HeaderText>Profile</HeaderText>
+      </Header>
+      <PictureEdit>
+       <ProfilePicture src={this.props.user.picture} alt="profile" />
+        <FileUpload />
+      </PictureEdit>
         {!this.state.edit?
-        <div>
-        <p>{this.state.first_name}</p>
-        <p>{this.state.last_name}</p>
-        <p>{this.state.email}</p>
-        <button onClick={()=>this.setState({edit:true})}>Edit</button>
-        </div>
+        <InfoPart>
+          <div>
+        <P>First name: <PHeader>{this.state.first_name}</PHeader></P>
+        <P>Last name: <PHeader>{this.state.last_name}</PHeader></P>
+        <P>Email: <PHeader>{this.state.email}</PHeader></P>
+          </div>
+          
+        <Button type='secondary' style={{margin:'0 auto'}} onClick={()=>this.setState({edit:true})}>EDIT</Button>
+        </InfoPart>
                       :
-        <div>
-        <input value={this.state.first_name} onChange={e=>this.setState({first_name:e.target.value})}/>
-        <input value={this.state.last_name} onChange={e=>this.setState({last_name:e.target.value})}/>
-        <input value={this.state.email} onChange={e=>this.setState({email:e.target.value})}/>
-        <button onClick={()=>this.saveChanges()}>Save</button>
-        <button onClick={()=>this.cancelChanges()}>Cancel</button>
-        </div>
+        <InfoPart>
+          <div>
+        <P>First name: <Input value={this.state.first_name} onChange={e=>this.setState({first_name:e.target.value})}/></P>
+        <P>Last name: <Input value={this.state.last_name} onChange={e=>this.setState({last_name:e.target.value})}/></P>
+        <P>Email: <Input style={{width:'200px'}} value={this.state.email} onChange={e=>this.setState({email:e.target.value})}/></P>
+          </div>
+          <ButtonDiv>
+        <Button type='secondary' onClick={()=>this.saveChanges()}>SAVE</Button>
+        <Button type='primary' style={{color:'white'}} onClick={()=>this.cancelChanges()}>CANCEL</Button>
+          </ButtonDiv>
+        </InfoPart>
         }
       
         
-        <FileUpload />
+        
         {/* <UserTravelHistory /> */}
       </div>
     );

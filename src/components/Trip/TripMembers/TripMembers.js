@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import AddRemove from './AddRemove/AddRemove';
 import axios from 'axios';
+import glamorous from 'glamorous';
+
 
 class TripMembers extends Component {
   constructor(){
@@ -59,7 +61,7 @@ this.setState({invited:[...this.state.invited, invited]})
   render() {
 
     return (
-      <div>
+      <div >
           TripMembers
           {this.state.users}
           Invited people
