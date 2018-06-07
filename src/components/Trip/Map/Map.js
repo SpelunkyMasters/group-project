@@ -11,13 +11,14 @@ class Map extends Component {
     super();
     this.state = {
       currentMarker: {},
-      destType: 'Minor Stop',
+      destType: '',
       destid: '',
     }
   }
 
   componentDidMount() {
     this.props.getItinerary(this.props.match.params.id)
+    
   }
 
   updateCurrentMarker = (marker) => {

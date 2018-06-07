@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import glamorous from 'glamorous'
 
 const MapStyles = {
-    height:'84%',
+    height:'calc(100% - 136px)',
     width:'100%',
     marginLeft: '-10px',
     // zIndex: '-1'

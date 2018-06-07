@@ -39,12 +39,12 @@ const InputField = glamorous.input({
 
 const AddButton = glamorous.button({
   fontSize: '13px',
-  border: 'none',
+  border: '1px solid black',
   backgroundColor: '#FFD23E',
   padding: '5px 10px',
   height: '25px',
   borderRadius: '5px',
-  marginLeft: '10px',  
+  marginLeft: '15px',  
 })
 
 
@@ -110,27 +110,25 @@ class SearchBox extends Component {
           >
             {({ getInputProps, suggestions, getSuggestionItemProps }) => (
               <div>        
-                    <Div display="flex" flexDirection="row" justifyContent="space-between" margin="10px 0">     
+                <Div display="flex" flexDirection="row" justifyContent="space-between" margin="10px 0">     
                 <InputField
                   {...getInputProps({
                     placeholder: 'Search Places ...',
                     className: 'location-search-input'
                   })}
                 />
-                <div className="autocomplete-dropdown-container">
+                <Div position="fixed" top="91px" left="10px" zIndex="1" borderRadius="15px" width="calc(100% - 20px)" backgroundColor="#fff" className="autocomplete-dropdown-container">
                   {suggestions.map(suggestion => {
                     const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
                     // inline style for demonstration purpose
-                    const style = suggestion.active
-                                ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                    const style = { backgroundColor: '#ffffff', cursor: 'pointer', padding: '5px', borderBottom: '1px solid lightgray', width: '100%' };
                     return (
                       <div {...getSuggestionItemProps(suggestion, { className, style })}>
                         <span>{suggestion.description}</span>
                       </div>
                     )
                   })}
-                </div>
+                </Div>
                     <SelectMenu type="main" onChange={e => this.props.handleDestType(e.target.value)}>
                     {
                       this.props.destType === ''?
@@ -141,7 +139,7 @@ class SearchBox extends Component {
                       <option value="Minor Stop">Minor Stop</option>
                     </SelectMenu>
                     </Div>
-                    <Div display='flex' flexDirection='row' width="100%" jestifyContent='space-between' marginBottom='10px'>
+                    <Div display='flex' flexDirection='row' width="100%" justifyContent='center' marginBottom='10px' >
                   {
                     this.props.destType === 'Minor Stop' ?
                     (
