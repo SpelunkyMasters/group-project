@@ -1,6 +1,24 @@
 import React, { Component } from 'react';
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete'
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import glamorous, { Div } from 'glamorous'
+
+const InputField = glamorous.input({
+  fontSize: '13px',
+  width: '50vw',
+  height: '20px',
+  padding: '0 10px',
+  borderRadius: '35px',
+  margin: "10px",
+})
+
+const FirstSelect = glamorous.select({
+  fontSize: '13',
+  float: 'right',
+  height: '25px',
+  marginTop: '10px',
+  borderRadius: '15px'
+})
 
 class SearchBox extends Component {
     constructor(props) {
@@ -63,8 +81,9 @@ class SearchBox extends Component {
             onSelect={this.handleSelect}
           >
             {({ getInputProps, suggestions, getSuggestionItemProps }) => (
-              <div>
-                <input
+              <div>        
+                    <Div display="flex" flexDirection="row" >     
+                <InputField
                   {...getInputProps({
                     placeholder: 'Search Places ...',
                     className: 'location-search-input'
@@ -83,16 +102,17 @@ class SearchBox extends Component {
                       </div>
                     )
                   })}
-                  <select onChange={e => this.props.handleDestType(e.target.value)}>
-                  {
-                    this.props.destType === ''?
-                    <option value="" selected>--Select One--</option> :
-                    <option value="" >--Select One--</option>
-                  }
-                    <option value="Main Stop">Main Stop</option>
-                    <option value="Minor Stop">Minor Stop</option>
-                  </select>
-
+                </div>
+                    <FirstSelect onChange={e => this.props.handleDestType(e.target.value)}>
+                    {
+                      this.props.destType === ''?
+                      <option value="" selected>--Select One--</option> :
+                      <option value="" >--Select One--</option>
+                    }
+                      <option value="Main Stop">Main Stop</option>
+                      <option value="Minor Stop">Minor Stop</option>
+                    </FirstSelect>
+                    </Div>
                   {
                     this.props.destType === 'Minor Stop' ?
                     (
@@ -105,7 +125,6 @@ class SearchBox extends Component {
                   }
                   
                   <button onClick={this.addToItinerary}>Add To Itinerary</button>
-                </div>
               </div>
             )}
           </PlacesAutocomplete>
