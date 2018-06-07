@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import { connect } from 'react-redux'
+import glamorous from 'glamorous'
+
+const MapStyles = {
+    height:'84%',
+    width:'100%',
+    marginLeft: '-10px',
+    // zIndex: '-1'
+}
 
 class MapContainer extends Component {
     constructor() {
@@ -135,49 +143,51 @@ class MapContainer extends Component {
       }
 
     return (
-      <Map
-        google={this.props.google}
-        onclick={this.onMapClicked}
-        initialCenter={{
-            lat: 40.226295, 
-            lng: -111.660777
-        }}
-        center={center}
-        zoom={zoom}
-        bounds={bounds}
-      >
-        {itin}
-      {
-                this.props.currentMarker.lat ?
-                <Marker
-                  onClick={this.onMarkerClick}
-                  name={this.props.currentMarker.name}
-                  title={this.props.currentMarker.address}
-                  position={{lat: this.props.currentMarker.lat, lng: this.props.currentMarker.lng}} /> :
-                null
+            <Map
+                google={this.props.google}
+                onclick={this.onMapClicked}
+                initialCenter={{
+                    lat: 40.226295, 
+                    lng: -111.660777
+                }}
+                center={center}
+                zoom={zoom}
+                bounds={bounds}
+                // style={MapStyles}
+                containerStyle={MapStyles}
+            >
+                {itin}
+            {
+                        this.props.currentMarker.lat ?
+                        <Marker
+                        onClick={this.onMarkerClick}
+                        name={this.props.currentMarker.name}
+                        title={this.props.currentMarker.address}
+                        position={{lat: this.props.currentMarker.lat, lng: this.props.currentMarker.lng}} /> :
+                        null
 
-              }
-              <InfoWindow
-              marker={this.state.activeMarker}
-              visible={this.state.showingInfoWindow}
-              onClose={this.onMapClicked}
-              >
-                {
-                    this.state.selectedPlace.title ?
-                    this.state.selectedPlace.title.includes(this.state.selectedPlace.name) ?
-                        <p>{this.state.selectedPlace.title}</p> :
-                    (
-                        <div>
-                            <p>{this.state.selectedPlace.name}</p>
-                            <p>{this.state.selectedPlace.title}</p>
-                        </div>
-                    ) :
-                    <div></div>
-              
-                }
+                    }
+                    <InfoWindow
+                    marker={this.state.activeMarker}
+                    visible={this.state.showingInfoWindow}
+                    onClose={this.onMapClicked}
+                    >
+                        {
+                            this.state.selectedPlace.title ?
+                            this.state.selectedPlace.title.includes(this.state.selectedPlace.name) ?
+                                <p>{this.state.selectedPlace.title}</p> :
+                            (
+                                <div>
+                                    <p>{this.state.selectedPlace.name}</p>
+                                    <p>{this.state.selectedPlace.title}</p>
+                                </div>
+                            ) :
+                            <div></div>
                     
-            </InfoWindow>
-      </Map>
+                        }
+                            
+                    </InfoWindow>
+            </Map>
     );
   }
 }

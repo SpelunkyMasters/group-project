@@ -4,22 +4,19 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import glamorous from 'glamorous';
 import Message from './Message/Message';
-import image from '../../../assets/img/text_background.jpg'
+import image from '../../../assets/img/text_background.png'
 import sendIcon from '../../../assets/img/send-button.svg'
 
 const ChatBox=glamorous.div({
   height:'calc(100vh - 60px)',
   padding: '20px',
   width:'106.5%',
-  background: `url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png') center, no-repeat`,
+  background: `url('${image}') center, no-repeat`,
   backgroundSize: 'cover',
   marginLeft: '-10px'
   
-}
-// ({theme})=>({
-  //   backgroundColor:theme.white
-  // })
-)
+})
+
 const ChatView=glamorous.div({
   overflow: 'auto',
   height: 'calc(100vh - 135px)',
