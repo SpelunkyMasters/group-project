@@ -91,6 +91,26 @@ app.get('/logout', function(req,res){
     req.logOut();
     res.redirect(FAILURE_REDIRECT)
     })
+
+
+// AuthChecker for DeleteTrip
+function authCheck(req, res, next) {
+    const db = app.get('db')
+        , { userid } = req.user
+        , { tripid } = req.params;
+
+    console.log(`User ${userid} is trying to delete trip ${tripid}`)
+    
+    db.trips.get_trip_userid(+tripid).then( result => {
+        if( result[0].userid === userid) {
+            next()
+        } else {
+            res.status(401).send('You are not the trip organizer')
+        }
+    }).catch(err => console.log('Error getting trip userid: ', err))
+}
+
+
 //                         MESSAGE TRIP USER
 
 //storing the message
@@ -111,6 +131,8 @@ app.delete('/api/trip/:userid/:tripid', controller.deleteFromTrip)
 app.put('/api/user', controller.updateUser)
 // update trip details
 app.put('/api/trips/:tripid', controller.updateTrip);
+// Delete the Trip - Will Check with Authentication Middleware
+app.delete('/api/trips/:tripid', authCheck, controller.deleteTrip)
 
 
 
@@ -132,7 +154,7 @@ app.get('/api/tripusers/:id', controller2.getInvitedUsers)
 app.delete('/api/invite/:userid/:tripid', controller2.declineInvite)
 // Get all user invites
 app.get('/api/invites/:userid', controller2.getInvites)
-// accepting invite by tripid(add to user_trips/delete from invitations)
+// accepting invite by tripid(add to user_trips/delete from invites)
 app.post('/api/invite/:tripid', controller2.acceptInvite)
 
 

@@ -9,56 +9,69 @@ import moment from 'moment';
 
 import { getTrips } from '../../../ducks/reducer';
 
-import { SmallButton, ButtonBar, TripControlDiv } from '../../styledComponents';
+import { Button, SmallButton, ButtonBar, TripControlDiv } from '../../styledComponents';
 
-import IconButton from '../../IconButton/IconButton.js';
+
+import Modal from './Modal';
+
+import * as tripFns from '../../../utils/trips';
 
 import '../../../assets/styles/react_dates_overrides.css'
 
 const TripNameInput = glamorous.input({
-    width: 200,
-    height: 30,
+    marginTop: 50,
+    width: 278,
+    height: 42,
+    borderRadius: 2,
+    border: 'none',
     marginBottom: 5,
     textAlign: 'center',
-    fontSize: 33
+    fontSize: 30
 })
 
-export const TripControlBtns = glamorous.span({
+const TripControlBtns = glamorous.span({
+    marginTop: 20,
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center'
   })
 
+const DeleteBtnDiv = glamorous.div({
+    height: 300,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-end'
+})
 
-// const EditPosition = glamorous.div({
-//     width: '100%',
-//     display: 'flex',
-//     justifyContent: 'flex-end',
-//     marginBottom: 5
-// })
+const initialStart = moment('Mon Jul 02 2018 12:00:00 GMT-0600');
+const initialEnd = moment('Tue Jul 03 2018 12:00:00 GMT-0600');
 
 
 class TripControls extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            tripName: '',
-            startDate: null,
-            endDate: null,
+            charWarning: false,
+            tripName: 'Trip',
+            startDate: initialStart,
+            endDate: initialEnd,
             focusedInput: null,
             deleteModal: false
         }
         this.saveTrip = this.saveTrip.bind(this);
+        this.deleteTrip = this.deleteTrip.bind(this);
+        this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
         this.updateName = this.updateName.bind(this);
+        this.cancel = this.cancel.bind(this);
     }
 
     componentDidMount() {
         const { id } = this.props.match.params
             , { trips } = this.props;
 
-        // currentTrip[0] stores the trip user is currently looking at, based on this.props.match.params.id
-        const currentTrip = trips.filter( trip => trip.tripid === +id)
-            , { trip_name, startdate, enddate } = currentTrip[0] || 'Trip Name';
+        // getCurrentTrip function returns a trip object based on the params id
+        const currentTrip = tripFns.getCurrentTrip(trips, +id)
+            , { trip_name, startdate, enddate } = currentTrip || 'Trip Name';
         if(startdate && enddate) {
             // This formats the date string saved on our DB IF it is not null.
             let newStartDate = moment(startdate),
@@ -78,6 +91,12 @@ class TripControls extends Component {
         }
     }
 
+    toggleDeleteModal() {
+        this.state.deleteModal
+            ? this.setState({deleteModal: false})
+            : this.setState({deleteModal: true})
+    }
+
     updateName(name) {
         this.setState({
             tripName: name
@@ -86,24 +105,10 @@ class TripControls extends Component {
 
     deleteTrip() {
         axios.delete(`/api/trip/${this.props.match.params.id}`).then( () => {
-            this.props.getTrips();
+            this.props.getTrips(this.props.user.userid);
             this.props.history.push('/home');
         })
     }
-
-    // Delete trip
-    /*
-    app.delete('/api/trip/:tripid', controller.deleteTrip);
-
-
-
-    deleteTrip: (req, res, next) => {
-        const db = req.app.get('db')
-            , { tripid } = req.params;
-
-        db.trips.
-    }
-    */
     
     saveTrip() {
         // To store dates on DB, invoke moment with the date, followed by toString()
@@ -113,27 +118,37 @@ class TripControls extends Component {
             let sd = moment(this.state.startDate).toString();
             let ed = moment(this.state.endDate).toString();
             
-            axios.put(`/api/trips/${this.props.match.params.id}/`, {
+            axios.put(`/api/trips/${this.props.match.params.id}`, {
                 trip_name: this.state.tripName,
                 startdate: sd,
                 enddate: ed
             }).then( () => {
                 this.props.getTrips(this.props.user.userid).then( () => {
-                    this.props.history.push(this.props.history[1])
+                    this.props.history.goBack();
                 })
             })
         }
     }
 
+    deleteTrip() {
+        axios.delete(`/api/trips/${this.props.match.params.id}`).then( res => {
+            console.log('Result: ', res.data)
+            this.props.getTrips(this.props.user.userid).then( () => {
+                this.toggleDeleteModal();
+                this.props.history.push('/home');
+            })
+        }).catch(err => console.log('Error deleting trip: ', err))
+    }
+
+    cancel() {
+        console.log('Cancel button')
+        this.props.history.goBack();
+    }
 
     render() {
+        console.log('History: ', this.props.history)
         const { tripName } = this.state;
-
-        let tripId = this.props.match.params.id;
-
-
-
-
+ 
         return (
             <TripControlDiv>
                 <TripNameInput type="text" value={ tripName } placeholder={ tripName } onChange={ e => this.updateName(e.target.value) }/>
@@ -141,15 +156,14 @@ class TripControls extends Component {
                 <DateRangePicker
                     showClearDates={ true }
                     showDefaultInputIcon={ true }
-                    hideKeyboardShortcutsPanel={ true }
                     small={ true }
-                    
+                    withPortal={ true }
                     startDate={ this.state.startDate }
                     startDateId={ START_DATE }    
                     endDate={ this.state.endDate }
                     endDateId={ END_DATE }
                     orientation={ VERTICAL_ORIENTATION }
-                    numberOfMonths={ 1 }
+                    numberOfMonths={ 2 }
                     daySize={35}
                     onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
                     focusedInput={this.state.focusedInput}
@@ -159,12 +173,21 @@ class TripControls extends Component {
                 />
                 <br/>
                 <TripControlBtns>
-                    <IconButton type="secondary" icon="close" onClick={ () => this.props.history.push(this.props.history[1])}/>
+                    <Button type="ind" icon="close" onClick={ this.cancel }>Cancel</Button>
                     
-                    <IconButton type="secondary" icon="save" onClick={ this.saveTrip }/>
-                    
-                    <IconButton type="danger" icon="dlt"/>
+                    <Button type="secondary" onClick={ this.saveTrip }>Save</Button>
                 </TripControlBtns>
+                {
+                    this.state.deleteModal
+                        ? <Modal 
+                            text={`Are you sure you want to delete ${tripName}? This cannot be undone.`}
+                            affirm={ this.deleteTrip }
+                            cancel={ this.toggleDeleteModal }/>
+                        : null
+                }
+                <DeleteBtnDiv>
+                    <Button type="danger" onClick={ this.toggleDeleteModal }>Delete</Button>
+                </DeleteBtnDiv>
             </TripControlDiv>
         );
     }

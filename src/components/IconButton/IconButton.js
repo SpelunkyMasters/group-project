@@ -33,7 +33,7 @@ class IconButton extends Component {
     }
     render() {
         return(
-            <IconBtn type={this.props.type}>
+            <IconBtn type={this.props.type} onClick={ this.props.onClick }>
                 <img src={ buttonIcons[this.props.icon].ico } alt={ buttonIcons[this.props.icon].desc} width={`${this.props.size}px`}/>
             </IconBtn>  
         ) 
@@ -43,7 +43,8 @@ class IconButton extends Component {
 IconButton.propTypes = {
     type: PropTypes.string,
     icon: PropTypes.string,
-    size: PropTypes.number
+    size: PropTypes.number,
+    onClick: PropTypes.func
 }
 
 IconButton.defaultProps = {

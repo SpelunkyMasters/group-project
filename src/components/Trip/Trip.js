@@ -14,11 +14,8 @@ import Timeline from './Timeline/Timeline';
 import { SmallButton, TripHeader, EditPosition } from '../styledComponents';
 import IconButton from '../IconButton/IconButton';
 
-// import home from '../../assets/img/home.png';
-import menu from '../../assets/img/menu.png';
-import edit from '../../assets/img/edit.png';
-
-// import menuIcon from '../../assets/img/menu.png';
+import * as tripFns from '../../utils/trips';
+import Modal from './TripControls/Modal';
 
 const StyledTripDiv = glamorous.div({
   padding: 10,
@@ -44,10 +41,13 @@ class Trip extends Component {
     super(props);
     this.state = {
       menuOpen: false,
-      tripControls: false
+      tripControls: false,
+      leaveModal: false
     }
     this.toggleMenu = this.toggleMenu.bind(this);
+    this.toggleLeaveModal = this.toggleLeaveModal.bind(this);
     this.toggleControls = this.toggleControls.bind(this);
+    this.leaveTrip = this.leaveTrip.bind(this);
   }
 
   componentDidMount(){
@@ -67,6 +67,10 @@ class Trip extends Component {
   }
 
   toggleMenu() {
+    if( this.state.tripControls ) {
+      this.setState({tripControls: false})
+    }
+
     this.state.menuOpen
       ? this.setState({menuOpen: false})
       : this.setState({menuOpen: true})
@@ -77,13 +81,34 @@ class Trip extends Component {
       ? this.setState({tripControls: false})
       : this.setState({tripControls: true})
   }
+
+  toggleLeaveModal() {
+    console.log('Toggling modal')
+    if(this.state.tripControls) {
+      this.setState({tripControls: false})
+    }
+    this.state.leaveModal
+      ? this.setState({leaveModal: false})
+      : this.setState({leaveModal: true})
+  }
+
+  leaveTrip() {
+    const { userid } = this.props.user;
+    axios.delete(`/api/trip/${userid}/${this.props.match.params.id}`).then( () => {
+        this.props.getTrips(userid);
+        this.toggleLeaveModal();
+        this.props.history.push('/home');
+    })
+}
+
+
   
   render() {
     const { id } = this.props.match.params
         , { trips } = this.props;
 
-    const currentTrip = trips.filter( trip => trip.tripid === +id)
-        , { trip_name, userid } = currentTrip[0] || 'Trip Name';
+    const currentTrip = tripFns.getCurrentTrip(trips, +id)
+        , { trip_name, userid } = currentTrip || 'Trip Name';
 
     return (
       <StyledTripDiv>
@@ -106,10 +131,15 @@ class Trip extends Component {
                       </EditPosition>)
                     : (
                       <EditPosition>
-                        <NavLink to={ `/leave/${id}` }><SmallButton type="danger" onClick={ this.toggleControls }>Leave</SmallButton></NavLink>
+                        <SmallButton type="danger" onClick={ this.toggleLeaveModal }>Leave</SmallButton>
                       </EditPosition>
                     )
               )
+              : null
+          }
+          {
+            this.state.leaveModal
+              ? <Modal text={`Are you sure you want to leave ${trip_name}?`} affirm={ this.leaveTrip } cancel={ this.toggleLeaveModal}/>
               : null
           }
           <Switch>

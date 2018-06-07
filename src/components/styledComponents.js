@@ -62,9 +62,17 @@ export const Button = glamorous.button(
         border: '1px solid',
         borderColor: colors.border,
     },
+    {
+        ':hover': {
+            color: 'white'
+        }
+    }, ({ theme }) => ({
+        color: theme.white
+
+    }),
     props => ({
         backgroundColor: colors[props.type] || colors['default'],
-        // color:
+    
     })
 )
 
@@ -124,7 +132,7 @@ export const ModalMain = glamorous.div({
 
 export const ModalBg = glamorous.div({
     position: 'fixed',
-    top: 0,
+    top: -1,
     left: 0,
     width: '100vw',
     height: '100vh',
