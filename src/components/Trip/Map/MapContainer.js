@@ -6,7 +6,8 @@ import glamorous from 'glamorous'
 const MapStyles = {
     height:'84%',
     width:'100%',
-    marginLeft: '-10px'
+    marginLeft: '-10px',
+    // zIndex: '-1'
 }
 
 class MapContainer extends Component {

@@ -11,7 +11,7 @@ class Map extends Component {
     super();
     this.state = {
       currentMarker: {},
-      destType: '',
+      destType: 'Minor Stop',
       destid: '',
     }
   }

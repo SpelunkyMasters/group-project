@@ -5,19 +5,46 @@ import glamorous, { Div } from 'glamorous'
 
 const InputField = glamorous.input({
   fontSize: '13px',
-  width: '50vw',
+  width: '65vw',
   height: '20px',
-  padding: '0 10px',
+  padding: '3px 10px',
   borderRadius: '35px',
-  margin: "10px",
+  marginRight: "9px",
+  border: "none",
+  boxShadow: "1px 1px 5px rgba(0, 0, 0, 0.5) inset",
+  ":focus": {
+      outline: 0,
+     }
 })
 
-const FirstSelect = glamorous.select({
-  fontSize: '13',
-  float: 'right',
+const SelectMenu = glamorous.select({
+  fontSize: '13px',
+  height: '26px',
+  padding: '3px 5px',
+  borderRadius: '15px',
+},
+({type}) => {
+  if(type === 'main') {
+    return {
+      width: '100px'
+      // marginTop: '10px',    
+      }
+  }
+  if(type === 'minor'){
+    return {
+      width: '50%'
+    }
+  }
+})
+
+const AddButton = glamorous.button({
+  fontSize: '13px',
+  border: 'none',
+  backgroundColor: 'purple',
+  padding: '5px 10px',
   height: '25px',
-  marginTop: '10px',
-  borderRadius: '15px'
+  borderRadius: '5px',
+  marginLeft: '10px'
 })
 
 class SearchBox extends Component {
@@ -41,8 +68,8 @@ class SearchBox extends Component {
           let CurrentMarker = {
             lat: results[0].geometry.location.lat(),
             lng: results[0].geometry.location.lng(),
-            place_id: results[0].place_id
-,            name: name,
+            place_id: results[0].place_id,
+            name: name,
             address: currentAddress
           }
           
@@ -82,7 +109,7 @@ class SearchBox extends Component {
           >
             {({ getInputProps, suggestions, getSuggestionItemProps }) => (
               <div>        
-                    <Div display="flex" flexDirection="row" >     
+                    <Div display="flex" flexDirection="row" justifyContent="space-between" margin="10px 0">     
                 <InputField
                   {...getInputProps({
                     placeholder: 'Search Places ...',
@@ -103,28 +130,30 @@ class SearchBox extends Component {
                     )
                   })}
                 </div>
-                    <FirstSelect onChange={e => this.props.handleDestType(e.target.value)}>
+                    <SelectMenu type="main" onChange={e => this.props.handleDestType(e.target.value)}>
                     {
                       this.props.destType === ''?
-                      <option value="" selected>--Select One--</option> :
-                      <option value="" >--Select One--</option>
+                      <option value="" selected>Select One</option> :
+                      <option value="" >Select One</option>
                     }
                       <option value="Main Stop">Main Stop</option>
                       <option value="Minor Stop">Minor Stop</option>
-                    </FirstSelect>
+                    </SelectMenu>
                     </Div>
+                    <Div display='flex' flexDirection='row' width="100%" jestifyContent='space-between' marginBottom='10px'>
                   {
                     this.props.destType === 'Minor Stop' ?
                     (
-                      <select onChange={e => this.props.handleSubDest(e.target.value, e)}>
+                      <SelectMenu type="minor" onChange={e => this.props.handleSubDest(e.target.value, e)}>
                   <option >--Select One--</option>
                     {subDestMenu}
-                  </select>
+                  </SelectMenu>
                     ) :
                     null
                   }
                   
-                  <button onClick={this.addToItinerary}>Add To Itinerary</button>
+                  <AddButton type='border' onClick={this.addToItinerary}>Add To Itinerary</AddButton>
+                  </Div>
               </div>
             )}
           </PlacesAutocomplete>
