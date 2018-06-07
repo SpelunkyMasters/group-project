@@ -3,7 +3,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import glamorous from 'glamorous';
 
-import IconButton from '../IconButton/IconButton';
+import IconButton from '../buttons/IconButton/IconButton';
 
 import TripNavBtn from '../Trip/TripNavBtn';
 

@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { IconBtn } from '../styledComponents';
-import menu from '../../assets/img/menu.png';
-import bin from '../../assets/img/delete.png';
-import edit from '../../assets/img/edit.png';
-import checkmark from '../../assets/img/checkmark.png';
-import cross from '../../assets/img/cross.png';
-import exit from '../../assets/img/exit.png';
-import home from '../../assets/img/home.png';
-import plus from '../../assets/img/plus.png';
-import save from '../../assets/img/save.png';
-import minus from '../../assets/img/minus.png'
+import { IconBtn } from '../../styledComponents';
+import menu from '../../../assets/img/menu.png';
+import bin from '../../../assets/img/delete.png';
+import edit from '../../../assets/img/edit.png';
+import checkmark from '../../../assets/img/checkmark.png';
+import cross from '../../../assets/img/cross.png';
+import exit from '../../../assets/img/exit.png';
+import home from '../../../assets/img/home.png';
+import plus from '../../../assets/img/plus.png';
+import save from '../../../assets/img/save.png';
+import minus from '../../../assets/img/minus.png'
 
 const buttonIcons = {
     menu: {ico: menu, desc: 'menu'},
