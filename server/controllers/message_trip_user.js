@@ -73,19 +73,22 @@ module.exports={
         .then( trip => {res.status(200).send(trip[0])})
         .catch( err => res.status(500).send(err))
     },
-    deleteTrip: (req, res, next) => {
-        const db = req.app.get('db')
-            , { tripid } = req.params;
-
-        
-    },
     createTrip: (req, res, next) => {
         const db = req.app.get('db')
-            , { userid } = req.params;
+        , { userid } = req.params;
         
         db.trips.create_trip(+userid).then( trip => {
             res.status(200).send(trip[0])
         }).catch( err => res.status(500).send(err))
+    },
+    deleteTrip: (req, res, next) => {
+        const db = req.app.get('db')
+            , { tripid } = req.params
+            , tripToDelete = + tripid; 
+        
+        db.trips.delete_trip(tripToDelete).then( () => {
+            res.status(200).send(`Trip ${tripid} successfully deleted`);
+        }).catch(err => console.log('Error deleting trip: ', err))
     }
-
+    
 }

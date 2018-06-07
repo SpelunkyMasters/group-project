@@ -7,8 +7,7 @@ import IconButton from '../IconButton/IconButton';
 
 import TripNavBtn from '../Trip/TripNavBtn';
 
-import cross from '../../assets/img/cross.png'
-
+import * as tripFns from '../../utils/trips';
 
 const NavButtonGroup = glamorous.nav({
   display: 'flex',
@@ -59,8 +58,9 @@ class NavBar extends Component {
     const { trips } = this.props
         , { id } = this.props.match.params;
     
-    const currentTrip = trips.filter( trip => trip.tripid === +id)
-        , { trip_name } = currentTrip[0] || 'Trip Name';
+    const currentTrip = tripFns.getCurrentTrip(trips, +id)
+        , { trip_name } = currentTrip || 'Trip Name';
+
 
     const navData = [
       {name: "Home", path: "/home"},
@@ -96,7 +96,7 @@ class NavBar extends Component {
             ? (
               <MobileMenu>
                 <MenuCloseButton>
-                  <IconButton type="secondary" icon="cancel" onClick={ this.props.closeMenu }/>
+                  <IconButton type="secondary" icon="close" onClick={ this.props.closeMenu }/>
                 </MenuCloseButton>
                 <ol>
                   { navBar }
