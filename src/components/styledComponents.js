@@ -13,7 +13,14 @@ export const colors = {
     danger: '#FF0000',
     light: '#384E77',
     border: '#E7E7E7',
-    white: '#F9FBFF'
+    white: '#EEF0F3'
+    // white: '#F9FBFF'
+}
+
+const sizes = {
+    small: {height: 25, padding: "5px 10px"},
+    regular: {height: 40, padding: "10px 15px"},
+    large: {height: 50, padding: "15px 20px"}
 }
 
 // export const icons = {
@@ -56,7 +63,6 @@ export const LargeIcon = glamorous.button({
 
 export const Button = glamorous.button(
     {
-        width: 90,
         height: 40,
         borderRadius: 4,
         border: '1px solid',
@@ -72,7 +78,8 @@ export const Button = glamorous.button(
     }),
     props => ({
         backgroundColor: colors[props.type] || colors['default'],
-    
+        color: props.type === 'secondary' ? 'black' : 'white',
+        width: props.size === 'regular' ? 90 : 'auto'
     })
 )
 
@@ -115,6 +122,7 @@ export const EditPosition = glamorous.div({
     top: 48,
     paddingBottom: 10,
     paddingRight: 15,
+    transition: '2s ease-in-out',
     backgroundColor: 'rgba(0, 0, 0, 0)'
 })
 
