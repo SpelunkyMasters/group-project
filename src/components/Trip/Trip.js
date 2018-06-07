@@ -29,7 +29,8 @@ const StyledTripDiv = glamorous.div({
 const NavButtonDiv = glamorous.div({
   position: 'fixed',
   top: 8,
-  left: 8
+  left: 8,
+  zIndex: '1'
 })
 
 const TripContainer = glamorous.div({
