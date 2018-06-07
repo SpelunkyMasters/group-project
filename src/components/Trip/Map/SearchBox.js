@@ -14,12 +14,12 @@ const InputField = glamorous.input({
   boxShadow: "1px 1px 5px rgba(0, 0, 0, 0.5) inset",
   ":focus": {
       outline: 0,
-     }
-})
-
-const SelectMenu = glamorous.select({
-  fontSize: '13px',
-  height: '26px',
+    }
+  })
+  
+  const SelectMenu = glamorous.select({
+    fontSize: '13px',
+    height: '26px',
   padding: '3px 5px',
   borderRadius: '15px',
 },
@@ -40,12 +40,13 @@ const SelectMenu = glamorous.select({
 const AddButton = glamorous.button({
   fontSize: '13px',
   border: 'none',
-  backgroundColor: 'purple',
+  backgroundColor: '#FFD23E',
   padding: '5px 10px',
   height: '25px',
   borderRadius: '5px',
-  marginLeft: '10px'
+  marginLeft: '10px',  
 })
+
 
 class SearchBox extends Component {
     constructor(props) {
