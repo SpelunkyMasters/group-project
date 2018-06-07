@@ -121,7 +121,10 @@ class SearchBox extends Component {
                   {suggestions.map(suggestion => {
                     const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
                     // inline style for demonstration purpose
-                    const style = { backgroundColor: '#ffffff', cursor: 'pointer', padding: '5px', borderBottom: '1px solid lightgray', width: '100%' };
+                    const style = suggestion.active ?
+                          { backgroundColor: '#f2f2f2', cursor: 'pointer', padding: '5px', borderBottom: '1px solid lightgray', width: '100%' }:
+                          { backgroundColor: '#ffffff', cursor: 'pointer', padding: '5px', borderBottom: '1px solid lightgray', width: '100%' }
+
                     return (
                       <div {...getSuggestionItemProps(suggestion, { className, style })}>
                         <span>{suggestion.description}</span>
