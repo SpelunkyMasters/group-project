@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import glamorous from 'glamorous';
-import { Button } from '../styledComponents';
+// import { Button } from '../styledComponents';
+import Btn from '../buttons/Btn/Btn';
 
 const LoginDiv = glamorous.div({
   height: '100vh',
@@ -22,7 +23,7 @@ class Login extends Component {
       <LoginDiv>
         <p>LOGO GOES HERE</p>
         <LoginHeader>Caravan</LoginHeader>
-        <a href={process.env.REACT_APP_LOGIN}><Button id="login" type="secondary">Login</Button></a>
+        <a href={process.env.REACT_APP_LOGIN}><Btn id="login" type="secondary">Login</Btn></a>
       </LoginDiv>
     );
   }

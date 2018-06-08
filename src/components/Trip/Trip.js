@@ -12,10 +12,12 @@ import {connect} from 'react-redux';
 import {getUser, getAllUsers, getTrips, getInvites} from '../../ducks/reducer';
 import Timeline from './Timeline/Timeline';
 import { SmallButton, TripHeader, EditPosition } from '../styledComponents';
-import IconButton from '../IconButton/IconButton';
+import IconButton from '../buttons/IconButton/IconButton';
 
 import * as tripFns from '../../utils/trips';
 import Modal from './TripControls/Modal';
+
+import menu2 from '../../assets/img/menu2.png';
 
 const StyledTripDiv = glamorous.div({
   padding: 10,
@@ -117,7 +119,7 @@ class Trip extends Component {
           {
             this.state.menuOpen
               ? <NavBar navType="menu" closeMenu={ this.toggleMenu }/>
-              : <IconButton type="secondary" icon="menu" onClick={ this.toggleMenu }/>
+              : <img src={menu2} alt="menu" onClick={ this.toggleMenu }/>
           }
         </NavButtonDiv>
         <TripContainer>
