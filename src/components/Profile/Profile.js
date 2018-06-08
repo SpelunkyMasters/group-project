@@ -34,7 +34,6 @@ const PictureEdit=glamorous.div({
 })
 const ProfilePicture=glamorous.img({
   borderRadius:'50%',
-  width:'120px',
    height:'120px',
    marginLeft:20
 })
@@ -45,7 +44,7 @@ const InfoPart=glamorous.div({
   justifyContent: 'space-around',
   padding:'50px 25px'
 })
-const P=glamorous.p({
+const P=glamorous.div({
   margin:'10px 0',
   height:19,
   color:'grey'
@@ -102,7 +101,8 @@ class Profile extends Component {
     return (
       <div className="Profile">
       <Header>
-        <NavLink to="/home"><button><img  width='30px' height='30px'  src={arrow}/></button></NavLink>
+        <NavLink to="/home"><button style={{backgroundColor: 'transparent',border: 'none'}} ><img  width='30px' 
+        height='30px' src={arrow}/></button></NavLink>
         <HeaderText>Profile</HeaderText>
       </Header>
       <PictureEdit>
