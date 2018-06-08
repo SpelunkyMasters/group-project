@@ -6,6 +6,13 @@ import SearchBox from '../Map/SearchBox'
 import axios from 'axios'
 import MainStop from './MainStop'
 import Search from './Search'
+import glamorous, { Div, H2 } from 'glamorous'
+
+const ItineraryPage = glamorous.div({
+  background: '#EEF0F3',
+  height: 'calc(100vh - 60px)',
+  padding: '10px'
+})
 
 class Itinerary extends Component {
   constructor() {
@@ -21,24 +28,6 @@ class Itinerary extends Component {
   componentDidMount() {
     this.props.getItinerary(this.props.match.params.id)
   }
-
-  // updateCurrentMarker = (marker) => {
-  //   this.setState({ currentMarker: marker })
-  // }
-  // updateItinerary = () => {
-  //   if(this.state.currentMarker.lat) {
-
-  //     axios.post(`/api/itinerary/${this.props.match.params.id}?destType=${this.state.destType}&destid=${this.state.destid}`, this.state.currentMarker).then( (results) => {
-  //       this.props.getItinerary(this.props.match.params.id)
-  //       this.setState({
-  //         destType: '',
-  //         destid: ''
-  //       })
-  //     })
-  //   } else {
-  //     return;
-  //   }
-  // }
 
   handleDestType = (destType) => {
     this.setState({ destType })
@@ -74,8 +63,10 @@ class Itinerary extends Component {
       }
     )}
     return (
-      <div>
-          <h1>Itinerary</h1>
+      <ItineraryPage>
+        <Div display="flex" width="100%" justifyContent="center">
+          <H2 fontSize="25px" letterSpacing="2px" marginBottom="10px">Itinerary</H2>
+        </Div>
           
           <button onClick={this.handleAdd}>Add Main Stop</button>
           {
@@ -85,7 +76,7 @@ class Itinerary extends Component {
             null
           }
           {itin}
-      </div>
+      </ItineraryPage>
     );
   }
 }

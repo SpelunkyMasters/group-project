@@ -5,6 +5,7 @@ import Search from './Search'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getItinerary } from '../../../ducks/reducer'
+import glamorous, {H3} from 'glamorous'
 
 
 class MainStop extends Component {
@@ -56,7 +57,7 @@ class MainStop extends Component {
         })
         return (
         <div>
-            <h2 onClick={this.handleClick}>{mainStop.dest_name}</h2>
+            <H3 fontSize='22px' fontWeight="600" onClick={this.handleClick}>{mainStop.dest_name}</H3>
             {
                 this.state.clicked ?
                 <button onClick={this.deleteDest}>X</button> :
