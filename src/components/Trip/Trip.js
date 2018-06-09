@@ -116,7 +116,7 @@ class Trip extends Component {
     return (
       <StyledTripDiv>
         <AppHeader>
-          <img src={menu2} alt="menu" onClick={ this.toggleMenu } style={{position: 'fixed', left: 10, top: 10}}/>
+          <img src={menu2} alt="menu" onClick={ this.toggleMenu } style={{position: 'fixed', left: 20, top: 25}}/>
           <NavButtonDiv>
             {
               this.state.menuOpen

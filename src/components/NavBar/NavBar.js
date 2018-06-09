@@ -25,7 +25,6 @@ const NavButtonGroup = glamorous.nav({
 })
 
 const MobileMenu = glamorous.nav({
-  backgroundColor: '#001C55',
   height: '100vh',
   width: '100%',
   position: 'fixed',
@@ -34,7 +33,9 @@ const MobileMenu = glamorous.nav({
   top: 0,
   backdropFilter: 'blur(5px)',
   WebkitBackdropFilter: 'blur(5px)'
-})
+}, ({ theme }) => ({
+  backgroundColor: theme.newBlue,
+}))
 
 const MenuCloseButton = glamorous.div({
   padding: 10,

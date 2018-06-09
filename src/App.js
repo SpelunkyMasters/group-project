@@ -6,6 +6,10 @@ import 'react-dates/lib/css/_datepicker.css';
 import routes from './routes';
 import { ThemeProvider } from 'glamorous'
 
+export const mediaQueries = {
+  iphone5: '@media only screen and (max-width: 320px'
+}
+
 const caravanTheme = {
   mainBg: '#001C55',
   mainText: '#F9FBFF',

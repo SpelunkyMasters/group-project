@@ -5,28 +5,41 @@ import { connect } from 'react-redux';
 
 
 const sizes = {
-    small: 60,
-    regular: 100,
+    small: 55,
+    medium: 80,
     large: 120
+}
+
+const borders = {
+    small: '25px',
+    medium: '40px',
+    large: '50px'
+}
+
+const shadows = {
+    small: '2px 2px 4px rgba(0,0,0,0.2)',
+    medium: '4px 4px 4px rgba(0,0,0,0.2)'
+
 }
 
 const AvatarContainer = glamorous.div(
     {
-        height: 60,
-        borderRadius: '50%',
-        boxShadow: '2px 2px 5px grey',
         display: 'flex',
         justifyContent: 'center',
-        alignItems: 'center'
-    },
-    props => ({
-        width: sizes[props.size]
+        alignItems: 'center',
+        border: '4px solid blue'
+    }, props => ({
+        borderRadius: borders[props.size] || 25,
+        boxShadow: shadows[props.size] || '15px 15px 5px rgba(0,0,0,0.2)',
+        width: sizes[props.size] || 50,
+        height: sizes[props.size] || 50
         // width: sizes[props.variant].width || sizes['regular'].width
     })
 )
 
 const AvClip = glamorous.div({
-    clipPath: 'circle(30px at center)',
+    clipPath: 'circle(45% at center)'
+
 })
 
 
@@ -36,11 +49,9 @@ class Avatar extends Component {
     }
     render() {
         return(
-            <AvatarContainer>
                 <AvClip>
-                    <img src={ this.props.user.picture } alt="user avatar" width={ sizes[this.props.size]}/>
+                    <img src={ this.props.user.picture } alt="user avatar" width={ sizes[this.props.size] || '50px'}/>
                 </AvClip>
-            </AvatarContainer>  
         ) 
     }
 }

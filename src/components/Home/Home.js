@@ -34,7 +34,7 @@ const HomeHeader = glamorous.header({
 }))
 
 const HomeH1 = glamorous.h1({
-  margin: "0 0 10px 0"
+  margin: "5px 0 5px 0"
 })
 
 const HomeH2 = glamorous.h2({
