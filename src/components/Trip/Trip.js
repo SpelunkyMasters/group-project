@@ -11,17 +11,19 @@ import TripMembers from '../Trip/TripMembers/TripMembers';
 import {connect} from 'react-redux';
 import {getUser, getAllUsers, getTrips, getInvites} from '../../ducks/reducer';
 import Timeline from './Timeline/Timeline';
-import { SmallButton, TripHeader, EditPosition } from '../styledComponents';
+import { AppHeader, SmallButton, TripHeader, EditPosition } from '../styledComponents';
 import IconButton from '../buttons/IconButton/IconButton';
 
 import * as tripFns from '../../utils/trips';
 import Modal from './TripControls/Modal';
 
+import menu2 from '../../assets/img/menu2.png';
+
 const StyledTripDiv = glamorous.div({
   padding: 10,
   height: '100vh'
 }, ({ theme }) => ({
-  backgroundColor: theme.mainBg
+  backgroundColor: theme.white
 }))
 
 
@@ -34,7 +36,7 @@ const NavButtonDiv = glamorous.div({
 })
 
 const TripContainer = glamorous.div({
-  
+  marginTop: 25
 })
 
 class Trip extends Component {
@@ -113,15 +115,18 @@ class Trip extends Component {
 
     return (
       <StyledTripDiv>
-        <NavButtonDiv>
-          {
-            this.state.menuOpen
-              ? <NavBar navType="menu" closeMenu={ this.toggleMenu }/>
-              : <IconButton type="secondary" icon="menu" onClick={ this.toggleMenu }/>
-          }
-        </NavButtonDiv>
-        <TripContainer>
+        <AppHeader>
+          <img src={menu2} alt="menu" onClick={ this.toggleMenu } style={{position: 'fixed', left: 20, top: 25}}/>
+          <NavButtonDiv>
+            {
+              this.state.menuOpen
+                ? <NavBar navType="menu" closeMenu={ this.toggleMenu }/>
+                : null
+            }
+          </NavButtonDiv>
           <TripHeader onClick={ this.toggleControls }>{ trip_name }</TripHeader>
+        </AppHeader>
+        <TripContainer>
           {
             this.state.tripControls
               ? (
