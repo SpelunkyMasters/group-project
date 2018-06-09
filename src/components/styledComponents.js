@@ -28,11 +28,21 @@ const sizes = {
 //     home: home
 // }
 
-export const ButtonBar = glamorous.span({
+export const Avatar = glamorous.div({
+    clipPath: 'circle(40% at center)',
+    border: '1px solid lightgrey'
+    // boxShadow: '3px 3px 10px white'
+})
+export const AppHeader = glamorous.header({
+    height: 70,
+    margin: "-10px -10px 0 -15px",
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     alignItems: 'center'
-  })
+  }, ({ theme }) => ({
+      backgroundColor: theme.mainBg,
+      color: theme.white
+  }))
 
 export const IconBtn = glamorous.button({
     width: 30,
@@ -57,8 +67,8 @@ export const LargeIcon = glamorous.button({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'
-}, props => ({
-    backgroundColor: colors[props.type] || colors['default']
+}, ({ theme }) => ({
+    backgroundColor: theme.newBlue
 }))
 
 export const Button = glamorous.button(

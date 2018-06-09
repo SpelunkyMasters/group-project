@@ -196,12 +196,15 @@
     overflow-y: scroll
   }
 
+  */
   .CalendarMonthGrid {
-    background: #384E77;
+    background: rgb(70, 126, 231);
     text-align: left;
     z-index: 0;
     height: 300px;
   }
+
+  /*
   .CalendarMonthGrid__animating {
     z-index: 1
   }
@@ -216,3 +219,4 @@
     margin: 0 auto;
     overflow-y: scroll
   } */
+

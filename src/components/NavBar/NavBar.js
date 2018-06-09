@@ -9,6 +9,13 @@ import TripNavBtn from '../Trip/TripNavBtn';
 
 import * as tripFns from '../../utils/trips';
 
+import mapsvg from '../../assets/svg/mapicon.svg';
+import chatsvg from '../../assets/svg/chat.svg';
+import timelinesvg from '../../assets/svg/gallery-icon.svg';
+import itinerarysvg from '../../assets/svg/itinerary.svg';
+import travelersvg from '../../assets/svg/members.svg';
+import historysvg from '../../assets/svg/history.svg';
+
 const NavButtonGroup = glamorous.nav({
   display: 'flex',
   height: '80vh',
@@ -65,18 +72,18 @@ class NavBar extends Component {
     const navData = [
       {name: "Home", path: "/home"},
       {name: trip_name, path: `/trip/${id}/nav`},
-      {name: "Map", path: `/trip/${id}/map`},
-      {name: "Itinerary", path: `/trip/${id}/itinerary`},
-      {name: "Chat", path: `/trip/${id}/chat`},
-      {name: "Trip Members", path: `/trip/${id}/trip-members`},
-      {name: "Timeline", path: `/trip/${id}/timeline`},
-      {name: "Group History", path: `/trip/${id}/group_history`},
+      {name: "Map", path: `/trip/${id}/map`, svg: mapsvg},
+      {name: "Itinerary", path: `/trip/${id}/itinerary`, svg: itinerarysvg},
+      {name: "Chat", path: `/trip/${id}/chat`, svg: chatsvg},
+      {name: "Trip Members", path: `/trip/${id}/trip-members`, svg: travelersvg},
+      {name: "Timeline", path: `/trip/${id}/timeline`, svg: timelinesvg},
+      {name: "Group History", path: `/trip/${id}/group_history`, svg: historysvg},
       {name: "Logout", path: "/"}
     ];
 
     const navBtns = navData.map( (link, i) => {
       if(i > 1 && i < 8) {
-        return <TripNavBtn key={ link.name }name={ link.name } path={ link.path }/>
+        return <TripNavBtn key={ link.name } name={ link.name } path={ link.path } icon={ link.svg }/>
       } else {
         return null
       }

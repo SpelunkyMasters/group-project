@@ -12,7 +12,7 @@ const ContentSquare = glamorous.div({
     borderRadius: 4,
     border: '1px solid lightgrey'
 }, ({ theme }) => ({
-    backgroundColor: theme.independence,
+    backgroundColor: theme.white,
     color: theme.white
 }))
 function TripNavBtn(props) {
@@ -21,7 +21,7 @@ function TripNavBtn(props) {
     return(
         <NavLink to={ path }>
             <ContentSquare>
-                <h2>{ name }</h2>
+                <img src={props.icon} width="90%"/>
             </ContentSquare>
         </NavLink>
     )
