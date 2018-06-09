@@ -1,13 +1,52 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
+import glamorous from 'glamorous';
+import plus from '../../../../assets/img/plus.png';
 
+
+const EachMember=glamorous.div({
+    padding:'5px',
+    border:'2px black solid',
+    borderRadius:'5px',
+    marginBottom:'5px',
+    width:'280px',
+    backgroundColor:'white'
+  })
+  const FirstLine=glamorous.div({
+    display:'flex',
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center'
+  })
+  const SecondLine=glamorous.div({
+    display:'flex',
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center'
+  })
+  const DeleteButton=glamorous.div({
+    backgroundColor:'transparent',
+     border:'none',
+      height:'12px'
+  })
+
+  const Img=glamorous.img({
+    borderRadius:'50%',
+    height:30
+  })
+  const SearchList=glamorous.div({
+    height:'90px',
+    overflow:'auto',
+    padding:' 5px 0'
+  })
 class AddRemove extends Component {
     constructor() {
         super();
         this.state = {
             user_list: [],
-            showList:[]
+            showList:[],
+            filteredList:[]
         }
     }
     
@@ -28,12 +67,21 @@ axios.get(`/api/notinvited/${this.props.tripid}`).then( res => {
           var filteredList=res.data.filter(e=>!tripUsers.includes(e.userid)&&(e.first_name.toLowerCase()+' '+e.last_name.toLowerCase()).includes(str));
           //final list V
           var showList=filteredList.map((e,i)=>{
-              return <div key={i}><img src={e.picture} alt="profile" width='50px' height='50px'/>
-              {e.first_name} {e.last_name} <button onClick={()=>this.sendInvite(i, e.userid)}>Send invite </button>  </div>
+              return <EachMember key={i}>
+                        <FirstLine>
+                        <Img src={e.picture} alt="profile" />
+                        <div>{e.first_name} {e.last_name} </div>
+                        <DeleteButton onClick={()=>this.sendInvite(i, e.userid)}>
+                        <img src={plus} alt="add" height='12px'/>
+                        </DeleteButton> 
+                        </FirstLine>
+                        
+                     </EachMember>
           })
           this.setState({
             user_list: res.data,
-            showList
+            showList,
+            filteredList
         })
           
 })
@@ -53,31 +101,49 @@ componentWillReceiveProps(nextProps){
             var filteredList=this.state.user_list.filter(e=>!tripUsers.includes(e.userid)&&(e.first_name.toLowerCase()+' '+e.last_name.toLowerCase()).includes(str));
             //final list V
             var showList=filteredList.map((e,i)=>{
-                return <div key={i}><img src={e.picture} alt="profile" width='50px' height='50px'/>
-                {e.first_name} {e.last_name} <button onClick={()=>this.sendInvite(i, e.userid)}>Send invite </button>  </div>
+                return <EachMember key={i}>
+                            <FirstLine>
+                                <Img src={e.picture} alt="profile" />
+                                <div>{e.first_name} {e.last_name} </div>
+                                <DeleteButton onClick={()=>this.sendInvite(i, e.userid)}>
+                                    <img src={plus} alt="add" height='12px'/>
+                                </DeleteButton> 
+                            </FirstLine>
+                
+                        </EachMember>
             })
-            this.setState({showList})  }
+            this.setState({showList, filteredList})  }
 }
 sendInvite(i, userid){
     //sending invite and removing that person from the list
     axios.post('/api/invite',{userid, tripid:this.props.tripid}).then(res=>{
-        var showList=this.state.showList.slice();
-        showList.splice(i,1);
+        var filteredList=this.state.filteredList.filter(e=>e.userid!==userid);
+        var showList=filteredList.map((e,i)=>{
+            return <EachMember key={i}>
+                      <FirstLine>
+                      <Img src={e.picture} alt="profile" />
+                      <div>{e.first_name} {e.last_name} </div>
+                      <DeleteButton onClick={()=>this.sendInvite(i, e.userid)}>
+                      <img src={plus} alt="add" height='12px'/>
+                      </DeleteButton> 
+                      </FirstLine>
+                      
+                   </EachMember>
+        })
         var invite=this.state.user_list.filter(e=>e.userid===userid)[0]
         this.props.newInvite(invite)
        
-        console.log(showList)
-        this.setState({showList})
+        console.log("showList",showList)
+        this.setState({showList, filteredList})
     })
 }
   render() {
 
 
     return (
-      <div>
-          AddRemove
+      <SearchList>
           {this.state.showList}
-      </div>
+      </SearchList>
     );
   }
 }
