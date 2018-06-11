@@ -96,6 +96,10 @@ class MainStop extends Component {
         const { mainStop } = this.props
         console.log('prev Count', this.props.prevSubCount)
         console.log('index', this.props.index)
+        let mainNames = (this.props.index + 1) * 31
+        let subNames = this.props.prevSubCount * 27
+        let position = 161 + mainNames + subNames
+
         let subDests = mainStop.sub_dests.map( stop => {
             return (
                 <MinorStop
@@ -123,6 +127,7 @@ class MainStop extends Component {
             {
                 this.state.addClick ?
                 <Search
+                position={position}
                 callback={this.addToItinerary} /> :
                 null
             }

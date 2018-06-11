@@ -19,13 +19,16 @@ const InputField = glamorous.input({
 
   const SearchSuggestions = glamorous.div({
     position: "fixed",
-    top: "100px",
-    left: "10px",
+    left: "20px",
     zIndex: "1",
     borderRadius: "15px",
-    width: "calc(100% - 20px)",
+    width: "calc(100% - 40px)",
     backgroundColor: "#fff",
+  },
+  ({position = "161px"}) => ({
+    top: position
   })
+)
 
 class SearchMain extends Component {
     constructor(props) {
@@ -89,7 +92,7 @@ class SearchMain extends Component {
                     className: 'location-search-input'
                   })}
                 />
-                <SearchSuggestions className="autocomplete-dropdown-container">
+                <SearchSuggestions position={this.props.position} className="autocomplete-dropdown-container">
                   {suggestions.map(suggestion => {
                     const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
                     // inline style for demonstration purpose
