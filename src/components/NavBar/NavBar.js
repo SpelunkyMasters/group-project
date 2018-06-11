@@ -15,6 +15,7 @@ import timelinesvg from '../../assets/svg/gallery-icon.svg';
 import itinerarysvg from '../../assets/svg/itinerary.svg';
 import travelersvg from '../../assets/svg/members.svg';
 import historysvg from '../../assets/svg/history.svg';
+import close from '../../assets/svg/close.svg';
 
 const NavButtonGroup = glamorous.nav({
   display: 'flex',
@@ -38,9 +39,11 @@ const MobileMenu = glamorous.nav({
 }))
 
 const MenuCloseButton = glamorous.div({
-  padding: 10,
-  display: 'flex',
-  justifyContent: 'flex-end'
+  position: 'relative',
+  left: 140,
+  top: 10
+  // display: 'flex',
+  // justifyContent: 'flex-end'
 })
 
 const StyledMenuLi = glamorous.li({
@@ -104,7 +107,7 @@ class NavBar extends Component {
             ? (
               <MobileMenu>
                 <MenuCloseButton>
-                  <IconButton type="secondary" icon="close" onClick={ this.props.closeMenu }/>
+                  <img src={ close } alt="close menu" onClick={ this.props.closeMenu } width="25px"/>
                 </MenuCloseButton>
                 <ol>
                   { navBar }

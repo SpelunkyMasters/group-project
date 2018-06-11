@@ -17,7 +17,7 @@ import IconButton from '../buttons/IconButton/IconButton';
 import * as tripFns from '../../utils/trips';
 import Modal from './TripControls/Modal';
 
-import menu2 from '../../assets/img/menu2.png';
+import menu from '../../assets/svg/menu.svg';
 
 const StyledTripDiv = glamorous.div({
   padding: 10,
@@ -116,7 +116,7 @@ class Trip extends Component {
     return (
       <StyledTripDiv>
         <AppHeader>
-          <img src={menu2} alt="menu" onClick={ this.toggleMenu } style={{position: 'fixed', left: 20, top: 25}}/>
+          <img src={menu} alt="menu" onClick={ this.toggleMenu } style={{position: 'fixed', left: 20, top: 25}}/>
           <NavButtonDiv>
             {
               this.state.menuOpen
