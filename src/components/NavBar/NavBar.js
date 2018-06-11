@@ -18,6 +18,7 @@ import historysvg from '../../assets/svg/history.svg';
 import close from '../../assets/svg/close.svg';
 
 const NavButtonGroup = glamorous.nav({
+  marginTop: 25,
   display: 'flex',
   height: '80vh',
   flexWrap: 'wrap',
