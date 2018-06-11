@@ -2,13 +2,18 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import glamorous from 'glamorous';
 
+import { mediaQueries } from '../styledComponents';
+
 const ToolTip = glamorous.p({
     position: 'relative',
     fontSize: 20,
     fontWeight: 800,
-    bottom: 10
+    bottom: 10,
 }, ({ theme }) => ({
-    color: theme.mainBg
+    color: theme.mainBg,
+    [mediaQueries.desktop]: {
+        color: theme.white
+    }
 }))
 
 const ContentSquare = glamorous.div({

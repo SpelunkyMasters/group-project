@@ -23,10 +23,16 @@ const sizes = {
     large: {height: 50, padding: "15px 20px"}
 }
 
-// export const icons = {
-//     menu: menu,
-//     home: home
-// }
+export const mediaQueries = {
+    iPhone5: '@media only screen and (min-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2)' /*and (orientation: portrait/landscape) */,
+    iPhone678: '@media only screen and (min-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2)',
+    iPhone678plus: '@media only screen and (min-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3)',
+    iPhoneX: '@media only screen and (min-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3)',
+    iPad: '@media only screen and (min-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2)', 
+    iPadPro10point5: '@media only screen and (min-width: 834px) and (max-device-width: 1112px) and (-webkit-min-device-pixel-ratio: 2)', 
+    iPadPro12point9: '@media only screen and (min-width: 1024px) and (max-device-width: 1366px) and (-webkit-min-device-pixel-ratio: 2)',
+    desktop: '@media only screen and (min-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1)',
+  }
 
 export const Avatar = glamorous.div({
     clipPath: 'circle(40% at center)',
