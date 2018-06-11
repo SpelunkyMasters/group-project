@@ -3,6 +3,32 @@ import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete'
 import { connect } from 'react-redux'
 import { getItinerary } from '../../../ducks/reducer'
 import { withRouter } from 'react-router-dom'
+import glamorous from 'glamorous'
+
+const InputField = glamorous.input({
+  fontSize: '13px',
+  width: 'calc(100% - 20px)',
+  height: '20px',
+  padding: '3px 10px',
+  borderRadius: '35px',
+  marginRight: "9px",
+  marginBottom: '10px',
+  border: "none",
+  boxShadow: "1px 1px 5px rgba(0, 0, 0, 0.5) inset",
+  })
+
+  const SearchSuggestions = glamorous.div({
+    position: "fixed",
+    left: "20px",
+    zIndex: "1",
+    borderRadius: "15px",
+    width: "calc(100% - 40px)",
+    backgroundColor: "#fff",
+  },
+  ({position = "161px"}) => ({
+    top: position
+  })
+)
 
 class SearchMain extends Component {
     constructor(props) {
@@ -60,26 +86,27 @@ class SearchMain extends Component {
           >
             {({ getInputProps, suggestions, getSuggestionItemProps }) => (
               <div>
-                <input
+                <InputField
                   {...getInputProps({
                     placeholder: 'Search Places ...',
                     className: 'location-search-input'
                   })}
                 />
-                <div className="autocomplete-dropdown-container">
+                <SearchSuggestions position={this.props.position} className="autocomplete-dropdown-container">
                   {suggestions.map(suggestion => {
                     const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
                     // inline style for demonstration purpose
-                    const style = suggestion.active
-                                ? { backgroundColor: '#fafafa', cursor: 'pointer' }
-                                : { backgroundColor: '#ffffff', cursor: 'pointer' };
+                    const style = suggestion.active ?
+                          { backgroundColor: '#f2f2f2', cursor: 'pointer', padding: '5px', borderBottom: '1px solid lightgray', width: '100%' }:
+                          { backgroundColor: '#ffffff', cursor: 'pointer', padding: '5px', borderBottom: '1px solid lightgray', width: '100%' }
+
                     return (
                       <div {...getSuggestionItemProps(suggestion, { className, style })}>
                         <span>{suggestion.description}</span>
                       </div>
                     )
                   })}
-                </div>
+                </SearchSuggestions>
               </div>
             )}
           </PlacesAutocomplete>

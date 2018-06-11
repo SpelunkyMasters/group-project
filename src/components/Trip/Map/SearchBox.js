@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete'
 import { connect } from 'react-redux';
-import glamorous, { Div } from 'glamorous'
+import glamorous from 'glamorous'
 
 const InputField = glamorous.input({
   fontSize: '13px',
@@ -47,6 +47,30 @@ const AddButton = glamorous.button({
   marginLeft: '15px',  
 })
 
+const InputAndSelect = glamorous.div({
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-between",
+  margin: "10px 0"
+})
+
+const SelectAndButton = glamorous.div({
+  display: 'flex',
+  flexDirection: 'row',
+  width: "100%",
+  justifyContent: 'center',
+  marginBottom: '10px'
+})
+
+const SearchSuggestions = glamorous.div({
+  position: "fixed",
+  top: "91px",
+  left: "10px",
+  zIndex: "1",
+  borderRadius: "15px",
+  width: "calc(100% - 20px)",
+  backgroundColor: "#fff"
+})
 
 class SearchBox extends Component {
     constructor(props) {
@@ -110,14 +134,14 @@ class SearchBox extends Component {
           >
             {({ getInputProps, suggestions, getSuggestionItemProps }) => (
               <div>        
-                <Div display="flex" flexDirection="row" justifyContent="space-between" margin="10px 0">     
+                <InputAndSelect>     
                 <InputField
                   {...getInputProps({
                     placeholder: 'Search Places ...',
                     className: 'location-search-input'
                   })}
                 />
-                <Div position="fixed" top="91px" left="10px" zIndex="1" borderRadius="15px" width="calc(100% - 20px)" backgroundColor="#fff" className="autocomplete-dropdown-container">
+                <SearchSuggestions className="autocomplete-dropdown-container">
                   {suggestions.map(suggestion => {
                     const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
                     // inline style for demonstration purpose
@@ -131,7 +155,7 @@ class SearchBox extends Component {
                       </div>
                     )
                   })}
-                </Div>
+                </SearchSuggestions>
                     <SelectMenu type="main" onChange={e => this.props.handleDestType(e.target.value)}>
                     {
                       this.props.destType === ''?
@@ -141,8 +165,8 @@ class SearchBox extends Component {
                       <option value="Main Stop">Main Stop</option>
                       <option value="Minor Stop">Minor Stop</option>
                     </SelectMenu>
-                    </Div>
-                    <Div display='flex' flexDirection='row' width="100%" justifyContent='center' marginBottom='10px' >
+                    </InputAndSelect>
+                    <SelectAndButton>
                   {
                     this.props.destType === 'Minor Stop' ?
                     (
@@ -155,7 +179,7 @@ class SearchBox extends Component {
                   }
                   
                   <AddButton type='border' onClick={this.addToItinerary}>Add To Itinerary</AddButton>
-                  </Div>
+                  </SelectAndButton>
               </div>
             )}
           </PlacesAutocomplete>
