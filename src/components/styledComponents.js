@@ -10,7 +10,7 @@ export const colors = {
     secondary: '#FFD23E',
     ind: '#384E77',
     default: '#37414E',
-    danger: '#FF0000',
+    danger: '#ff1111',
     light: '#384E77',
     border: '#E7E7E7',
     white: '#EEF0F3'
@@ -126,55 +126,23 @@ export const TripControlDiv = glamorous.div({
     textAlign: 'center',
     height: '100vh'
   }, ({ theme }) => ({
-      backgroundColor: theme.mainBg
+      backgroundColor: theme.newBlue
   }))
 
 export const EditPosition = glamorous.div({
-    width: '100%',
+    width: '50px',
     display: 'flex',
     justifyContent: 'flex-end',
     position: 'fixed',
     right: -2,
-    top: 16,
+    top: 20,
     paddingBottom: 10,
     paddingRight: 15,
     transition: '2s ease-in-out',
     backgroundColor: 'rgba(0, 0, 0, 0)'
 })
 
-export const ModalMain = glamorous.div({
-    padding: 20,
-    width: 250,
-    height: 150,
-    borderRadius: 2,
-    border: '1px solid black' 
-}, ({ theme }) => ({
-    backgroundColor: theme.independence,
-    color: theme.white
 
-}))
-
-export const ModalBg = glamorous.div({
-    position: 'fixed',
-    top: -1,
-    left: 0,
-    width: '100vw',
-    height: '100vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-}, ({ theme }) => ({
-    backgroundColor: theme.charcoal,
-    color: theme.white
-}))
-
-export const ModalControls = glamorous.span({
-    display: 'flex',
-    justifyContent: 'space-around',
-    alignItems: 'center'
-}, ({ theme }) => ({
-    color: theme.white
-}))
 
 
 

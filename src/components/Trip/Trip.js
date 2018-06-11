@@ -18,6 +18,8 @@ import * as tripFns from '../../utils/trips';
 import Modal from './TripControls/Modal';
 
 import menu from '../../assets/svg/menu.svg';
+import edit from '../../assets/svg/edit.svg';
+import leave from '../../assets/svg/leave.svg';
 
 const StyledTripDiv = glamorous.div({
   padding: 10,
@@ -80,6 +82,7 @@ class Trip extends Component {
   }
 
   toggleControls() {
+    console.log(`tripControls is ${this.state.tripControls}`)
     this.state.tripControls
       ? this.setState({tripControls: false})
       : this.setState({tripControls: true})
@@ -133,11 +136,11 @@ class Trip extends Component {
                   userid === this.props.user.userid
                     ? (
                       <EditPosition>
-                        <NavLink to={ `/edit/${id}` }><IconButton type="white" icon="edit" onClick={ this.toggleControls }/></NavLink>
+                        <NavLink to={ `/edit/${id}` }><img src={ edit } alt="edit trip button"onClick={ this.toggleControls } width="28px"/></NavLink>
                       </EditPosition>)
                     : (
                       <EditPosition>
-                        <SmallButton type="danger" onClick={ this.toggleLeaveModal }>Leave</SmallButton>
+                        <img src={ leave } alt="leave trip button" onClick={ this.toggleLeaveModal }/>>
                       </EditPosition>
                     )
               )
