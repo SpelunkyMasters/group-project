@@ -36,7 +36,7 @@ const NavButtonDiv = glamorous.div({
 })
 
 const TripContainer = glamorous.div({
-  marginTop: 25
+  // marginTop: 25
 })
 
 class Trip extends Component {

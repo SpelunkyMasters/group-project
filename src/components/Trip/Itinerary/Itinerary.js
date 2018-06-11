@@ -6,6 +6,24 @@ import SearchBox from '../Map/SearchBox'
 import axios from 'axios'
 import MainStop from './MainStop'
 import Search from './Search'
+import glamorous, { Div, H2 } from 'glamorous'
+
+const ItineraryPage = glamorous.div({
+  background: '#EEF0F3',
+  height: 'calc(100vh - 60px)',
+  padding: '10px'
+})
+
+const AddButton = glamorous.button({
+  fontSize: '13px',
+  border: '1px solid black',
+  backgroundColor: '#FFD23E',
+  padding: '5px 10px',
+  height: '25px',
+  borderRadius: '5px',
+  width:'125px',
+  marginBottom: '10px' 
+})
 
 class Itinerary extends Component {
   constructor() {
@@ -14,7 +32,8 @@ class Itinerary extends Component {
       currentMarker: {},
       destType: '',
       destid: '',
-      addClick: false
+      addClick: false,
+      searchid: ''
     }
   }
 
@@ -22,34 +41,41 @@ class Itinerary extends Component {
     this.props.getItinerary(this.props.match.params.id)
   }
 
-  // updateCurrentMarker = (marker) => {
-  //   this.setState({ currentMarker: marker })
-  // }
-  // updateItinerary = () => {
-  //   if(this.state.currentMarker.lat) {
-
-  //     axios.post(`/api/itinerary/${this.props.match.params.id}?destType=${this.state.destType}&destid=${this.state.destid}`, this.state.currentMarker).then( (results) => {
-  //       this.props.getItinerary(this.props.match.params.id)
-  //       this.setState({
-  //         destType: '',
-  //         destid: ''
-  //       })
-  //     })
-  //   } else {
-  //     return;
-  //   }
-  // }
-
-  handleDestType = (destType) => {
-    this.setState({ destType })
+  componentDidUpdate() {
+    if(this.state.addClick) {
+      if(this.state.searchid !== '') {
+          if(this.state.searchid !== 'Home') {
+              this.setState({ addClick: false})
+          }
+      }
+  }
   }
 
-  handleSubDest = (destid, e) => {
-    this.setState({ destid })    
+  handleDestType = (stop, id) => {
+    if(stop === this.state.destType && id === this.state.destid) {
+      this.setState({
+        destType: '',
+        destid: ''
+      })
+    } else {
+      this.setState({ 
+        destType: stop,
+        destid: id,
+      })
+    }
+  }
+
+  handleSearchId = (id) => {
+    if(this.state.searchid === id) {
+      this.setState({ searchid: '' })
+    } else {
+      this.setState({ searchid: id })
+    }
   }
 
   handleAdd = () => {
     this.setState({ addClick: !this.state.addClick })
+    this.handleSearchId('Home')
   }
 
   addToItinerary = (currentMarker) => {
@@ -64,20 +90,38 @@ class Itinerary extends Component {
   render() {
     let itin = []
     if(this.props.itinerary.length > 0) {
-      itin = this.props.itinerary.map( location => {
-      
+      let prevSubCount = 0
+      let toAddSub = 0
+      itin = this.props.itinerary.map( (location, i) => {
+        prevSubCount += toAddSub
+        toAddSub = location.sub_dests.length
           return (
             <MainStop
               key={location.destid}
-              mainStop={location} />
+              mainStop={location}
+              handleDestType={this.handleDestType}
+              destType={this.state.destType}
+              destid={this.state.destid}
+              handleSearchId={this.handleSearchId}
+              searchid={this.state.searchid}
+              prevSubCount={prevSubCount}
+              index={i}
+               />
           )
       }
     )}
     return (
-      <div>
-          <h1>Itinerary</h1>
+      <ItineraryPage>
+        <Div 
+          display="flex" 
+          width="100%" 
+          flexDirection="column" 
+          alignItems='center'
+          justifyContent="center">
+          <H2 fontSize="25px" letterSpacing="2px" marginBottom="10px">Itinerary</H2>
+          <AddButton onClick={this.handleAdd}>Add Main Stop</AddButton>
+        </Div>
           
-          <button onClick={this.handleAdd}>Add Main Stop</button>
           {
             this.state.addClick ?
             <Search 
@@ -85,7 +129,7 @@ class Itinerary extends Component {
             null
           }
           {itin}
-      </div>
+      </ItineraryPage>
     );
   }
 }
