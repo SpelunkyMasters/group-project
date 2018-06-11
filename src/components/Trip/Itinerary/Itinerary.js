@@ -14,6 +14,17 @@ const ItineraryPage = glamorous.div({
   padding: '10px'
 })
 
+const AddButton = glamorous.button({
+  fontSize: '13px',
+  border: '1px solid black',
+  backgroundColor: '#FFD23E',
+  padding: '5px 10px',
+  height: '25px',
+  borderRadius: '5px',
+  width:'125px',
+  marginBottom: '10px' 
+})
+
 class Itinerary extends Component {
   constructor() {
     super();
@@ -21,7 +32,8 @@ class Itinerary extends Component {
       currentMarker: {},
       destType: '',
       destid: '',
-      addClick: false
+      addClick: false,
+      searchid: ''
     }
   }
 
@@ -29,16 +41,41 @@ class Itinerary extends Component {
     this.props.getItinerary(this.props.match.params.id)
   }
 
-  handleDestType = (destType) => {
-    this.setState({ destType })
+  componentDidUpdate() {
+    if(this.state.addClick) {
+      if(this.state.searchid !== '') {
+          if(this.state.searchid !== 'Home') {
+              this.setState({ addClick: false})
+          }
+      }
+  }
   }
 
-  handleSubDest = (destid, e) => {
-    this.setState({ destid })    
+  handleDestType = (stop, id) => {
+    if(stop === this.state.destType && id === this.state.destid) {
+      this.setState({
+        destType: '',
+        destid: ''
+      })
+    } else {
+      this.setState({ 
+        destType: stop,
+        destid: id,
+      })
+    }
+  }
+
+  handleSearchId = (id) => {
+    if(this.state.searchid === id) {
+      this.setState({ searchid: '' })
+    } else {
+      this.setState({ searchid: id })
+    }
   }
 
   handleAdd = () => {
     this.setState({ addClick: !this.state.addClick })
+    this.handleSearchId('Home')
   }
 
   addToItinerary = (currentMarker) => {
@@ -53,22 +90,38 @@ class Itinerary extends Component {
   render() {
     let itin = []
     if(this.props.itinerary.length > 0) {
-      itin = this.props.itinerary.map( location => {
-      
+      let prevSubCount = 0
+      let toAddSub = 0
+      itin = this.props.itinerary.map( (location, i) => {
+        prevSubCount += toAddSub
+        toAddSub = location.sub_dests.length
           return (
             <MainStop
               key={location.destid}
-              mainStop={location} />
+              mainStop={location}
+              handleDestType={this.handleDestType}
+              destType={this.state.destType}
+              destid={this.state.destid}
+              handleSearchId={this.handleSearchId}
+              searchid={this.state.searchid}
+              prevSubCount={prevSubCount}
+              index={i}
+               />
           )
       }
     )}
     return (
       <ItineraryPage>
-        <Div display="flex" width="100%" justifyContent="center">
+        <Div 
+          display="flex" 
+          width="100%" 
+          flexDirection="column" 
+          alignItems='center'
+          justifyContent="center">
           <H2 fontSize="25px" letterSpacing="2px" marginBottom="10px">Itinerary</H2>
+          <AddButton onClick={this.handleAdd}>Add Main Stop</AddButton>
         </Div>
           
-          <button onClick={this.handleAdd}>Add Main Stop</button>
           {
             this.state.addClick ?
             <Search 

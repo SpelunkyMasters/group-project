@@ -5,8 +5,31 @@ import Search from './Search'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getItinerary } from '../../../ducks/reducer'
-import glamorous, {H3} from 'glamorous'
+import glamorous, {Div} from 'glamorous'
 
+const MainDiv = glamorous.div({
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between"
+})
+
+const DeleteButton = glamorous.button({
+    background: 'none',
+    border: 'none',
+    fontSize: '17px'
+})
+
+const AddButton = glamorous.button({
+    background: 'none',
+    border: 'none',
+    fontSize: '25px',
+    color: '#FFD23E'
+})
+
+const MainName = glamorous.h3({
+    fontSize: '22px',
+    fontWeight: "600"
+})
 
 class MainStop extends Component {
     constructor() {
@@ -17,12 +40,36 @@ class MainStop extends Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        if(this.state.clicked) {
+            if(this.props.destType !== '' && this.props.destid !== '') {
+                if(this.props.destType !== 'Main') {
+                    this.setState({clicked: false})
+                } else {
+                    if(this.props.destid !== this.props.mainStop.destid){
+                    this.setState({clicked: false})
+                    }
+                }
+            }
+        }
+        if(this.state.addClick) {
+            if(this.props.searchid !== '') {
+                if(this.props.searchid !== this.props.mainStop.destid) {
+                    this.setState({ addClick: false})
+                }
+            }
+        }
+
+      }
+
     handleClick = () => {
         this.setState({ clicked: !this.state.clicked })
+        this.props.handleDestType('Main', this.props.mainStop.destid)
     }
 
     handleAddClick = () => {
         this.setState({ addClick: !this.state.addClick })
+        this.props.handleSearchId(this.props.mainStop.destid)
     }
 
     addToItinerary = (currentMarker) => {
@@ -47,23 +94,32 @@ class MainStop extends Component {
 
     render() {
         const { mainStop } = this.props
+        console.log('prev Count', this.props.prevSubCount)
+        console.log('index', this.props.index)
         let subDests = mainStop.sub_dests.map( stop => {
             return (
                 <MinorStop
                 key={stop.sub_destid}
                 minorStop={stop}
-                deleteSubDest={this.deleteSubDest} />
+                deleteSubDest={this.deleteSubDest}
+                handleDestType={this.props.handleDestType}
+                destType={this.props.destType}
+                destid={this.props.destid} />
             )
         })
         return (
         <div>
-            <H3 fontSize='22px' fontWeight="600" onClick={this.handleClick}>{mainStop.dest_name}</H3>
-            {
-                this.state.clicked ?
-                <button onClick={this.deleteDest}>X</button> :
-                null
-            }
-            <button onClick={this.handleAddClick}>+</button>
+            <MainDiv>
+                <Div display='flex'>
+                    <MainName  onClick={this.handleClick}>{mainStop.dest_name}</MainName>
+                    <AddButton onClick={this.handleAddClick}>+</AddButton>
+                </Div>
+                {
+                    this.state.clicked ?
+                    <DeleteButton onClick={this.deleteDest}>X</DeleteButton> :
+                    null
+                }
+                </MainDiv>
             {
                 this.state.addClick ?
                 <Search
