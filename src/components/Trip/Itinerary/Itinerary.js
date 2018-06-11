@@ -141,4 +141,4 @@ function mapStateToProps(state) {
 }
 export default GoogleApiWrapper({
   apiKey: process.env.REACT_APP_GOOGLE_MAPS
-})(connect(mapStateToProps, { getItinerary })(Itinerary));
+})(connect(mapStateToProps,  { getItinerary })(Itinerary));

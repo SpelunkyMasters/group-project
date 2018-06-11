@@ -6,6 +6,7 @@ const initialState={
     itinerary:[],
     trips:[],
     invites: [],
+    tripOrganizer: false,
 }
 
 const FULFILLED = '_FULFILLED'
@@ -14,6 +15,7 @@ const FULFILLED = '_FULFILLED'
     , GET_USER_TRIPS='GET_USER_TRIPS'
     , GET_ITINERARY='GET_ITINERARY'
     , GET_INVITES = 'GET_INVITES'
+    , IS_TRIP_ORGANIZER = 'IS_TRIP_ORGANIZER'
 
 
 export function getTrips(user){
@@ -66,6 +68,13 @@ export function getInvites(userid) {
     }
 }
 
+export function isTripOrganizer(bool) {
+    return {
+        type: IS_TRIP_ORGANIZER,
+        payload: bool
+    }
+}
+
 export default function reducer(state=initialState, action){
     switch (action.type){
         case GET_USER_INFO + FULFILLED:
@@ -83,6 +92,8 @@ export default function reducer(state=initialState, action){
         case GET_INVITES + FULFILLED:
             return Object.assign({}, state, {invites: action.payload})
             
+        case IS_TRIP_ORGANIZER:
+            return Object.assign({}, state, {tripOrganizer: action.payload})
         default: 
             return state
     }

@@ -9,7 +9,7 @@ import Map from '../Trip/Map/Map';
 import Itinerary from '../Trip/Itinerary/Itinerary';
 import TripMembers from '../Trip/TripMembers/TripMembers';
 import {connect} from 'react-redux';
-import {getUser, getAllUsers, getTrips, getInvites} from '../../ducks/reducer';
+import {getUser, getAllUsers, getTrips, getInvites, isTripOrganizer} from '../../ducks/reducer';
 import Timeline from './Timeline/Timeline';
 import { AppHeader, SmallButton, TripHeader, EditPosition } from '../styledComponents';
 import IconButton from '../buttons/IconButton/IconButton';
@@ -86,7 +86,7 @@ class Trip extends Component {
   }
 
   toggleLeaveModal() {
-    console.log('Toggling modal')
+    // console.log('Toggling modal')
     if(this.state.tripControls) {
       this.setState({tripControls: false})
     }
@@ -112,6 +112,11 @@ class Trip extends Component {
 
     const currentTrip = tripFns.getCurrentTrip(trips, +id)
         , { trip_name, userid } = currentTrip || 'Trip Name';
+          if(userid && this.props.user.userid && userid === this.props.user.userid) {
+            this.props.isTripOrganizer(true)
+          } else {
+            this.props.isTripOrganizer(false)
+          }
 
     return (
       <StyledTripDiv>
@@ -130,7 +135,7 @@ class Trip extends Component {
           {
             this.state.tripControls
               ? (
-                  userid === this.props.user.userid
+                  this.props.tripOrganizer
                     ? (
                       <EditPosition>
                         <NavLink to={ `/edit/${id}` }><IconButton type="white" icon="edit" onClick={ this.toggleControls }/></NavLink>
@@ -170,4 +175,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, {getUser, getAllUsers, getTrips, getInvites})(Trip) ;
+export default connect(mapStateToProps, {getUser, getAllUsers, getTrips, getInvites, isTripOrganizer})(Trip) ;
