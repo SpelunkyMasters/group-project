@@ -3,9 +3,13 @@ import { Link } from 'react-router-dom';
 import glamorous from 'glamorous';
 
 const TCHeader = glamorous.h2({
-    margin: 20
+    margin: 20,
+    transition: '0.2s ease-in-out'
 }, ({ theme }) => ({
-    color: theme.lighterText
+    color: theme.lighterText,
+    ':hover': {
+        color: theme.silver
+    }
 }))
 
 
