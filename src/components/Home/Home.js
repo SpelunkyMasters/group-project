@@ -13,13 +13,14 @@ import Invite from './Invite/Invite';
 
 import {getUser, getTrips, getInvites} from '../../ducks/reducer';
 
-import plus from '../../assets/img/plus.png';
+import add from '../../assets/svg/add.svg';
 
+import logoNoText from '../../assets/img/logo1notext.png';
 
 const CreateTripDiv = glamorous.div({
   position: 'fixed',
-  bottom: 10,
-  right: 10
+  top: 270,
+  right: 8
 })
 
 const HomeHeader = glamorous.header({
@@ -35,10 +36,16 @@ const HomeHeader = glamorous.header({
 
 const HomeH1 = glamorous.h1({
   margin: "5px 0 5px 0"
-})
+});
+
+const TripsHeader = glamorous.h1({
+  marginTop: 15
+}, ({ theme }) => ({
+    color: theme.white
+}))
 
 const HomeH2 = glamorous.h2({
-  margin: 60,
+  margin: 50,
 }, ({ theme }) => ({
   color: theme.lighterText
 }))
@@ -47,19 +54,40 @@ const HomeMainDiv = glamorous.div({
   padding: 10,
   height: '100vh',
   overflow:'hidden',
-  textAlign: 'center'
+  textAlign: 'center',
+  backgroundImage: `url(${logoNoText})`,
+  // backgroundBlendMode: 'overlay',
+  backgroundSize: '180%',
+  backgroundPosition: 'left 0 bottom -30px'
 }, ({ theme }) => ({
   backgroundColor: theme.white,
   color: theme.mainBg,
 }))
 
-const HomeContainer = glamorous.div({
-  padding: 2,
+const TripContainer = glamorous.div({
+  // padding: 2,
   border: '1px solid #001C55',
   borderRadius: 5,
   margin: 'auto',
   height: 180,
-  width: '90%',
+  width: 260,
+  boxShadow: "3px 3px 6px grey",
+  backgroundColor: '#EEF0F3',
+  overflowY: 'scroll',
+  '&::-webkit-scrollbar': {
+    width: 0
+  }
+})
+
+const InviteContainer = glamorous.div({
+  padding: 10,
+  border: '1px solid #001C55',
+  borderRadius: 5,
+  margin: 'auto',
+  height: 170,
+  width: 240,
+  display: 'flex',
+  justifyContent: 'center',
   boxShadow: "3px 3px 6px grey",
   backgroundColor: '#EEF0F3',
   overflowY: 'scroll',
@@ -127,24 +155,25 @@ class Home extends Component {
         <HomeHeader>
           <NavLink to="/profile">
             <Avatar/>
+            {/* <img src={ logoNoText } alt="Caravan logo"/> */}
           </NavLink> 
           <HomeH1>Home</HomeH1>
         </HomeHeader>
+        <HomeH1>Trips</HomeH1>
+        <TripContainer>
+          { tripList }
+        </TripContainer>
+        <CreateTripDiv>
+        <LargeIcon type="secondary" onClick={ this.createTrip }><img src={ add } alt="new trip" width="25px"/></LargeIcon>
+        </CreateTripDiv>
         <HomeH1>Invites</HomeH1>
-        <HomeContainer>
+        <InviteContainer>
           {
             this.props.invites.length < 1
               ? <HomeH2>No current invites...</HomeH2>
               : <div>{invites}</div>
           }
-        </HomeContainer>
-        <HomeH1>Trips</HomeH1>
-        <HomeContainer>
-          { tripList }
-        </HomeContainer>
-        <CreateTripDiv>
-        <LargeIcon type="secondary" onClick={ this.createTrip }><img src={ plus } alt="new trip" width="25px"/></LargeIcon>
-        </CreateTripDiv>
+        </InviteContainer>
       </HomeMainDiv>
     );
   }
