@@ -23,7 +23,10 @@ const AddButton = glamorous.button({
     background: 'none',
     border: 'none',
     fontSize: '25px',
-    color: '#FFD23E'
+    color: '#FFD23E',
+    ':hover': {
+        color:'black'
+    }
 })
 
 const MainName = glamorous.h3({
@@ -96,7 +99,7 @@ class MainStop extends Component {
         const { mainStop } = this.props
         let mainNames = (this.props.index + 1) * 31
         let subNames = this.props.prevSubCount * 27
-        let position = 161 + mainNames + subNames
+        let position = 187 + mainNames + subNames
 
         let subDests = mainStop.sub_dests.map( stop => {
             return (

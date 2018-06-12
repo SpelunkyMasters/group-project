@@ -10,8 +10,8 @@ import glamorous, { Div, H2 } from 'glamorous'
 
 const ItineraryPage = glamorous.div({
   background: '#EEF0F3',
-  height: 'calc(100vh - 60px)',
-  padding: '10px'
+  height: 'calc(100vh - 70px)',
+  padding: '20px 10px'
 })
 
 const AddButton = glamorous.button({
@@ -118,7 +118,7 @@ class Itinerary extends Component {
           flexDirection="column" 
           alignItems='center'
           justifyContent="center">
-          <H2 fontSize="25px" letterSpacing="2px" marginBottom="10px">Itinerary</H2>
+          <H2 fontSize="25px" letterSpacing="2px" marginBottom="15px">Itinerary</H2>
           <AddButton onClick={this.handleAdd}>Add Main Stop</AddButton>
         </Div>
           

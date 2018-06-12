@@ -25,7 +25,7 @@ const InputField = glamorous.input({
     width: "calc(100% - 40px)",
     backgroundColor: "#fff",
   },
-  ({position = "161px"}) => ({
+  ({position = "187px"}) => ({
     top: position
   })
 )

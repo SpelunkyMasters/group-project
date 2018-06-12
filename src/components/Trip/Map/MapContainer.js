@@ -4,11 +4,19 @@ import { connect } from 'react-redux'
 import glamorous from 'glamorous'
 
 const MapStyles = {
-    height:'calc(100% - 136px)',
+    height:'calc(100% - 151px)',
     width:'100%',
     marginLeft: '-10px',
-    // zIndex: '-1'
 }
+
+const InfoDiv = glamorous.div({
+maxWidth: '65vw',
+wordWrap:'break-word'
+})
+
+const InfoName = glamorous.p({
+    fontWeight: '600'
+})
 
 class MapContainer extends Component {
     constructor() {
@@ -119,23 +127,20 @@ class MapContainer extends Component {
                         />
                 )
             }
-
         })
-      }
-      if (this.props.itinerary.length> 0) {
-          let points = this.findBounds(latPoints, lngPoints)
-          bounds = new this.props.google.maps.LatLngBounds();
-          for (let i = 0; i < points.length; i++) {
-            bounds.extend(points[i])
-          }
 
-      }
+
+
+        let points = this.findBounds(latPoints, lngPoints)
+        bounds = new this.props.google.maps.LatLngBounds();
+        for (let i = 0; i < points.length; i++) {
+          bounds.extend(points[i])
+        }
+    }
       
       if ( currentMarker.lat) {
           center = {lat: currentMarker.lat, lng: currentMarker.lng}
-        //   bounds = null
           zoom = 25
-        //   bounds = new this.props.google.maps.LatLngBounds();          
       }
 
       if ( this.state.selectedPlace.position) {
@@ -153,7 +158,6 @@ class MapContainer extends Component {
                 center={center}
                 zoom={zoom}
                 bounds={bounds}
-                // style={MapStyles}
                 containerStyle={MapStyles}
             >
                 {itin}
@@ -172,13 +176,14 @@ class MapContainer extends Component {
                     visible={this.state.showingInfoWindow}
                     onClose={this.onMapClicked}
                     >
+                    <InfoDiv>
                         {
                             this.state.selectedPlace.title ?
                             this.state.selectedPlace.title.includes(this.state.selectedPlace.name) ?
-                                <p>{this.state.selectedPlace.title}</p> :
+                                <InfoName>{this.state.selectedPlace.title}</InfoName> :
                             (
                                 <div>
-                                    <p>{this.state.selectedPlace.name}</p>
+                                    <InfoName>{this.state.selectedPlace.name}</InfoName>
                                     <p>{this.state.selectedPlace.title}</p>
                                 </div>
                             ) :
@@ -186,7 +191,9 @@ class MapContainer extends Component {
                     
                         }
                             
+                    </InfoDiv>
                     </InfoWindow>
+
             </Map>
     );
   }
