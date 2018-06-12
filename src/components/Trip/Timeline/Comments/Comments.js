@@ -2,8 +2,77 @@ import React, { Component } from 'react';
 import io from 'socket.io-client';
 import axios from 'axios';
 import {connect} from 'react-redux';
+import glamorous from 'glamorous';
+import cross from '../../../../assets/img/cross.png';
 
-
+const CommentBox=glamorous.div({
+  maxHeight:'25vh',
+  overflow:'auto',
+  width:'100%'
+})
+const Button=glamorous.button({
+  width: '40%',
+marginLeft: '30%',
+marginRight: '30%',
+borderRadius: '4px',
+border: '1px solid',
+borderColor: '#E7E7E7',
+backgroundColor: '#384E77',
+color:'white'
+})
+const Comment=glamorous.div({
+  display:'flex',
+  flexDirection:'row',
+  justifyContent: 'space-between',
+  padding:5
+})
+const CommentName=glamorous.span({
+  color: '#262626',
+  fontWeight: '900',
+  wordWrap: 'break-word',
+  fontSize:14,
+  fontFamily: 'Arial, Helvetica, sans-serif',
+  letterSpacing:1
+  
+})
+const CommentText=glamorous.span({
+  wordWrap: 'break-word',
+  fontWeight:'100',
+  fontSize:14,
+  fontFamily: 'Arial, Helvetica, sans-serif',
+  letterSpacing:1
+})
+const DeleteButton=glamorous.div({
+  backgroundColor:'transparent',
+  border:'none',
+   height:'8px'
+})
+const InputField = glamorous.input({
+  fontSize: '13px',
+  width: '65%',
+  margin:'0 5px',
+  height: '20px',
+  padding: '3px 10px',
+  borderRadius: '35px',
+  marginRight: "9px",
+  border: "none",
+  boxShadow: "1px 1px 5px rgba(0, 0, 0, 0.5) inset",
+  ":focus": {
+      outline: 0,
+    }
+  })
+  const SendButton=glamorous.button({
+    margin:'0 auto',
+    height: 26,
+    width:60.38,
+    borderRadius: 4,
+    border: '1px solid',
+    borderColor: '#E7E7E7',
+    },
+    ({theme}) => ({
+      backgroundColor: theme.sunglow
+    })
+    )
 class Comments extends Component {
   constructor(props) {
     super(props);
@@ -77,7 +146,6 @@ deleteMessage(commentid){
     })
     axios.delete(`/api/comment/${commentid}`).then(res=>{
   // sending message to with null and messageid thru socket
-console.log("ACHTUNG!!!")
   })})
   //deleting message from database
 
@@ -96,26 +164,28 @@ selectName(first_name, last_name){
 
 }
   render() {
-console.log("THE ROOM", this.state.room, this.props.postid)
 var comments=this.state.comments.map((e,i)=>{
-    return <div id={i}><div onClick={()=>this.selectName(e.first_name, e.last_name.charAt(0))} ><img src={e.picture} alt="profile" height='50px' width='50px'/>
-    {e.first_name} {e.last_name} {e.comment_text} </div>{e.userid==this.props.user.userid? <button onClick={()=>this.deleteMessage(e.commentid)}>delete </button>: <p> </p>}</div>
+    return <Comment key={i}><div onClick={()=>this.selectName(e.first_name, e.last_name.charAt(0))} >
+    <CommentName>{e.first_name} {e.last_name}</CommentName><CommentText> {e.comment_text}</CommentText> </div>
+    {e.userid==this.props.user.userid? <DeleteButton onClick={()=>this.deleteMessage(e.commentid)}>
+    <img src={cross} alt="delete" height='100%'/></DeleteButton>: <p> </p>}
+    </Comment>
 })
 
     return (
-      <div className="Tiermessages">
+      <CommentBox>
       {/* showing/closing comments on click of the button  */}
-      <button onClick={()=>this.setState({show:!this.state.show})}>Show/Hide</button>
+      <Button onClick={()=>this.setState({show:!this.state.show})}>{this.state.show?'Hide comments':'Show comments'}</Button>
       {this.state.show?
       <div>
       {comments}
-      <input value={this.state.input} onChange={e=>this.setState({input:e.target.value})}/>
-            <button onClick={this.sendMessage}>Send </button>
+      <InputField placeholder='Add a comment...' value={this.state.input} onChange={e=>this.setState({input:e.target.value})}/>
+            <SendButton onClick={this.sendMessage}>SEND </SendButton>
         </div>:
         <p></p>
     }
 
-      </div>
+      </CommentBox>
     );
   }
 }

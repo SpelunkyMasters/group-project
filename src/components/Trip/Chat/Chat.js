@@ -8,7 +8,7 @@ import image from '../../../assets/img/text_background.png'
 import sendIcon from '../../../assets/img/send-button.svg'
 
 const ChatBox=glamorous.div({
-  height:'calc(100vh - 60px)',
+  height:'calc(100vh - 70px)',
   padding: '20px',
   width:'106.5%',
   background: `url('${image}') center, no-repeat`,

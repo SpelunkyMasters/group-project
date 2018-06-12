@@ -1,5 +1,20 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import glamorous from 'glamorous';
+
+const Input=glamorous.input({
+    display:'none'
+})
+const Label=glamorous.label({
+    fontSize:12,
+    padding:'  6px 5.3px ',
+    borderRadius: 4,
+    border: '1px solid',
+    borderColor: '#E7E7E7',
+    backgroundColor:'#384E77',
+    color:'white'
+})
+
 
 
 function sendToback(photo){
@@ -17,7 +32,6 @@ export default class FileUpload extends Component {
             filetype: ''
         }
         this.handlePhoto=this.handlePhoto.bind(this)
-        this.sendPhoto=this.sendPhoto.bind(this)
     }
 
     handlePhoto(event){
@@ -31,28 +45,28 @@ export default class FileUpload extends Component {
                 filename: file.name,
                 filetype: file.type
             })
+            sendToback(this.state).then(response => {
+                this.props.getUrl(response.data.Location)
+            })
         }
         console.log("FILE IS", file)
-        if(file) reader.readAsDataURL(file)
+        if(file) {reader.readAsDataURL(file)
+
+        }
         
     }
 
-    sendPhoto(event){
-        event.preventDefault()
-
-        sendToback(this.state).then(response => {
-            this.props.getUrl(response.data.Location)
-        })
-    }
 
     render(){
         this.state.file && console.log(this.state.photo)
         return (
-            <div className="FileUpload">
-                <input type="file" onChange={this.handlePhoto}/>
-                <br/>
+            <div>
+                <Label>
+                <Input type="file" onChange={this.handlePhoto}/>
+                CHOOSE
+                </Label>
+           
       
-                <button onClick={this.sendPhoto}>Upload</button>
             </div>
         )
     }
