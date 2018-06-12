@@ -11,7 +11,9 @@ const MembersBox=glamorous.div({
   height:'calc(100vh - 70px)',
 backgroundColor:'lightgrey',
 padding:10,
-borderRadius:5
+borderRadius:5,
+width:'106.5%',
+marginLeft: '-10px'
 })
 const Members=glamorous.div({
   height:'40%',
@@ -160,7 +162,7 @@ class TripMembers extends Component {
                   </FirstLine>
                   <SecondLine>
                     <div>{e.email}</div>
-                    {userid==this.props.user.userid?
+                    {userid==this.props.user.userid&&e.userid!==userid?
                     <DeleteButton onClick={()=>this.deleteFromTrip(i, e.userid)}>
                     <img src={cross} alt="delete" height='12px'/>
                     </DeleteButton>:
@@ -266,7 +268,6 @@ deleteFromTrip(i, userid){
                   </SecondLine>
                 </EachMember>)
       }) 
-      console.log('users', users, 'propsUsers', propsUsers)
       this.setState({users, propsUsers})
     })
   }
