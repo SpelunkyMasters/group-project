@@ -7,7 +7,6 @@ import axios from 'axios';
 import UserTravelHistory from './UserTravelHistory/UserTravelHistory'
 import glamorous from 'glamorous';
 import arrow from '../../assets/svg/thin-arrow-pointing-left.svg'
-import {Button} from '../styledComponents'
 
 const Header=glamorous.div({
   height:'20vh',
@@ -64,6 +63,18 @@ const ButtonDiv=glamorous.div({
   justifyContent: 'space-around',
 
 })
+const Button=glamorous.button({
+  marginTop:2,
+  height: 40,
+  width:90.38,
+  borderRadius: 4,
+  border: '1px solid',
+  borderColor: '#E7E7E7',
+  },
+  ({theme}) => ({
+    backgroundColor: theme.sunglow
+  })
+  )
 
 class Profile extends Component {
   constructor(){
@@ -127,8 +138,8 @@ class Profile extends Component {
         <P>Email: <Input style={{width:'200px'}} value={this.state.email} onChange={e=>this.setState({email:e.target.value})}/></P>
           </div>
           <ButtonDiv>
-        <Button type='secondary' onClick={()=>this.saveChanges()}>SAVE</Button>
-        <Button type='primary' style={{color:'white'}} onClick={()=>this.cancelChanges()}>CANCEL</Button>
+        <Button onClick={()=>this.saveChanges()}>SAVE</Button>
+        <Button style={{color:'white',backgroundColor:'#384E77'}} onClick={()=>this.cancelChanges()}>CANCEL</Button>
           </ButtonDiv>
         </InfoPart>
         }
