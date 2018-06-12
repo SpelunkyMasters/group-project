@@ -11,6 +11,7 @@ import TripMembers from '../Trip/TripMembers/TripMembers';
 import {connect} from 'react-redux';
 import {getUser, getAllUsers, getTrips, getInvites, isTripOrganizer} from '../../ducks/reducer';
 import Timeline from './Timeline/Timeline';
+import PlaceInfo from '../backup/PlaceInfo/PlaceInfo';
 import { AppHeader, SmallButton, TripHeader, EditPosition } from '../styledComponents';
 import IconButton from '../buttons/IconButton/IconButton';
 
@@ -163,6 +164,8 @@ class Trip extends Component {
             <Route path="/trip/:id/chat" component={ Chat } />
             <Route path="/trip/:id/trip-members" component={ TripMembers } />
             <Route path="/trip/:id/timeline" component={ Timeline } />
+            <Route path="/trip/:id/info" component={ PlaceInfo } />
+
             
             {/* <Route path="/trip/:id/group-history" component={} />
             <Route path="/trip/:id/timeline" component={} /> */}

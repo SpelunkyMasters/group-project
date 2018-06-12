@@ -82,7 +82,7 @@ class NavBar extends Component {
       {name: "Chat", path: `/trip/${id}/chat`, svg: chatsvg},
       {name: "Trip Members", path: `/trip/${id}/trip-members`, svg: travelersvg},
       {name: "Timeline", path: `/trip/${id}/timeline`, svg: timelinesvg},
-      {name: "Group History", path: `/trip/${id}/group_history`, svg: historysvg},
+      {name: "Group History", path: `/trip/${id}/info`, svg: historysvg},
       {name: "Logout", path: "/"}
     ];
 
