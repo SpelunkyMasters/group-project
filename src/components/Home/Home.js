@@ -4,8 +4,7 @@ import {connect} from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import glamorous from 'glamorous';
 
-import TripCover from './TripCover/TripCover';
-import { Button, LargeIcon } from '../styledComponents';
+import { mediaQueries, Button } from '../styledComponents';
 import Btn from '../buttons/Btn/Btn';
 import Avatar from '../Avatar/Avatar';
 
@@ -13,73 +12,198 @@ import Invite from './Invite/Invite';
 
 import {getUser, getTrips, getInvites} from '../../ducks/reducer';
 
-import add from '../../assets/svg/add.svg';
+import add from '../../assets/svg/add.svg'
+import profile from '../../assets/svg/profile.svg';
 
 import logoNoText from '../../assets/img/logo1notext.png';
 
-const CreateTripDiv = glamorous.div({
-  position: 'fixed',
-  top: 270,
-  right: 8
-})
 
 const HomeHeader = glamorous.header({
+  cursor: 'default',
   height: 70,
   margin: "-10px -10px 0 -15px",
   display: 'flex',
   justifyContent: 'space-around',
-  alignItems: 'center'
+  alignItems: 'center',
+  [mediaQueries.iPhone678]: {
+    marginBottom: 20
+  },
+  [mediaQueries.iPhoneX]: {
+    paddingTop: 10,
+    height: 90,
+    marginBottom: 10
+
+  }
 }, ({ theme }) => ({
     backgroundColor: theme.mainBg,
     color: theme.white
 }))
 
-const HomeH1 = glamorous.h1({
-  margin: "5px 0 5px 0"
+const TripsH1 = glamorous.h1({
+  margin: '5px 0',
+
+  [mediaQueries.iPhone678plusLAND]: {
+    position: 'relative',
+    left: -170,
+  }
 });
 
-const TripsHeader = glamorous.h1({
-  marginTop: 15
-}, ({ theme }) => ({
-    color: theme.white
-}))
+// const TripsHeader = glamorous.h1({
+  //   marginTop: 15
+  // }, ({ theme }) => ({
+    //     color: theme.white
+    // }))
+    
+    const HomeH2 = glamorous.h2({
+      margin: 50,
+    }, ({ theme }) => ({
+      color: theme.lighterText
+    }))
+    
+    const HomeMainDiv = glamorous.div({
+      cursor: 'default',
+      padding: 10,
+      height: '100vh',
+      overflow:'hidden',
+      textAlign: 'center',
+      backgroundImage: `url(${logoNoText})`,
+      // backgroundBlendMode: 'overlay',
+      backgroundSize: '180%',
+      backgroundRepeat: 'no-repeat',
+      // backgroundSize: '180%',
+      backgroundPosition: 'left 0 bottom -30px',
+      [mediaQueries.iPhone678plusLAND]: {
+        // float: 'left'
+      }
+    }, ({ theme }) => ({
+      backgroundColor: theme.white,
+      color: theme.mainBg,
+    }))
+    
+    const TripHeader = glamorous.h2({
+      width: '60%',
+      transition: '0.2s ease-in-out',
+      borderBottom: '1px solid',
+      paddingBottom: 10,
+      color: 'white',
+      padding: 10,
+      ':last-child': {
+          border: 'none'
+      },
+      [mediaQueries.iPhone678plus]: {
+        width: '80%',
+        fontSize: 24,
+        padding: 15
+      },
+      [mediaQueries.iPhoneX]: {
+        width: '94%',
+        fontSize: 30,
+        padding: 20
+      } 
+    }, ({ theme }) => ({
+      borderColor: theme.mainBg,
+      color: theme.lighterText,
+      ':hover': {
+          color: theme.silver
+      }
+    }))
 
-const HomeH2 = glamorous.h2({
-  margin: 50,
-}, ({ theme }) => ({
-  color: theme.lighterText
-}))
+    const TripContainer = glamorous.div({
+      cursor: 'pointer',
+      // padding: 2,
+      border: '1px solid #001C55',
+      borderRadius: 5,
+      margin: 'auto',
+      height: 190,
+      width: 260,
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      boxShadow: "3px 3px 6px grey",
+      backgroundColor: '#EEF0F3',
+      overflowY: 'scroll',
+      '&::-webkit-scrollbar': {
+        width: 0
+      },
+      [mediaQueries.iPhone678]: {
+        padding: 8,
+        height: 220,
+        width: 275
+      },
+      [mediaQueries.iPhone678plus]: {
+        // padding: 10,
+        // width: 400,
+        // height: 230,
+      },
 
-const HomeMainDiv = glamorous.div({
-  padding: 10,
-  height: '100vh',
-  overflow:'hidden',
-  textAlign: 'center',
-  backgroundImage: `url(${logoNoText})`,
-  // backgroundBlendMode: 'overlay',
-  backgroundSize: '180%',
-  backgroundPosition: 'left 0 bottom -30px'
-}, ({ theme }) => ({
-  backgroundColor: theme.white,
-  color: theme.mainBg,
-}))
+      [mediaQueries.iPhone678plusLAND]: {
+        padding: 15,
+        float: 'left',
+        position: 'relative',
+        top: 5,
+        left: 50,
+        height: 220,
+        width: 280
+      },
 
-const TripContainer = glamorous.div({
-  // padding: 2,
-  border: '1px solid #001C55',
-  borderRadius: 5,
-  margin: 'auto',
-  height: 180,
-  width: 260,
-  boxShadow: "3px 3px 6px grey",
-  backgroundColor: '#EEF0F3',
-  overflowY: 'scroll',
-  '&::-webkit-scrollbar': {
-    width: 0
+      [mediaQueries.iPhoneX]: {
+        width: 300,
+        height: 340
+      }
+    })
+
+    const LargeIcon = glamorous.button({
+      cursor: 'pointer',
+      width: 55,
+      height: 55,
+      borderRadius: '50%',
+      border: '1px solid',
+      borderColor: '#E7E7E7',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: '#9ebfe6'
+  })
+  
+  const CreateTripDiv = glamorous.div({
+    position: 'fixed',
+    top: 280,
+    right: 8,
+    [mediaQueries.iPhone678]: {
+      top: 325,
+      right: 26
+    },
+    [mediaQueries.iPhone678plus]: {
+      top: 345,
+      right: 33
+    },
+    [mediaQueries.iPhone678plusLAND]: {
+      top: 324,
+      right: 375
+    },
+
+    [mediaQueries.iPhoneX]: {
+      top: 456,
+      right: 15
+    }
+  })
+  
+
+    
+    
+const InvitesH1 = glamorous.h1({
+  margin: "8px 0",
+
+  [mediaQueries.iPhone678plusLAND]: {
+    position: 'relative',
+    top: -45,
+    left: 30
   }
-})
-
+});
+    
 const InviteContainer = glamorous.div({
+  cursor: 'default',
   padding: 10,
   border: '1px solid #001C55',
   borderRadius: 5,
@@ -93,8 +217,28 @@ const InviteContainer = glamorous.div({
   overflowY: 'scroll',
   '&::-webkit-scrollbar': {
     width: 0
+  },
+
+  [mediaQueries.iPhone678]: {
+    padding: 18,
+    height: 210,
+    width: 260
+  },
+
+  [mediaQueries.iPhone678plus]: {
+    padding: 18,
+    height: 250,
+    width: 260
+  },
+
+  [mediaQueries.iPhone678plusLAND]: {
+    position: 'relative',
+    top: -30,
+    left: 30
   }
+
 })
+
 
 class Home extends Component {
   constructor() {
@@ -141,9 +285,11 @@ class Home extends Component {
   }
   render() {
 
+
     //map through the list of trips stored on Redux.
     const tripList = this.props.trips.map( (trip, i) => {
-      return <TripCover trip={trip} key={ i }/>
+      const {tripid, trip_name} = trip
+      return <TripHeader trip={trip} key={ tripid }><NavLink to={`/trip/${tripid}/nav`}>{trip_name}</NavLink></TripHeader>
     })
 
     const invites = this.props.invites.map( (invite, i) => {
@@ -154,19 +300,19 @@ class Home extends Component {
       <HomeMainDiv> 
         <HomeHeader>
           <NavLink to="/profile">
-            <Avatar/>
-            {/* <img src={ logoNoText } alt="Caravan logo"/> */}
+            {/* <Avatar/> */}
+            <img src={ profile } alt="profile" width="30px"/>
           </NavLink> 
-          <HomeH1>Home</HomeH1>
+          <h1>Home</h1>
         </HomeHeader>
-        <HomeH1>Trips</HomeH1>
+        <TripsH1>Trips</TripsH1>
         <TripContainer>
           { tripList }
         </TripContainer>
         <CreateTripDiv>
-        <LargeIcon type="secondary" onClick={ this.createTrip }><img src={ add } alt="new trip" width="25px"/></LargeIcon>
+          <LargeIcon type="secondary" onClick={ this.createTrip }><img src={ add } alt="new trip" width="25px"/></LargeIcon>
         </CreateTripDiv>
-        <HomeH1>Invites</HomeH1>
+        <InvitesH1>Invites</InvitesH1>
         <InviteContainer>
           {
             this.props.invites.length < 1
