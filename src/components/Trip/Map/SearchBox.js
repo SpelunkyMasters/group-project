@@ -64,7 +64,7 @@ const SelectAndButton = glamorous.div({
 
 const SearchSuggestions = glamorous.div({
   position: "fixed",
-  top: "91px",
+  top: "101px",
   left: "10px",
   zIndex: "1",
   borderRadius: "15px",
