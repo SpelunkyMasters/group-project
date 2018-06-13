@@ -35,6 +35,9 @@ massive(CONNECTION_STRING).then(db=>{
     console.log("Massive up and running")
     app.set('db', db)
 })
+
+app.use( express.static( `${__dirname}/../build` ) );
+
 app.use(session({
     secret:SESSION_SECRET,
     resave:false,

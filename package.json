@@ -44,6 +44,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "main": "./server/index.js",
+  "main": "server/index.js",
   "proxy": "http://localhost:3004"
 }
