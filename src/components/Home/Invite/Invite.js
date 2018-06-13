@@ -21,7 +21,20 @@ const InviteContainer = glamorous.div({
 
     },
     [mediaQueries.iPhone678]: {
-        marginBottom: 16
+        padding: 5,
+        marginBottom: 16,
+        height: 70,
+        width: 215
+
+    },
+
+    [mediaQueries.iPhone678plus]: {
+        height: 75,
+        width: 225
+    },
+
+    [mediaQueries.iPhoneX]: {
+
     }
 }, ({ theme }) => ({
     borderColor: theme.mainBg,
@@ -34,7 +47,22 @@ const InviteTextP = glamorous.p({
     ':nth-child(odd)': {
         fontWeight: 800,
         fontSize: 18
-    }
+    },
+    [mediaQueries.iPhone678]: {
+        fontSize: 18,
+        ':nth-child(odd)': {
+            fontWeight: 800,
+            fontSize: 20
+        },
+    },
+    [mediaQueries.iPhone678plus]: {
+        fontSize: 20,
+        ':nth-child(odd)': {
+            fontWeight: 800,
+            fontSize: 22
+        },
+    },
+
 }, ({ theme }) => ({
     color: theme.lighterText,
     ':last-child': {
@@ -59,8 +87,8 @@ function Invite(props) {
             <InviteTextP>has invited you to</InviteTextP>
             <InviteTextP>{`${trip_name}`}</InviteTextP>
             <InviteControls>
-                <img src={ acceptIcon } alt="accept invite" width="25px" onClick={ () => accept(tripid) }/>
-                <img src={ declineIcon } alt="decine invite" width="25px" onClick={ () => decline(tripid) }/>
+                <img src={ acceptIcon } alt="accept invite" width="30px" onClick={ () => accept(tripid) }/>
+                <img src={ declineIcon } alt="decine invite" width="30px" onClick={ () => decline(tripid) }/>
             </InviteControls>
         </InviteContainer>
     )
