@@ -31,11 +31,11 @@ const InputField = glamorous.input({
   })
 const FirstPart=glamorous.div({
   display:'flex',
-  flexFlow:'row',
+  flexDirection:'row',
   padding:20,
-  height:'20%',
   alignItems: 'center',
   justifyContent: 'space-between',
+  overflow:'auto'
 })
 const FirstHalf=glamorous.div({
   height:'100%',
