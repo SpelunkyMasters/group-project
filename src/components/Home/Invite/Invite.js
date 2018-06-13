@@ -1,6 +1,5 @@
 import React from 'react';
 import glamorous from 'glamorous';
-import IconButton from '../../buttons/IconButton/IconButton';
 
 import acceptIcon from '../../../assets/svg/accept.svg';
 import declineIcon from '../../../assets/svg/decline.svg';
@@ -117,7 +116,7 @@ const InviteControls = glamorous.div({
 })
 
 function Invite(props) {
-    const { invite, index, accept, decline } = props
+    const { invite, accept, decline } = props
         , { first_name, last_name, trip_name, tripid } = invite;
 
     return(

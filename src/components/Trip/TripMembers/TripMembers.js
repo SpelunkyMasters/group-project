@@ -100,7 +100,7 @@ class TripMembers extends Component {
           , { trips } = this.props;
   
       const currentTrip = tripFns.getCurrentTrip(trips, +id)
-          , { trip_name, userid } = currentTrip || 'Trip Name';
+          , { userid } = currentTrip || 'Trip Name';
                   //mapping thru users that are in this trip
        var users=this.props.users.map((e, i)=>{
       return (<EachMember key={i}>
@@ -110,7 +110,7 @@ class TripMembers extends Component {
                 </FirstLine>
                 <SecondLine>
                   <div>{e.email}</div>
-                  {userid==this.props.user.userid?
+                  {userid===this.props.user.userid?
                   <DeleteButton onClick={()=>this.deleteFromTrip(i, e.userid)}>
                   <img src={cross} alt="delete" height='12px'/>
                   </DeleteButton>:
@@ -120,7 +120,7 @@ class TripMembers extends Component {
                 </SecondLine>
               </EachMember>)
     }) 
-    this.setState({users,propsUsers:this.props.users,userid,userid})
+    this.setState({users, propsUsers: this.props.users,userid })
       }) 
          //getting all the invited users, mapping thru them and saving them in state
     axios.get(`/api/tripusers/${this.props.match.params.id}`).then(res=>{
@@ -132,7 +132,7 @@ class TripMembers extends Component {
                   </FirstLine>
                   <SecondLine>
                     <div>{e.email}</div>
-                    {this.state.userid==this.props.user.userid?
+                    {this.state.userid === this.props.user.userid?
                     <DeleteButton onClick={()=>this.deleteFromInvited(i, e.userid)}>
                     <img src={cross} alt="delete" height='12px'/>
                     </DeleteButton>:
@@ -152,7 +152,7 @@ class TripMembers extends Component {
       , { trips } = this.props;
 
   const currentTrip = tripFns.getCurrentTrip(trips, +id)
-      , { trip_name, userid } = currentTrip || 'Trip Name';
+      , { userid } = currentTrip || 'Trip Name';
 
       var users=this.props.users.map((e, i)=>{
         return (<EachMember key={i}>
@@ -162,7 +162,7 @@ class TripMembers extends Component {
                   </FirstLine>
                   <SecondLine>
                     <div>{e.email}</div>
-                    {userid==this.props.user.userid&&e.userid!==userid?
+                    {userid === this.props.user.userid&&e.userid!==userid?
                     <DeleteButton onClick={()=>this.deleteFromTrip(i, e.userid)}>
                     <img src={cross} alt="delete" height='12px'/>
                     </DeleteButton>:
@@ -184,7 +184,7 @@ class TripMembers extends Component {
                     </FirstLine>
                     <SecondLine>
                       <div>{e.email}</div>
-                      {userid==this.props.user.userid?
+                      {userid === this.props.user.userid?
                       <DeleteButton onClick={()=>this.deleteFromInvited(i, e.userid)}>
                       <img src={cross} alt="delete" height='12px'/>
                       </DeleteButton>:
@@ -214,7 +214,7 @@ class TripMembers extends Component {
                   </FirstLine>
                   <SecondLine>
                     <div>{e.email}</div>
-                    {this.state.userid==this.props.user.userid?
+                    {this.state.userid === this.props.user.userid?
                     <DeleteButton onClick={()=>this.deleteFromInvited(i, e.userid)}>
                     <img src={cross} alt="delete" height='12px'/>
                     </DeleteButton>:
@@ -236,7 +236,7 @@ var invited=<EachMember key={i}>
               </FirstLine>
               <SecondLine>
                 <div>{e.email}</div>
-                {this.state.userid==this.props.user.userid?
+                {this.state.userid === this.props.user.userid?
                 <DeleteButton onClick={()=>this.deleteFromInvited(i, e.userid)}>
                 <img src={cross} alt="delete" height='12px'/>
                 </DeleteButton>:
@@ -259,7 +259,7 @@ deleteFromTrip(i, userid){
                   </FirstLine>
                   <SecondLine>
                     <div>{e.email}</div>
-                    {this.state.userid==this.props.user.userid?
+                    {this.state.userid === this.props.user.userid?
                     <DeleteButton onClick={()=>this.deleteFromTrip(i, e.userid)}>
                     <img src={cross} alt="delete" height='12px'/>
                     </DeleteButton>:
@@ -285,7 +285,7 @@ deleteFromTrip(i, userid){
           
           {this.state.invited}
         </Invited>
-        {this.state.userid==this.props.user.userid?
+        {this.state.userid === this.props.user.userid?
         <div style={{display:'flex', flexDirection:'column',  justifyContent:'center', alignItems:'center' }}>
           <InputField placeholder="Type in to search"value={this.state.filter} onChange={e=>this.setState({filter:e.target.value})} type='text'/>
           {/* showing AddRemove component if input field is not empty */}

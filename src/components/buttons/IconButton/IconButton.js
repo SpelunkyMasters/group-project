@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import glamorous from 'glamorous';
 
-import { IconBtn } from '../../styledComponents';
 import menu from '../../../assets/img/menu.png';
 import bin from '../../../assets/img/delete.png';
 import edit from '../../../assets/img/edit.png';
@@ -46,9 +45,6 @@ const buttonIcons = {
 
 
 class IconButton extends Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return(
             <Ico_Btn type={this.props.type} onClick={ this.props.onClick }>

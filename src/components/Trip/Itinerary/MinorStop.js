@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import glamorous, { P, Div } from 'glamorous'
+import glamorous, { P } from 'glamorous'
 import { connect } from 'react-redux'
 
 const DeleteButton = glamorous.button({

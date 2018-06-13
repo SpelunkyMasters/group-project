@@ -142,7 +142,7 @@ var messages=this.state.messages.map((e,i)=>{
         </ChatView>
         {/* inputing and sending message */}
         <InputField placeholder="Type a message" value={this.state.input} onChange={e=>this.setState({input:e.target.value})}/>
-        <SendButton onClick={this.sendMessage}><img  width='80%' height='80%' src={sendIcon}/></SendButton>
+        <SendButton onClick={this.sendMessage}><img  width='80%' height='80%' src={sendIcon} alt="send" /></SendButton>
       </ChatBox>
     );
   }

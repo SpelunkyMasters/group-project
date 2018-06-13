@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import glamorous from 'glamorous';
 
-import { mediaQueries, Button } from '../styledComponents';
+import { mediaQueries } from '../styledComponents';
 
 import Invite from './Invite/Invite';
 

@@ -137,7 +137,7 @@ class Comments extends Component {
 })
 }
 deleteMessage(commentid){
-  var comments=this.state.comments.filter(e=> e.commentid!=commentid)
+  var comments=this.state.comments.filter(e=> e.commentid !== commentid)
   console.log(comments)
   this.setState({comments},()=>{  
     this.socket.emit('message sent', {
@@ -167,7 +167,7 @@ selectName(first_name, last_name){
 var comments=this.state.comments.map((e,i)=>{
     return <Comment key={i}><div onClick={()=>this.selectName(e.first_name, e.last_name.charAt(0))} >
     <CommentName>{e.first_name} {e.last_name}</CommentName><CommentText> {e.comment_text}</CommentText> </div>
-    {e.userid==this.props.user.userid? <DeleteButton onClick={()=>this.deleteMessage(e.commentid)}>
+    {e.userid === this.props.user.userid? <DeleteButton onClick={()=>this.deleteMessage(e.commentid)}>
     <img src={cross} alt="delete" height='100%'/></DeleteButton>: <p> </p>}
     </Comment>
 })
