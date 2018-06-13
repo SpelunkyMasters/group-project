@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import glamorous, { Div } from 'glamorous';
+import glamorous from 'glamorous';
 
 const MessageStyle = {
     me: {

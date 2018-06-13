@@ -4,7 +4,6 @@ import FileUpload from './FileUpload/FileUpload';
 import {connect} from 'react-redux';
 import {getUser,getTrips} from '../../ducks/reducer';
 import axios from 'axios';
-import UserTravelHistory from './UserTravelHistory/UserTravelHistory'
 import glamorous from 'glamorous';
 import arrow from '../../assets/svg/thin-arrow-pointing-left.svg'
 
@@ -113,7 +112,7 @@ class Profile extends Component {
       <div className="Profile">
       <Header>
         <NavLink to="/home"><button style={{backgroundColor: 'transparent',border: 'none'}} ><img  width='30px' 
-        height='30px' src={arrow}/></button></NavLink>
+        height='30px' src={arrow} alt="back button"/></button></NavLink>
         <HeaderText>Profile</HeaderText>
       </Header>
       <PictureEdit>
