@@ -7,13 +7,26 @@ import axios from 'axios';
 import glamorous from 'glamorous';
 import arrow from '../../assets/svg/thin-arrow-pointing-left.svg'
 
+import { mediaQueries } from '../styledComponents';
+
+import Avatar from '../Avatar/Avatar';
+
+const Separator = glamorous.hr({
+width: '80%'
+})
+
+const ProfileDiv = glamorous.div({
+  height: '100vh'
+}, ({ theme }) => ({
+  backgroundColor: theme.white
+}))
+
 const Header=glamorous.div({
-  height:'20vh',
-  width:'100%',
+  height: 70,
   display:'flex',
   justifyContent: 'flex-start',
-  alignItems: 'flex-end',
-  padding:'  0 0 20px 30px'
+  alignItems: 'center',
+  padding: '0 0 0 30px'
   
 
 }, ({ theme }) => ({
@@ -25,6 +38,7 @@ const HeaderText=glamorous.h1({
   fontSize:30
 })
 const PictureEdit=glamorous.div({
+  marginLeft: 35,
   display:'flex',
   height:'30vh',
   flexDirection:'row',
@@ -40,7 +54,7 @@ const InfoPart=glamorous.div({
   display: 'flex',
   flexDirection:'column',
   justifyContent: 'space-around',
-  padding:'50px 25px'
+  padding:'10px 25px'
 })
 const P=glamorous.div({
   margin:'10px 0',
@@ -60,6 +74,7 @@ const ButtonDiv=glamorous.div({
   display:'flex',
   alignItems: 'center',
   justifyContent: 'space-around',
+  marginTop:'20px'
 
 })
 const Button=glamorous.button({
@@ -109,16 +124,17 @@ class Profile extends Component {
   }
   render() {
     return (
-      <div className="Profile">
+      <ProfileDiv>
       <Header>
         <NavLink to="/home"><button style={{backgroundColor: 'transparent',border: 'none'}} ><img  width='30px' 
         height='30px' src={arrow} alt="back button"/></button></NavLink>
         <HeaderText>Profile</HeaderText>
       </Header>
       <PictureEdit>
-       <ProfilePicture src={this.props.user.picture} alt="profile" />
+       <Avatar size="large"/>
         <FileUpload />
       </PictureEdit>
+      <Separator/>
         {!this.state.edit?
         <InfoPart>
           <div>
@@ -146,7 +162,7 @@ class Profile extends Component {
         
         
         {/* <UserTravelHistory /> */}
-      </div>
+      </ProfileDiv>
     );
   }
 }
