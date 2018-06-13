@@ -19,7 +19,6 @@ class Map extends Component {
 
   componentDidMount() {
     this.props.getItinerary(this.props.match.params.id)
-    
   }
 
   updateCurrentMarker = (marker) => {
@@ -53,12 +52,16 @@ class Map extends Component {
   render() {
     return (
       <div>
+        {
+          this.props.tripOrganizer ?
           <SearchBox 
             updateCurrentMarker={this.updateCurrentMarker} 
             updateItinerary={this.updateItinerary}
             handleDestType={this.handleDestType}
             handleSubDest={this.handleSubDest}
-            destType={this.state.destType} />
+            destType={this.state.destType} />:
+            null
+        }
             <MapContainer 
               currentMarker={this.state.currentMarker} />
       </div>
@@ -69,7 +72,8 @@ class Map extends Component {
 function mapStateToProps(state) {
   return {
     itinerary: state.itinerary,
-    mapLoading: state.mapLoading
+    mapLoading: state.mapLoading,
+    tripOrganizer: state.tripOrganizer
   }
 }
 

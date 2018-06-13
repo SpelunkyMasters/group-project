@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import glamorous, { P, Div } from 'glamorous'
+import { connect } from 'react-redux'
 
 const DeleteButton = glamorous.button({
     background: 'none',
@@ -50,7 +51,7 @@ class MinorStop extends Component {
             // margin="10px 25px"
              onClick={this.handleNameClick}>{minorStop.sub_dest_name}</P>
             {
-                this.state.clicked ? 
+                this.state.clicked && this.props.tripOrganizer ? 
                 <DeleteButton onClick={() => this.props.deleteSubDest(minorStop.sub_destid)}>X</DeleteButton> :
                 null
             }
@@ -59,4 +60,10 @@ class MinorStop extends Component {
     }
 }
 
-export default MinorStop;
+function mapStateToProps(state) {
+    return {
+        tripOrganizer: state.tripOrganizer
+    }
+}
+
+export default connect(mapStateToProps)(MinorStop);
