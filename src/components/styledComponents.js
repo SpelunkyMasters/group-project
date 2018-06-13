@@ -27,6 +27,7 @@ export const mediaQueries = {
     iPhone5: '@media only screen and (min-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2)' /*and (orientation: portrait/landscape) */,
     iPhone678: '@media only screen and (min-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2)',
     iPhone678plus: '@media only screen and (min-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3)',
+    iPhone678plusLAND: '@media only screen and (min-width: 414px) and (max-device-width: 736px) and (-webkit-min-device-pixel-ratio: 3) and (orientation: landscape)',
     iPhoneX: '@media only screen and (min-width: 375px) and (max-device-width: 812px) and (-webkit-min-device-pixel-ratio: 3)',
     iPad: '@media only screen and (min-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2)', 
     iPadPro10point5: '@media only screen and (min-width: 834px) and (max-device-width: 1112px) and (-webkit-min-device-pixel-ratio: 2)', 
@@ -62,19 +63,6 @@ export const IconBtn = glamorous.button({
     alignItems: 'center'
 }, props => ({
     backgroundColor: colors[props.type] || colors['default']
-}))
-
-export const LargeIcon = glamorous.button({
-    width: 55,
-    height: 55,
-    borderRadius: '50%',
-    border: '1px solid',
-    borderColor: colors['border'],
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-}, ({ theme }) => ({
-    backgroundColor: theme.newBlue
 }))
 
 export const Button = glamorous.button(

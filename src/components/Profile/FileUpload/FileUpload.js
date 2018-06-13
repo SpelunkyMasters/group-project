@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {Button} from '../../styledComponents';
 import glamorous from 'glamorous';
 
 const Input=glamorous.input({
@@ -23,6 +22,18 @@ const WholeFile=glamorous.div({
     height:'100%',
     width:'100%'
 })
+const Button=glamorous.button({
+    marginTop:2,
+    height: 40,
+    width:90.38,
+    borderRadius: 4,
+    border: '1px solid',
+    borderColor: '#E7E7E7',
+    },
+    ({theme}) => ({
+      backgroundColor: theme.sunglow
+    })
+    )
 
 function sendToback(photo){
     console.log(photo)
