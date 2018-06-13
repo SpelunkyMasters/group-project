@@ -22,19 +22,33 @@ const InviteContainer = glamorous.div({
     },
     [mediaQueries.iPhone678]: {
         padding: 5,
-        marginBottom: 16,
-        height: 70,
+        marginBottom: 20,
+        height: 72,
         width: 215
 
     },
 
     [mediaQueries.iPhone678plus]: {
-        height: 75,
-        width: 225
+        height: 80,
+        width: 225,
+        marginBottom: 25
     },
 
     [mediaQueries.iPhoneX]: {
 
+    },
+
+    [mediaQueries.desktop]: {
+        transition: '0.3s ease-in-out',
+        padding: 6,
+        width: 240,
+        height: 85,
+        float: 'left',
+        margin: 10,
+        ':hover': {
+            transform: 'translateY(-8px)',
+            boxShadow: '2px 2px 5px black'
+        }
     }
 }, ({ theme }) => ({
     borderColor: theme.mainBg,
@@ -62,6 +76,12 @@ const InviteTextP = glamorous.p({
             fontSize: 22
         },
     },
+    [mediaQueries.desktop]: {
+        fontSize: 22,
+        ':nth-child(odd)': {
+            fontSize: 24
+        }
+    }
 
 }, ({ theme }) => ({
     color: theme.lighterText,
@@ -71,10 +91,20 @@ const InviteTextP = glamorous.p({
 }))
 
 const InviteControls = glamorous.span({
+    position: 'relative',
+    left: 30,
+    width: 20,
     cursor: 'pointer',
     display: 'flex',
     justifyContent: 'space-around',
-    alignItems: 'center'
+    alignItems: 'center',
+    [mediaQueries.iPhone678]: {
+        left: 16
+    },
+    [mediaQueries.desktop]: {
+        left: 8,
+        bottom: 5
+    }
 })
 
 function Invite(props) {
@@ -87,8 +117,8 @@ function Invite(props) {
             <InviteTextP>has invited you to</InviteTextP>
             <InviteTextP>{`${trip_name}`}</InviteTextP>
             <InviteControls>
-                <img src={ acceptIcon } alt="accept invite" width="30px" onClick={ () => accept(tripid) }/>
-                <img src={ declineIcon } alt="decine invite" width="30px" onClick={ () => decline(tripid) }/>
+                <img src={ acceptIcon } alt="accept invite" width="35px" onClick={ () => accept(tripid) }/>
+                <img src={ declineIcon } alt="decine invite" width="35px" onClick={ () => decline(tripid) }/>
             </InviteControls>
         </InviteContainer>
     )

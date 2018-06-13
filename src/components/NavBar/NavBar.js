@@ -3,7 +3,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import glamorous from 'glamorous';
 
-import IconButton from '../buttons/IconButton/IconButton';
+import { mediaQueries } from '../styledComponents';
 
 import TripNavBtn from '../Trip/TripNavBtn';
 
@@ -23,7 +23,10 @@ const NavButtonGroup = glamorous.nav({
   height: '80vh',
   flexWrap: 'wrap',
   justifyContent: 'space-around',
-  alignItems: 'space-around'
+  alignItems: 'space-around',
+  [mediaQueries.iPhone678plus]: {
+    marginTop: 40
+  }
 })
 
 const MobileMenu = glamorous.nav({

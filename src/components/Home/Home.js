@@ -13,7 +13,7 @@ import {getUser, getTrips, getInvites} from '../../ducks/reducer';
 import add from '../../assets/svg/add.svg'
 import profile from '../../assets/svg/profile.svg';
 
-import logoNoText from '../../assets/img/logo1notext.png';
+import logoNoText from '../../assets/svg/logoNoText.svg';
 
 
 const HomeHeader = glamorous.header({
@@ -50,11 +50,16 @@ const MenuImg = glamorous.img({
 })
 
 const TripsH1 = glamorous.h1({
-  margin: '2px 0 5px 0',
-
+  margin: '10px 0 5px 0',
+  [mediaQueries.iPhone678plus]: {
+    marginTop: 20
+  },
   [mediaQueries.iPhone678plusLAND]: {
     position: 'relative',
     left: -170,
+  },
+  [mediaQueries.iPhoneX]: {
+    marginTop: 2
   },
   [mediaQueries.desktop]: {
     fontSize: 50,
@@ -79,7 +84,7 @@ const HomeMainDiv = glamorous.div({
   backgroundSize: '180%',
   backgroundRepeat: 'no-repeat',
   // backgroundSize: '180%',
-  backgroundPosition: 'left 0 bottom -30px',
+  backgroundPosition: 'left 11px bottom -30px',
   [mediaQueries.desktop]: {
     display: 'flex',
     flexDirection: 'column',
@@ -118,14 +123,15 @@ const TripH1 = glamorous.h2({
     padding: 20
   },
   [mediaQueries.desktop]: {
-    fontSize: 35
+    fontSize: 35,
+    padding: 30,
+    ':hover': {
+      fontSize: 38
+    }
   } 
 }, ({ theme }) => ({
   borderColor: theme.mainBg,
-  color: theme.lighterText,
-  ':hover': {
-      color: theme.silver
-  }
+  color: theme.lighterText
 }))
 
 const TripContainer = glamorous.div({
@@ -188,12 +194,18 @@ const TripContainer = glamorous.div({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#9ebfe6'
+    backgroundColor: '#9ebfe6',
+    [mediaQueries.desktop]: {
+      transition: '0.5s ease-in-out',
+      ':hover': {
+        border: '2px solid #001C55'
+      }
+    }
 })
 
 const CreateTripDiv = glamorous.div({
   position: 'fixed',
-  top: 278,
+  top: 286,
   right: 2,
   [mediaQueries.iPhone678]: {
     top: 325,
@@ -211,6 +223,10 @@ const CreateTripDiv = glamorous.div({
   [mediaQueries.iPhoneX]: {
     top: 416,
     right: 14
+  },
+  [mediaQueries.desktop]: {
+    top: 465,
+    right: 245
   }
 })
     
@@ -234,7 +250,7 @@ const InviteContainer = glamorous.div({
   border: '1px solid #001C55',
   borderRadius: 5,
   margin: 'auto',
-  height: 190,
+  height: 158,
   width: 240,
   display: 'flex',
   justifyContent: 'center',
@@ -252,8 +268,8 @@ const InviteContainer = glamorous.div({
   },
 
   [mediaQueries.iPhone678plus]: {
-    padding: 18,
-    height: 250,
+    padding: 25,
+    height: 245,
     width: 275
   },
 
@@ -264,13 +280,16 @@ const InviteContainer = glamorous.div({
   },
 
   [mediaQueries.iPhoneX]: {
-    height: 275,
-    width: 270
+    padding: 13,
+    height: 285,
+    width: 255
   },
   [mediaQueries.desktop]: {
     marginTop: 12,
-    width: 800,
-    justifyContent: 'flex-start',
+    width: 820,
+    height: 150,
+    justifyContent: 'space-around',
+    alignItems: 'center',
     flexWrap: 'wrap'
   }
 
