@@ -158,7 +158,11 @@ class MapContainer extends Component {
                 center={center}
                 zoom={zoom}
                 bounds={bounds}
-                containerStyle={MapStyles}
+                containerStyle={{
+                    height: this.props.tripOrganizer ? 'calc(100% - 151px)' : 'calc(100vh - 70px)',
+                    width:'100%',
+                    marginLeft: '-10px',
+                }}
             >
                 {itin}
             {
@@ -200,7 +204,8 @@ class MapContainer extends Component {
 }
 function mapStateToProps(state) {
     return {
-      itinerary: state.itinerary
+      itinerary: state.itinerary,
+      tripOrganizer: state.tripOrganizer
     }
   }
 

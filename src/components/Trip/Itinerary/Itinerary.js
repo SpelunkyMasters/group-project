@@ -119,11 +119,15 @@ class Itinerary extends Component {
           alignItems='center'
           justifyContent="center">
           <H2 fontSize="25px" letterSpacing="2px" marginBottom="15px">Itinerary</H2>
-          <AddButton onClick={this.handleAdd}>Add Main Stop</AddButton>
+          {
+            this.props.tripOrganizer ? 
+            <AddButton onClick={this.handleAdd}>Add Main Stop</AddButton> :
+            null
+          }
         </Div>
           
           {
-            this.state.addClick ?
+            this.state.addClick && this.props.tripOrganizer?
             <Search 
             callback={this.addToItinerary} /> :
             null
@@ -136,7 +140,8 @@ class Itinerary extends Component {
 
 function mapStateToProps(state) {
   return{
-    itinerary: state.itinerary
+    itinerary: state.itinerary,
+    tripOrganizer: state.tripOrganizer
   }
 }
 export default GoogleApiWrapper({

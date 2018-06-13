@@ -31,7 +31,8 @@ const AddButton = glamorous.button({
 
 const MainName = glamorous.h3({
     fontSize: '22px',
-    fontWeight: "600"
+    fontWeight: "600",
+    paddingBottom: '10px'
 })
 
 class MainStop extends Component {
@@ -117,16 +118,20 @@ class MainStop extends Component {
             <MainDiv>
                 <Div display='flex'>
                     <MainName  onClick={this.handleClick}>{mainStop.dest_name}</MainName>
-                    <AddButton onClick={this.handleAddClick}>+</AddButton>
+                    {
+                        this.props.tripOrganizer ?
+                        <AddButton onClick={this.handleAddClick}>+</AddButton> :
+                        null
+                    }
                 </Div>
                 {
-                    this.state.clicked ?
+                    this.state.clicked && this.props.tripOrganizer?
                     <DeleteButton onClick={this.deleteDest}>X</DeleteButton> :
                     null
                 }
                 </MainDiv>
             {
-                this.state.addClick ?
+                this.state.addClick && this.props.tripOrganizer?
                 <Search
                 position={position}
                 callback={this.addToItinerary} /> :
@@ -138,4 +143,10 @@ class MainStop extends Component {
     }
 }
 
-export default withRouter(connect(null, { getItinerary })(MainStop));
+function mapStateToProps(state) {
+    return {
+        tripOrganizer: state.tripOrganizer
+    }
+}
+
+export default withRouter(connect(mapStateToProps, { getItinerary })(MainStop));
