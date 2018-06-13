@@ -90,16 +90,25 @@ const InviteTextP = glamorous.p({
     }
 }))
 
-const InviteControls = glamorous.span({
+const InviteControls = glamorous.div({
     position: 'relative',
-    left: 30,
-    width: 20,
+    margin: 0,
+    left: 25,
+    top: 5,
+    width: 30,
     cursor: 'pointer',
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center',
     [mediaQueries.iPhone678]: {
-        left: 16
+        top: 1,
+        left: 10
+    },
+    [mediaQueries.iPhone678plus]: {
+        left: 6
+    },
+    [mediaQueries.iPhoneX]: {
+        left: 15
     },
     [mediaQueries.desktop]: {
         left: 8,
@@ -117,8 +126,8 @@ function Invite(props) {
             <InviteTextP>has invited you to</InviteTextP>
             <InviteTextP>{`${trip_name}`}</InviteTextP>
             <InviteControls>
-                <img src={ acceptIcon } alt="accept invite" width="35px" onClick={ () => accept(tripid) }/>
-                <img src={ declineIcon } alt="decine invite" width="35px" onClick={ () => decline(tripid) }/>
+                <img src={ acceptIcon } alt="accept invite" width="25px" onClick={ () => accept(tripid) }/>
+                <img src={ declineIcon } alt="decine invite" width="25px" onClick={ () => decline(tripid) }/>
             </InviteControls>
         </InviteContainer>
     )
