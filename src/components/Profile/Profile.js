@@ -60,6 +60,7 @@ const ButtonDiv=glamorous.div({
   display:'flex',
   alignItems: 'center',
   justifyContent: 'space-around',
+  marginTop:'20px'
 
 })
 const Button=glamorous.button({

@@ -6,6 +6,7 @@ import glamorous from 'glamorous';
 import Message from './Message/Message';
 import image from '../../../assets/img/text_background.png'
 import sendIcon from '../../../assets/img/send-button.svg'
+import { mediaQueries } from '../../styledComponents';
 
 const ChatBox=glamorous.div({
   height:'calc(100vh - 70px)',
@@ -13,9 +14,13 @@ const ChatBox=glamorous.div({
   width:'106.5%',
   background: `url('${image}') center, no-repeat`,
   backgroundSize: 'cover',
-  marginLeft: '-10px'
-  
-})
+  marginLeft: '-10px',
+  [mediaQueries.iPhone678]:{
+    height:'calc(100vh - 64px)',
+  },
+  [mediaQueries.iPhoneX]: {
+    height:'calc(100vh - 64px)',
+}})
 
 const ChatView=glamorous.div({
   overflow: 'auto',
@@ -36,7 +41,6 @@ width: '39px',
 height: '39px',
 borderRadius: '50%',
 marginLeft: '10px',
-position:'fixed',
 padding:'6px',
 paddingLeft:'10px'
 },
