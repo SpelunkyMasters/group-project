@@ -4,7 +4,7 @@ import MapContainer from './MapContainer'
 import { GoogleApiWrapper } from 'google-maps-react'
 import axios from 'axios'
 import { connect } from 'react-redux'
-import { getItinerary } from '../../../ducks/reducer'
+import { getItinerary, itinClearOut } from '../../../ducks/reducer'
 
 class Map extends Component {
   constructor() {
@@ -13,6 +13,7 @@ class Map extends Component {
       currentMarker: {},
       destType: '',
       destid: '',
+      loading: true
     }
   }
 
@@ -58,8 +59,8 @@ class Map extends Component {
             handleDestType={this.handleDestType}
             handleSubDest={this.handleSubDest}
             destType={this.state.destType} />
-          <MapContainer 
-            currentMarker={this.state.currentMarker} />
+            <MapContainer 
+              currentMarker={this.state.currentMarker} />
       </div>
     );
   }
@@ -67,10 +68,11 @@ class Map extends Component {
 
 function mapStateToProps(state) {
   return {
-    itinerary: state.itinerary
+    itinerary: state.itinerary,
+    mapLoading: state.mapLoading
   }
 }
 
 export default GoogleApiWrapper({
   apiKey: process.env.REACT_APP_GOOGLE_MAPS
-})(connect(mapStateToProps, {getItinerary})(Map));
+})(connect(mapStateToProps, {getItinerary, itinClearOut})(Map));

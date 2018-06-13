@@ -7,15 +7,20 @@ const initialState={
     trips:[],
     invites: [],
     tripOrganizer: false,
+    mapLoading: false,
+    time: ''
 }
 
 const FULFILLED = '_FULFILLED'
+    , PENDING = '_PENDING'
     , GET_USER_INFO='GET_USER_INFO'
     , GET_TRIP_USERS='GET_TRIP_USERS'
     , GET_USER_TRIPS='GET_USER_TRIPS'
     , GET_ITINERARY='GET_ITINERARY'
     , GET_INVITES = 'GET_INVITES'
     , IS_TRIP_ORGANIZER = 'IS_TRIP_ORGANIZER'
+    , ITIN_CLEAR_OUT = 'ITIN_CLEAR_OUT'
+    , UPDATE_ITINERARY = 'UPDATE_ITINERARY'
 
 
 export function getTrips(user){
@@ -58,6 +63,13 @@ export function getItinerary(tripid) {
     }
 }
 
+export function updateItinerary(itin) {
+    return {
+        type: UPDATE_ITINERARY,
+        payload: itin
+    }
+}
+
 export function getInvites(userid) {
     let invites = axios.get(`/api/invites/${userid}`).then( res => {
         return res.data
@@ -75,6 +87,13 @@ export function isTripOrganizer(bool) {
     }
 }
 
+export function itinClearOut() {
+    return {
+        type: ITIN_CLEAR_OUT,
+        payload: []
+    }
+}
+
 export default function reducer(state=initialState, action){
     switch (action.type){
         case GET_USER_INFO + FULFILLED:
@@ -86,14 +105,24 @@ export default function reducer(state=initialState, action){
         case GET_USER_TRIPS + FULFILLED:
             return Object.assign({}, state, {trips:action.payload})
 
+        case GET_ITINERARY + PENDING:
+            return Object.assign({}, state, {mapLoading: true})
+
         case GET_ITINERARY + FULFILLED:
-            return Object.assign({}, state, {itinerary: action.payload})
+            return Object.assign({}, state, {itinerary: action.payload, mapLoading: false})
 
         case GET_INVITES + FULFILLED:
             return Object.assign({}, state, {invites: action.payload})
             
         case IS_TRIP_ORGANIZER:
             return Object.assign({}, state, {tripOrganizer: action.payload})
+
+        case ITIN_CLEAR_OUT:
+            return Object.assign({}, state, {itinerary: action.payload})
+
+        case UPDATE_ITINERARY:
+            return Object.assign({}, state, {itinerary: action.payload})
+            
         default: 
             return state
     }
