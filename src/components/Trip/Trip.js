@@ -9,7 +9,7 @@ import Map from '../Trip/Map/Map';
 import Itinerary from '../Trip/Itinerary/Itinerary';
 import TripMembers from '../Trip/TripMembers/TripMembers';
 import {connect} from 'react-redux';
-import {getUser, getAllUsers, getTrips, getInvites, isTripOrganizer} from '../../ducks/reducer';
+import {getUser, getAllUsers, getTrips, getInvites, isTripOrganizer, itinClearOut} from '../../ducks/reducer';
 import Timeline from './Timeline/Timeline';
 import PlaceInfo from '../backup/PlaceInfo/PlaceInfo';
 import { AppHeader, SmallButton, TripHeader, EditPosition } from '../styledComponents';
@@ -70,6 +70,9 @@ class Trip extends Component {
     // getAllUsers will fire regardless
     getAllUsers(this.props.match.params.id)
 
+  }
+  componentWillUnmount() {
+    this.props.itinClearOut()
   }
 
   toggleMenu() {
@@ -181,4 +184,4 @@ function mapStateToProps(state) {
 }
 
 
-export default connect(mapStateToProps, {getUser, getAllUsers, getTrips, getInvites, isTripOrganizer})(Trip) ;
+export default connect(mapStateToProps, {getUser, getAllUsers, getTrips, getInvites, isTripOrganizer, itinClearOut})(Trip) ;
