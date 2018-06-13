@@ -153,6 +153,11 @@ class TripControls extends Component {
  
         return (
             <TripControlDiv>
+                {/* {
+                    this.state.tripName.length > 19
+                        ? <div></div>
+                        : <div></div>
+                } */}
                 <TripNameInput type="text" value={ tripName } placeholder={ tripName } onChange={ e => this.updateName(e.target.value) }/>
                 <br/>
                 <DateRangePicker

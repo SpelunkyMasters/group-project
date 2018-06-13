@@ -7,21 +7,29 @@ import {getUser, getAllUsers, getTrips} from '../../../ducks/reducer';
 import cross from '../../../assets/img/cross.png';
 import * as tripFns from '../../../utils/trips';
 
-const MembersBox=glamorous.div({
+import logo2 from '../../../assets/svg/logo2.svg';
+
+const TripMembersBox=glamorous.div({
   height:'calc(100vh - 70px)',
-backgroundColor:'lightgrey',
-padding:10,
-borderRadius:5,
-width:'106.5%',
-marginLeft: '-10px'
+  backgroundImage: `url(${logo2})`,
+  backgroundPosition: 'cover',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: '700px',
+  padding:10,
+  borderRadius:5,
+  width:'106.5%',
+  marginLeft: '-10px'
 })
 const Members=glamorous.div({
-  height:'40%',
-  overflow:'auto'
+  marginTop: 20,
+  height: 200,
+  // backgroundColor: 'magenta',
+  overflowY:'scroll'
 })
 const Invited=glamorous.div({
-  height:'25%',
-  overflow:'auto'
+  // backgroundColor: 'maroon',
+  height: 200,
+  overflowY:'scroll'
 })
 
 
@@ -274,33 +282,33 @@ deleteFromTrip(i, userid){
   render() {
 
     return (
-      <MembersBox>
-        <H2>Members </H2>
-        <Members>
-          
-          {this.state.users}
-        </Members>
-        <H2>Invited</H2>
+      <TripMembersBox>
         <Invited>
+        <H2>Invited</H2>
           
           {this.state.invited}
         </Invited>
-        {this.state.userid === this.props.user.userid?
-        <div style={{display:'flex', flexDirection:'column',  justifyContent:'center', alignItems:'center' }}>
-          <InputField placeholder="Type in to search"value={this.state.filter} onChange={e=>this.setState({filter:e.target.value})} type='text'/>
-          {/* showing AddRemove component if input field is not empty */}
+        {this.state.userid === this.props.user.userid
+          ? <div style={{display:'flex', flexDirection:'column',  justifyContent:'center', alignItems:'center' }}>
+              <InputField placeholder="Add to your Caravan..."value={this.state.filter} onChange={e=>this.setState({filter:e.target.value})} type='text'/>
+              {/* showing AddRemove component if input field is not empty */}
 
-          {
-            this.state.filter.length>0?
-            <AddRemove newInvite={this.newInvite} filter={this.state.filter} tripid={this.props.match.params.id}/>:
-            <p></p>
-          }
-        </div>:
-        <div></div>
+              {
+                this.state.filter.length>0?
+                <AddRemove newInvite={this.newInvite} filter={this.state.filter} tripid={this.props.match.params.id}/>:
+                <p></p>
+              }
+            </div>
+          : <div></div>
         }
+        <Members>
+        <H2>Members </H2>
+          
+          {this.state.users}
+        </Members>
         
           
-      </MembersBox>
+      </TripMembersBox>
     );
   }
 }
