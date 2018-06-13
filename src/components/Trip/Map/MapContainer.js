@@ -115,14 +115,13 @@ class MapContainer extends Component {
                     <Marker 
                         key={i}
                         onClick={this.onMarkerClick}
-                        name={place.name}
-                        title={place.address}
+                        name={place.dest_name}
+                        title={place.dest_address}
                         position={{lat: place.lat, lng: place.lng}}
                         />
                 )
             }
         })
-
 
 
         let points = this.findBounds(latPoints, lngPoints)

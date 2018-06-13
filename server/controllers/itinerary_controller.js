@@ -21,6 +21,7 @@ module.exports = {
                         lat: +place.dest_lat,
                         lng: +place.dest_lng,
                         place_id: place.dest_place_id,
+                        dest_address: place.dest_address,
                         sub_dests: []
                     }
                     trips[prop].forEach( trip => {
