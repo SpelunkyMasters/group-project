@@ -98,7 +98,7 @@ const HomeMainDiv = glamorous.div({
 
 const TripH1 = glamorous.h2({
   fontSize: 22,
-  width: '60%',
+  width: '70%',
   transition: '0.2s ease-in-out',
   borderBottom: '1px solid',
   paddingBottom: 10,
@@ -361,12 +361,12 @@ class Home extends Component {
           <h1>Home</h1>
         </HomeHeader>
         <TripsH1>Trips</TripsH1>
-        <TripContainer>
-          { tripList }
-        </TripContainer>
         <CreateTripDiv>
           <LargeIcon type="secondary" onClick={ this.createTrip }><img src={ add } alt="new trip" width="25px"/></LargeIcon>
         </CreateTripDiv>
+        <TripContainer>
+          { tripList }
+        </TripContainer>
         <InvitesH1>Invites</InvitesH1>
         <InviteContainer>
           {
