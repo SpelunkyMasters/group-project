@@ -12,8 +12,7 @@ import {connect} from 'react-redux';
 import {getUser, getAllUsers, getTrips, getInvites, isTripOrganizer, itinClearOut} from '../../ducks/reducer';
 import Timeline from './Timeline/Timeline';
 import PlaceInfo from '../backup/PlaceInfo/PlaceInfo';
-import { AppHeader, SmallButton, TripHeader, EditPosition } from '../styledComponents';
-import IconButton from '../buttons/IconButton/IconButton';
+import { AppHeader, TripHeader, EditPosition } from '../styledComponents';
 
 import * as tripFns from '../../utils/trips';
 import Modal from './TripControls/Modal';

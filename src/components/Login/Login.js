@@ -14,7 +14,6 @@ const LoginDiv = glamorous.div({
   color: theme.white
 }))
 
-
 class Login extends Component {
   render() {
     return (

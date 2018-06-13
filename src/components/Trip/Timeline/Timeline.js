@@ -247,7 +247,7 @@ var posts=this.state.posts.map((e,i)=>{
     <LikeNumber>{e.likes.length}</LikeNumber>
     </LikeDiv> 
     {/* deleting message button */}
-   {e.userid==this.props.user.userid? <DeleteButton onClick={()=>this.deleteMessage(e.postid)}>
+   {e.userid === this.props.user.userid? <DeleteButton onClick={()=>this.deleteMessage(e.postid)}>
    <img src={cross} alt="delete" height='100%'  />
     </DeleteButton>: <div> </div>}</LikeDelete>
    <PostName> {e.post_name}</PostName>

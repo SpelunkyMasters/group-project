@@ -31,9 +31,6 @@ const StyledBtn = glamorous.button(
 
 
 class Btn extends Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
 
         

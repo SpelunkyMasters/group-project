@@ -19,12 +19,12 @@ const EachMember=glamorous.div({
     justifyContent:'space-between',
     alignItems:'center'
   })
-  const SecondLine=glamorous.div({
-    display:'flex',
-    flexDirection:'row',
-    justifyContent:'space-between',
-    alignItems:'center'
-  })
+//   const SecondLine=glamorous.div({
+//     display:'flex',
+//     flexDirection:'row',
+//     justifyContent:'space-between',
+//     alignItems:'center'
+//   })
   const DeleteButton=glamorous.div({
     backgroundColor:'transparent',
      border:'none',

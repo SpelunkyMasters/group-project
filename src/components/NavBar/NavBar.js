@@ -99,7 +99,7 @@ class NavBar extends Component {
 
     const navBar = navData.map( (link, index) => {
       if(index === navData.length - 1) {
-        return <StyledMenuLi key={ link.path }><StyledA href='http://localhost:3004/logout'>{ link.name }</StyledA></StyledMenuLi>
+        return <StyledMenuLi key={ link.path }><StyledA href={process.env.REACT_APP_LOGOUT}>{ link.name }</StyledA></StyledMenuLi>
       }
       return <NavLink onClick={ this.props.closeMenu }key={ link.path } to={ link.path }><StyledMenuLi>{ link.name }</StyledMenuLi></NavLink>
     })

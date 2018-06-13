@@ -112,7 +112,7 @@ class Profile extends Component {
       <div className="Profile">
       <Header>
         <NavLink to="/home"><button style={{backgroundColor: 'transparent',border: 'none'}} ><img  width='30px' 
-        height='30px' src={arrow} alt="go back"/></button></NavLink>
+        height='30px' src={arrow} alt="back button"/></button></NavLink>
         <HeaderText>Profile</HeaderText>
       </Header>
       <PictureEdit>

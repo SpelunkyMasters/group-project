@@ -17,12 +17,6 @@ export const colors = {
     // white: '#F9FBFF'
 }
 
-const sizes = {
-    small: {height: 25, padding: "5px 10px"},
-    regular: {height: 40, padding: "10px 15px"},
-    large: {height: 50, padding: "15px 20px"}
-}
-
 export const mediaQueries = {
     iPhone5: '@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2)' /*and (orientation: portrait/landscape) */,
     iPhone678: '@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2)',
