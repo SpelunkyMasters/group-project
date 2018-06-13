@@ -16,7 +16,7 @@ import minus from '../../../assets/img/minus.png'
 import { colors } from '../../styledComponents';
 
 
-const Ico_Btn = glamorous.button({
+const IcoBtn = glamorous.button({
     width: 30,
     height: 30,
     borderRadius: '50%',
@@ -47,9 +47,9 @@ const buttonIcons = {
 class IconButton extends Component {
     render() {
         return(
-            <Ico_Btn type={this.props.type} onClick={ this.props.onClick }>
+            <IcoBtn type={this.props.type} onClick={ this.props.onClick }>
                 <img src={ buttonIcons[this.props.icon].ico } alt={ buttonIcons[this.props.icon].desc} width={`${this.props.size}px`}/>
-            </Ico_Btn>  
+            </IcoBtn>  
         ) 
     }
 }

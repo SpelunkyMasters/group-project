@@ -3,7 +3,6 @@ import glamorous from 'glamorous';
 // import { Button } from '../styledComponents';
 import Btn from '../buttons/Btn/Btn';
 import logo from '../../assets/img/logo1.png';
-
 const LoginDiv = glamorous.div({
   height: '100vh',
   display: 'flex',

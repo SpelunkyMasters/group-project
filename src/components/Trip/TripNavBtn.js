@@ -51,12 +51,12 @@ const ContentSquare = glamorous.div({
     }
 }))
 function TripNavBtn(props) {
-    const { name, path } = props
+    const {  path } = props
 
     return(
         <NavLink to={ path }>
             <ContentSquare>
-                <img src={props.icon} width="90%"/>
+                <img src={props.icon} width="90%" alt={props.name}/>
                 <ToolTip>{props.name}</ToolTip>
             </ContentSquare>
         </NavLink>

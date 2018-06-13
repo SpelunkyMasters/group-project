@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { DateRangePicker } from 'react-dates';
 import axios from 'axios';
 import glamorous from 'glamorous';
-import { withRouter, NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
 import { START_DATE, END_DATE, VERTICAL_ORIENTATION } from 'react-dates/constants';
 import moment from 'moment';
 
 import { getTrips } from '../../../ducks/reducer';
 
-import { Button, SmallButton, ButtonBar, TripControlDiv } from '../../styledComponents';
+import { Button, TripControlDiv } from '../../styledComponents';
 
 
 import Modal from './Modal';
@@ -103,12 +103,7 @@ class TripControls extends Component {
         })
     }
 
-    deleteTrip() {
-        axios.delete(`/api/trip/${this.props.match.params.id}`).then( () => {
-            this.props.getTrips(this.props.user.userid);
-            this.props.history.push('/home');
-        })
-    }
+    
     
     saveTrip() {
         // To store dates on DB, invoke moment with the date, followed by toString()
@@ -139,6 +134,13 @@ class TripControls extends Component {
             })
         }).catch(err => console.log('Error deleting trip: ', err))
     }
+
+    // deleteTrip() {
+    //     axios.delete(`/api/trip/${this.props.match.params.id}`).then( () => {
+    //         this.props.getTrips(this.props.user.userid);
+    //         this.props.history.push('/home');
+    //     })
+    // }
 
     cancel() {
         console.log('Cancel button')
