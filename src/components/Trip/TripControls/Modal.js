@@ -3,16 +3,19 @@ import glamorous from 'glamorous';
 
 import { Button } from '../../styledComponents';
 
+import accept from '../../../assets/svg/accept.svg';
+import decline from '../../../assets/svg/decline.svg';
+
 
 const ModalMain = glamorous.div({
     padding: 20,
     width: 250,
     height: 150,
     borderRadius: 4,
-    border: '1px solid black' 
+    border: '1px solid black', 
+    backgroundColor: '#9ebfe6'
 }, ({ theme }) => ({
-    backgroundColor: theme.newBlue,
-    color: theme.white
+    color: theme.mainBg
 
 }))
 
@@ -27,7 +30,7 @@ const ModalBg = glamorous.div({
     justifyContent: 'center',
     alignItems: 'center'
 }, ({ theme }) => ({
-    backgroundColor: theme.charcoal,
+    backgroundColor: theme.white,
     color: theme.white
 }))
 
@@ -47,13 +50,8 @@ function Modal(props) {
                 <p>{props.text}</p>
                 <br/>
                 <ModalControls>
-                    <Button type="danger" onClick={ props.affirm }>I'm sure</Button>
-                    <Button 
-                        type="secondary"
-                        onClick={ props.cancel }
-                    >
-                        Nevermind
-                    </Button>
+                    <img src={ accept } onClick={ props.affirm } width="40px"/>
+                    <img src={ decline } onClick={ props.cancel } width="60px"/>
                 </ModalControls>
             </ModalMain>
         </ModalBg>                    

@@ -8,7 +8,7 @@ const ToolTip = glamorous.p({
     position: 'relative',
     fontSize: 20,
     fontWeight: 800,
-    bottom: 10,
+    bottom: 10
 }, ({ theme }) => ({
     color: theme.mainBg,
     [mediaQueries.desktop]: {
@@ -24,12 +24,24 @@ const ContentSquare = glamorous.div({
     height: 145,
     width: 145,
     borderRadius: 4,
-    boxShadow: '2px 2px 5px lightgrey',
+    boxShadow: '3px 3px 5px lightgrey',
     border: '1px solid lightgrey',
     transition: '0.2s ease-in-out',
-    ':hover': {
-        transform: 'translateY(-2px)',
-        color: '#001C55'
+    [mediaQueries.iPhone678]: {
+        height: 168,
+        width: 168,
+        margin: 4
+    },
+    [mediaQueries.iPhone678plus]: {
+        height: 180,
+        width: 180,
+        margin: 4
+    },
+    [mediaQueries.desktop]: {
+        ':hover': {
+            transform: 'translateY(-2px)',
+            color: '#001C55'
+        }
     }
 }, ({ theme }) => ({
     backgroundColor: theme.white,
