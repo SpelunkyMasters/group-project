@@ -3,9 +3,6 @@ import glamorous from 'glamorous';
 // import { Button } from '../styledComponents';
 import Btn from '../buttons/Btn/Btn';
 import logo from '../../assets/img/logo1.png';
-import logo2 from '../../assets/img/logo2.png';
-import logo3 from '../../assets/img/logo3.png';
-
 const LoginDiv = glamorous.div({
   height: '100vh',
   display: 'flex',
@@ -16,9 +13,7 @@ const LoginDiv = glamorous.div({
   backgroundColor: theme.newBlue,
   color: theme.white
 }))
-const LoginHeader = glamorous.h1({
-  margin: 30
-})
+
 
 class Login extends Component {
   render() {

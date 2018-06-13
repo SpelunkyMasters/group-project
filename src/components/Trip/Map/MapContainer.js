@@ -3,12 +3,6 @@ import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import { connect } from 'react-redux'
 import glamorous from 'glamorous'
 
-const MapStyles = {
-    height:'calc(100% - 151px)',
-    width:'100%',
-    marginLeft: '-10px',
-}
-
 const InfoDiv = glamorous.div({
 maxWidth: '65vw',
 wordWrap:'break-word'

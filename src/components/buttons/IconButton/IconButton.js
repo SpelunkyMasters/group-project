@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import glamorous from 'glamorous';
 
-import { IconBtn } from '../../styledComponents';
 import menu from '../../../assets/img/menu.png';
 import bin from '../../../assets/img/delete.png';
 import edit from '../../../assets/img/edit.png';
@@ -17,7 +16,7 @@ import minus from '../../../assets/img/minus.png'
 import { colors } from '../../styledComponents';
 
 
-const Ico_Btn = glamorous.button({
+const IcoBtn = glamorous.button({
     width: 30,
     height: 30,
     borderRadius: '50%',
@@ -46,14 +45,11 @@ const buttonIcons = {
 
 
 class IconButton extends Component {
-    constructor(props) {
-        super(props);
-    }
     render() {
         return(
-            <Ico_Btn type={this.props.type} onClick={ this.props.onClick }>
+            <IcoBtn type={this.props.type} onClick={ this.props.onClick }>
                 <img src={ buttonIcons[this.props.icon].ico } alt={ buttonIcons[this.props.icon].desc} width={`${this.props.size}px`}/>
-            </Ico_Btn>  
+            </IcoBtn>  
         ) 
     }
 }

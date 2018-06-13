@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { getItinerary } from '../../../ducks/reducer'
 import { connect } from 'react-redux'
 import { GoogleApiWrapper } from 'google-maps-react'
-import SearchBox from '../Map/SearchBox'
 import axios from 'axios'
 import MainStop from './MainStop'
 import Search from './Search'
