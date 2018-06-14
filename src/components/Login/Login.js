@@ -19,7 +19,7 @@ class Login extends Component {
     return (
       <LoginDiv>
         <img src={ logo } alt="caravan logo" width="300px"/>
-        <a href={process.env.REACT_APP_LOGIN}><Btn id="login" type="secondary">Login</Btn></a>
+        <a href={process.env.REACT_APP_LOGIN}><Btn id="login" type="secondary">LOGIN</Btn></a>
       </LoginDiv>
     );
   }
