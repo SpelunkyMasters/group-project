@@ -43,13 +43,11 @@ describe('Tests for Trip Component', () => {
     test('Trip objects should have a trip id, trip name, user id, start date, and end date', () => {
         let id = 2;
         let flag = true
-
+    
         let trip2 = tripFns.getCurrentTrip(trips, id);
-        if(!trip2.tripid) { flag = false };
-        if(!trip2.trip_name) { flag = false };
-        if(!trip2.userid) { flag = false };
-        if(!trip2.startdate) { flag = false };
-        if(!trip2.enddate) { flag = false };
+
+        // If any of the values are undefined/null, the flag will be set to false.
+        if(!trip2.tripid || !trip2.trip_name || !trip2.userid || !trip2.startdate || !trip2.enddate) { flag = false };
 
         expect(flag).toBeTruthy();
     })
@@ -60,7 +58,8 @@ describe('Tests for Trip Component', () => {
         
         let trip1 = tripFns.getCurrentTrip(trips, id);
         let regEx = /[MTWTFS][ouehra][neduitn]\s[JFMASOND][aepuco][nbrylgptvc]\s[01][0-9]\s[2][0][1-9][0-9]\s[01][0-9]\:[0][0]\:[0][0]\s[G][M][T]\-[0][6][0][0]/gm
-        if(!regEx.test(trip1.startdate) && !regEx.test(trip1.enddate)) { flag = false };
+        if(trip1.startdate.match(regEx)[0] !== 'Tue Jul 03 2018 12:00:00 GMT-0600') { flag = false };
+        if(trip1.enddate.match(regEx)[0] !== 'Sat Jul 07 2018 12:00:00 GMT-0600') { flag = false };
 
         expect(flag).toBeTruthy();
 

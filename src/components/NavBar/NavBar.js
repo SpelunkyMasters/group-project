@@ -34,30 +34,72 @@ const MobileMenu = glamorous.nav({
   width: '100%',
   position: 'fixed',
   textAlign: 'center',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
   left: 0,
   top: 0,
-  backdropFilter: 'blur(5px)',
-  WebkitBackdropFilter: 'blur(5px)'
+  [mediaQueries.iPhone678]: {
+    justifyContent: 'flex-start'
+
+  }
 }, ({ theme }) => ({
   backgroundColor: theme.newBlue,
 }))
 
 const MenuCloseButton = glamorous.div({
   position: 'relative',
-  left: 140,
-  top: 10
+  left: 125,
+  top: -10,
+  [mediaQueries.iPhone678]: {
+    top: 20,
+    left: 155
+  },
+  [mediaQueries.iPhone678plus]: {
+    top: 20,
+    left: 170
+  },
   // display: 'flex',
   // justifyContent: 'flex-end'
 })
 
 const StyledMenuLi = glamorous.li({
-  padding: "10px 0 0 10px",
+  padding: "10px 0 0 0",
   // width: '70%',
   height: 50,
+  width: 220,
   marginBottom: 5,
   // backgroundColor: 'blue',
   textDecoration: 'none',
   borderBottom: '1px solid white',
+  [mediaQueries.iPhone678]: {
+    paddingBottom: 50,
+    fontSize: 30,
+    ':first-child': {
+      marginTop: 7
+    }
+  },
+  [mediaQueries.iPhone678plus]: {
+    fontSize: 32,
+    paddingBottom: 55,
+    ':first-child': {
+      marginTop: 9
+    }
+  },
+  [mediaQueries.iPhoneX]: {
+    fontSize: 32,
+    paddingBottom: 55,
+    ':first-child': {
+      marginTop: 9
+    }
+  },
+  [mediaQueries.desktop]: {
+    // padding: 10,
+    fontSize: 32,
+    width: '100%',
+  },
+  
 }, ({ theme }) => ({
   color: theme.white
 }))
@@ -99,7 +141,7 @@ class NavBar extends Component {
 
     const navBar = navData.map( (link, index) => {
       if(index === navData.length - 1) {
-        return <StyledMenuLi key={ link.path }><StyledA href={process.env.REACT_APP_LOGOUT}>{ link.name }</StyledA></StyledMenuLi>
+        return <StyledMenuLi key={ link.path } style={{border: 'none'}}><StyledA href={process.env.REACT_APP_LOGOUT}>{ link.name }</StyledA></StyledMenuLi>
       }
       return <NavLink onClick={ this.props.closeMenu }key={ link.path } to={ link.path }><StyledMenuLi>{ link.name }</StyledMenuLi></NavLink>
     })
