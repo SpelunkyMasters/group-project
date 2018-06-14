@@ -104,12 +104,7 @@ export const TripHeader = glamorous.h1({
 
 // Trip Component & Children
 
-export const TripControlDiv = glamorous.div({
-    textAlign: 'center',
-    height: '100vh'
-  }, ({ theme }) => ({
-      backgroundColor: theme.newBlue
-  }))
+
 
 export const EditPosition = glamorous.div({
     width: '50px',

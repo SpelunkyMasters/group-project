@@ -13,6 +13,6 @@ export default(
         <Route path='/trip/:id' component={Trip}/>
         <Route path='/loader' component={Loader}/>
         <Route path='/profile' component={Profile}/>
-        <Route path="/edit/:id" component={ TripControls } />
+        {/* <Route path="/edit/:id" component={ TripControls } /> */}
     </Switch>
 )

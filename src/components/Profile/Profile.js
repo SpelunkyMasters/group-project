@@ -44,11 +44,11 @@ const PictureEdit=glamorous.div({
   flexDirection:'row',
   alignItems: 'center',
 })
-const ProfilePicture=glamorous.img({
-  borderRadius:'50%',
-   height:'120px',
-   marginLeft:20
-})
+// const ProfilePicture=glamorous.img({
+//   borderRadius:'50%',
+//    height:'120px',
+//    marginLeft:20
+// })
 const InfoPart=glamorous.div({
   height:'50vh',
   display: 'flex',
