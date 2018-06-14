@@ -11,6 +11,7 @@ const controller2=require('./controllers/invite_dest');
 const controller3=require('./controllers/timeline')
 const iController=require('./controllers/itinerary_controller')
 const tController=require('./controllers/travel_history')
+const bodyParser=require('body-parser');
 const S3=require('./controllers/S3');
 const app=express();
 
@@ -28,7 +29,7 @@ const {
 
 
 //limit for S3 size
-app.use(express.json({limit: '10mb'}));
+app.use(bodyParser.json({limit: '10mb'}));
 app.use(cors());
 
 massive(CONNECTION_STRING).then(db=>{
