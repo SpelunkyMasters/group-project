@@ -11,20 +11,28 @@ import Invite from './Invite/Invite';
 import {getUser, getTrips, getInvites} from '../../ducks/reducer';
 
 import add from '../../assets/svg/add.svg'
-import profile from '../../assets/svg/profile.svg';
+
+import Avatar from '../Avatar/Avatar';
+// import profile from '../../assets/svg/profile.svg';
 
 import logoNoText from '../../assets/svg/logoNoText.svg';
 
+const ProfileDiv = glamorous.div({
+  position: 'absolute',
+  right: 20,
+  top: 1
+})
 
 const HomeHeader = glamorous.header({
   cursor: 'default',
   height: 70,
-  margin: "-10px -10px 0 -15px",
+  margin: "-10px -10px 0 -10px",
   display: 'flex',
-  justifyContent: 'space-around',
+  justifyContent: 'center',
   alignItems: 'center',
   [mediaQueries.iPhone678]: {
-    marginBottom: 20
+    marginBottom: 20,
+    marginRight: -10
   },
   [mediaQueries.iPhoneX]: {
     paddingTop: 10,
@@ -108,7 +116,7 @@ const TripH1 = glamorous.h2({
       border: 'none'
   },
   [mediaQueries.iPhone678]: {
-    width: '80%',
+    width: '85%',
     fontSize: 24,
     padding: 15
   },
@@ -153,7 +161,8 @@ const TripContainer = glamorous.div({
     width: 0
   },
   [mediaQueries.iPhone678]: {
-    padding: 8,
+    paddingTop: 0,
+    // padding: '30px 10px 20px 10px',
     height: 220,
     width: 290
   },
@@ -174,6 +183,7 @@ const TripContainer = glamorous.div({
   },
 
   [mediaQueries.iPhoneX]: {
+    paddingTop: 80,
     width: 300,
     height: 300
   },
@@ -281,7 +291,7 @@ const InviteContainer = glamorous.div({
 
   [mediaQueries.iPhoneX]: {
     padding: 13,
-    height: 285,
+    height: 200,
     width: 255
   },
   [mediaQueries.desktop]: {
@@ -355,10 +365,12 @@ class Home extends Component {
     return (
       <HomeMainDiv> 
         <HomeHeader>
-          <NavLink to="/profile">
-            <MenuImg src={ profile } alt="profile" width="30px"/>
-          </NavLink> 
           <h1>Home</h1>
+          <NavLink to="/profile">
+            <ProfileDiv>
+              <Avatar/>
+            </ProfileDiv>
+          </NavLink> 
         </HomeHeader>
         <TripsH1>Trips</TripsH1>
         <CreateTripDiv>
