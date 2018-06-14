@@ -126,7 +126,7 @@ const TripH1 = glamorous.h2({
     padding: 15
   },
   [mediaQueries.iPhoneX]: {
-    width: '94%',
+    width: '90%',
     fontSize: 30,
     padding: 20
   },
@@ -184,7 +184,7 @@ const TripContainer = glamorous.div({
   },
 
   [mediaQueries.iPhoneX]: {
-    paddingTop: 80,
+    // paddingTop: 80,
     width: 300,
     height: 300
   },
