@@ -65,6 +65,7 @@ const TripsH1 = glamorous.h1({
   [mediaQueries.iPhone678plusLAND]: {
     position: 'relative',
     left: -170,
+    marginTop: 9
   },
   [mediaQueries.iPhoneX]: {
     marginTop: 2
@@ -121,12 +122,12 @@ const TripH1 = glamorous.h2({
     padding: 15
   },
   [mediaQueries.iPhone678plus]: {
-    width: '80%',
+    width: '87%',
     fontSize: 30,
     padding: 15
   },
   [mediaQueries.iPhoneX]: {
-    width: '94%',
+    width: '90%',
     fontSize: 30,
     padding: 20
   },
@@ -144,6 +145,7 @@ const TripH1 = glamorous.h2({
 }))
 
 const TripContainer = glamorous.div({
+  position: 'relative',
   cursor: 'pointer',
   // padding: 2,
   border: '1px solid #001C55',
@@ -178,13 +180,13 @@ const TripContainer = glamorous.div({
     float: 'left',
     position: 'relative',
     top: 5,
-    left: 50,
-    height: 220,
-    width: 280
+    left: 30,
+    height: 240,
+    width: 320
   },
 
   [mediaQueries.iPhoneX]: {
-    paddingTop: 80,
+    // paddingTop: 80,
     width: 300,
     height: 300
   },
@@ -197,8 +199,8 @@ const TripContainer = glamorous.div({
 
   const LargeIcon = glamorous.button({
     cursor: 'pointer',
-    width: 55,
-    height: 55,
+    width: 45,
+    height: 45,
     borderRadius: '50%',
     border: '1px solid',
     borderColor: '#E7E7E7',
@@ -215,29 +217,31 @@ const TripContainer = glamorous.div({
 })
 
 const CreateTripDiv = glamorous.div({
-  position: 'fixed',
-  top: 286,
+  position: 'absolute',
   right: 2,
+  bottom: 2,
+  // top: 286,
+  // right: 2,
   [mediaQueries.iPhone678]: {
-    top: 325,
-    right: 18
+    right: 5,
+    bottom: 5
   },
   [mediaQueries.iPhone678plus]: {
-    top: 355,
-    right: 25
+    right: 3,
+    bottom: 3
   },
   [mediaQueries.iPhone678plusLAND]: {
-    top: 324,
-    right: 375
+    // top: 324,
+    // right: 375
   },
 
   [mediaQueries.iPhoneX]: {
-    top: 416,
-    right: 14
+    // top: 416,
+    // right: 14
   },
   [mediaQueries.desktop]: {
-    top: 465,
-    right: 245
+    // top: 465,
+    // right: 245
   }
 })
     
@@ -257,11 +261,11 @@ const InvitesH1 = glamorous.h1({
     
 const InviteContainer = glamorous.div({
   cursor: 'default',
-  padding: 10,
+  padding: 15,
   border: '1px solid #001C55',
   borderRadius: 5,
   margin: 'auto',
-  height: 158,
+  height: 165,
   width: 240,
   display: 'flex',
   justifyContent: 'center',
@@ -286,7 +290,8 @@ const InviteContainer = glamorous.div({
 
   [mediaQueries.iPhone678plusLAND]: {
     position: 'relative',
-    top: -30,
+    height: 240,
+    top: -42,
     left: 30
   },
 
@@ -374,10 +379,10 @@ class Home extends Component {
           </NavLink> 
         </HomeHeader>
         <TripsH1>Trips</TripsH1>
+        <TripContainer>
         <CreateTripDiv>
           <LargeIcon type="secondary" onClick={ this.createTrip }><img src={ add } alt="new trip" width="25px"/></LargeIcon>
         </CreateTripDiv>
-        <TripContainer>
           { tripList }
         </TripContainer>
         <InvitesH1>Invites</InvitesH1>

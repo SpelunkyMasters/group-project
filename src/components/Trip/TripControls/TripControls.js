@@ -9,8 +9,8 @@ import moment from 'moment';
 
 import { getTrips } from '../../../ducks/reducer';
 
-import { Button, TripControlDiv } from '../../styledComponents';
-
+import { Button } from '../../styledComponents';
+import logo2 from '../../../assets/svg/logo2.svg';
 
 import Modal from './Modal';
 
@@ -29,6 +29,14 @@ const TripNameInput = glamorous.input({
     fontSize: 30
 })
 
+const TripControlDiv = glamorous.div({
+    textAlign: 'center',
+    height: 'calc(100vh - 55px)',
+    width: '100vw',
+    backgroundImage: `url(${logo2})`,
+    // overflow: 'none'
+  })
+
 const TripControlBtns = glamorous.span({
     marginTop: 20,
     display: 'flex',
@@ -37,7 +45,7 @@ const TripControlBtns = glamorous.span({
   })
 
 const DeleteBtnDiv = glamorous.div({
-    height: 300,
+    height: 100,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'flex-end'

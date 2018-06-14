@@ -14,7 +14,8 @@ import chatsvg from '../../assets/svg/chat.svg';
 import timelinesvg from '../../assets/svg/gallery-icon.svg';
 import itinerarysvg from '../../assets/svg/itinerary.svg';
 import travelersvg from '../../assets/svg/members.svg';
-import historysvg from '../../assets/svg/history.svg';
+// import historysvg from '../../assets/svg/history.svg';
+import home from '../../assets/svg/home.svg';
 import close from '../../assets/svg/close.svg';
 
 const NavButtonGroup = glamorous.nav({
@@ -26,6 +27,9 @@ const NavButtonGroup = glamorous.nav({
   alignItems: 'space-around',
   [mediaQueries.iPhone678plus]: {
     marginTop: 40
+  },
+  [mediaQueries.iPhone678plusLAND]: {
+    marginTop: 10
   }
 })
 
@@ -127,8 +131,8 @@ class NavBar extends Component {
       {name: "Chat", path: `/trip/${id}/chat`, svg: chatsvg},
       {name: "Trip Members", path: `/trip/${id}/trip-members`, svg: travelersvg},
       {name: "Timeline", path: `/trip/${id}/timeline`, svg: timelinesvg},
-      {name: "Group History", path: `/trip/${id}/info`, svg: historysvg},
-      {name: "Logout", path: "/"}
+      // {name: "Group History", path: `/trip/${id}/info`, svg: historysvg},
+      {name: "Home", path: "/home", svg: home}
     ];
 
     const navBtns = navData.map( (link, i) => {

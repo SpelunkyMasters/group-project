@@ -8,7 +8,16 @@ const ToolTip = glamorous.p({
     position: 'relative',
     fontSize: 20,
     fontWeight: 800,
-    bottom: 10
+    bottom: 10,
+    [mediaQueries.iPhone678]: {
+        fontSize:22
+    },
+    [mediaQueries.iPhone678plus]: {
+        fontSize:24
+    },
+    [mediaQueries.iPhone678plusLAND]: {
+        fontSize:20
+    },
 }, ({ theme }) => ({
     color: theme.mainBg,
     [mediaQueries.desktop]: {
@@ -26,7 +35,6 @@ const ContentSquare = glamorous.div({
     borderRadius: 4,
     boxShadow: '3px 3px 5px lightgrey',
     border: '1px solid lightgrey',
-    transition: '0.2s ease-in-out',
     [mediaQueries.iPhone678]: {
         height: 168,
         width: 168,
@@ -37,7 +45,13 @@ const ContentSquare = glamorous.div({
         width: 180,
         margin: 4
     },
+    [mediaQueries.iPhone678plusLAND]: {
+        height: 150,
+        width: 150,
+        margin: 4
+    },
     [mediaQueries.desktop]: {
+        transition: '0.2s ease-in-out',
         ':hover': {
             transform: 'translateY(-2px)',
             color: '#001C55'
