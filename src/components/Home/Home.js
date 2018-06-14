@@ -131,6 +131,7 @@ const TripH1 = glamorous.h2({
     padding: 20
   },
   [mediaQueries.desktop]: {
+    width: '70%',
     fontSize: 35,
     padding: 30,
     ':hover': {
@@ -189,8 +190,8 @@ const TripContainer = glamorous.div({
   },
   [mediaQueries.desktop]: {
     marginTop: 14,
-    width: 900,
-    height: 350
+    width: '60%',
+    height: '40%'
   }
 })
 
