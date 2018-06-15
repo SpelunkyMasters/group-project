@@ -150,7 +150,7 @@ class Trip extends Component {
                       </EditPosition>)
                     : (
                       <EditPosition>
-                        <img src={ leave } alt="leave trip button" onClick={ this.toggleLeaveModal }/>>
+                        <img src={ leave } alt="leave trip button" onClick={ this.toggleLeaveModal }/>
                       </EditPosition>
                     )
               )

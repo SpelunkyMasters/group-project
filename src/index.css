@@ -6,9 +6,6 @@ body {
 html {
   overflow: auto;
   overflow-x: hidden;
-  color: rgba(238, 240, 243, 0.822)
-  
-  
 }
 ::-webkit-scrollbar {
   width: 0px;  /* remove scrollbar space */
