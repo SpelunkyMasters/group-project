@@ -57,27 +57,39 @@ const PictureEdit=glamorous.div({
 // })
 const InfoPart=glamorous.div({
   position: 'relative',
-  top: 45,
+  top: 8,
   margin: '20px auto',
   backgroundColor: colors.white,
   borderRadius: 4,
   border: '1px solid',
   borderColor: colors.ind,
-  width: '90vw',
+  width: '91vw',
+  height: '35vh',
   display: 'flex',
   flexDirection:'column',
   justifyContent: 'space-around',
-  padding: 20
+  padding: 15
 })
+
+const EditBtnDiv = glamorous.div({
+  margin: '10px auto'
+  // width: '100%',
+  // display: 'flex',
+  // justifyContent: 'center'  
+})
+
 const P=glamorous.div({
   margin:'10px 0',
   height:19,
-  color:'grey'
+  color:'grey',
+  [mediaQueries.iPhone678]: {
+    
+  }
 })
 const Input=glamorous.input({
   fontSize:12,
   width:165,
-  margin:0
+  // margin: '10px 0'
 })
 const PHeader=glamorous.p({
   color:'black',
@@ -90,18 +102,18 @@ const ButtonDiv=glamorous.div({
   marginTop:'20px'
 
 })
-const Button=glamorous.button({
-  marginTop:2,
-  height: 40,
-  width:90.38,
-  borderRadius: 4,
-  border: '1px solid',
-  borderColor: '#E7E7E7',
-  },
-  ({theme}) => ({
-    backgroundColor: theme.sunglow
-  })
-  )
+// const Button=glamorous.button({
+//   marginTop:2,
+//   height: 40,
+//   width:90.38,
+//   borderRadius: 4,
+//   border: '1px solid',
+//   borderColor: '#E7E7E7',
+//   },
+//   ({theme}) => ({
+//     backgroundColor: theme.sunglow
+//   })
+//   )
 
 class Profile extends Component {
   constructor(){
@@ -151,12 +163,13 @@ class Profile extends Component {
         {!this.state.edit?
         <InfoPart>
           <div>
-        <P>First name: <PHeader>{this.state.first_name}</PHeader></P>
-        <P>Last name: <PHeader>{this.state.last_name}</PHeader></P>
-        <P>Email: <PHeader>{this.state.email}</PHeader></P>
+            <P>First name: <PHeader>{this.state.first_name}</PHeader></P>
+            <P>Last name: <PHeader>{this.state.last_name}</PHeader></P>
+            <P>Email: <PHeader>{this.state.email}</PHeader></P>
           </div>
-          
-        <Btn type='secondary' style={{margin:'0 auto'}} onClick={()=>this.setState({edit:true})}>EDIT</Btn>
+          <EditBtnDiv>
+            <Btn type='secondary' onClick={()=>this.setState({edit:true})}>EDIT</Btn>
+          </EditBtnDiv>
         </InfoPart>
                       :
         <InfoPart>
@@ -166,8 +179,8 @@ class Profile extends Component {
         <P>Email: <Input style={{width:'200px'}} value={this.state.email} onChange={e=>this.setState({email:e.target.value})}/></P>
           </div>
           <ButtonDiv>
-        <Button onClick={()=>this.saveChanges()}>SAVE</Button>
-        <Button style={{color:'white',backgroundColor:'#384E77'}} onClick={()=>this.cancelChanges()}>CANCEL</Button>
+        <Btn type="secondary" onClick={()=>this.saveChanges()}>SAVE</Btn>
+        <Btn onClick={()=>this.cancelChanges()}>CANCEL</Btn>
           </ButtonDiv>
         </InfoPart>
         }
