@@ -31,7 +31,9 @@ const NavButtonGroup = glamorous.nav({
   [mediaQueries.iPhone678plusLAND]: {
     marginTop: 10
   }
-})
+}, ({ theme }) => ({
+  backgroundColor: theme.white
+}))
 
 const MobileMenu = glamorous.nav({
   height: '100vh',
@@ -124,19 +126,17 @@ class NavBar extends Component {
 
 
     const navData = [
-      {name: "Home", path: "/home"},
       {name: trip_name, path: `/trip/${id}/nav`},
       {name: "Map", path: `/trip/${id}/map`, svg: mapsvg},
       {name: "Itinerary", path: `/trip/${id}/itinerary`, svg: itinerarysvg},
       {name: "Chat", path: `/trip/${id}/chat`, svg: chatsvg},
       {name: "Trip Members", path: `/trip/${id}/trip-members`, svg: travelersvg},
       {name: "Timeline", path: `/trip/${id}/timeline`, svg: timelinesvg},
-      // {name: "Group History", path: `/trip/${id}/info`, svg: historysvg},
       {name: "Home", path: "/home", svg: home}
     ];
 
     const navBtns = navData.map( (link, i) => {
-      if(i > 1 && i < 8) {
+      if(i > 0) {
         return <TripNavBtn key={ link.name } name={ link.name } path={ link.path } icon={ link.svg }/>
       } else {
         return null
@@ -144,9 +144,6 @@ class NavBar extends Component {
     })
 
     const navBar = navData.map( (link, index) => {
-      if(index === navData.length - 1) {
-        return <StyledMenuLi key={ link.path } style={{border: 'none'}}><StyledA href={process.env.REACT_APP_LOGOUT}>{ link.name }</StyledA></StyledMenuLi>
-      }
       return <NavLink onClick={ this.props.closeMenu }key={ link.path } to={ link.path }><StyledMenuLi>{ link.name }</StyledMenuLi></NavLink>
     })
 
@@ -161,6 +158,7 @@ class NavBar extends Component {
                 </MenuCloseButton>
                 <ol>
                   { navBar }
+                  <StyledMenuLi style={{border: 'none'}}><StyledA href={process.env.REACT_APP_LOGOUT}>LOGOUT</StyledA></StyledMenuLi>
                 </ol>
               </MobileMenu>
 

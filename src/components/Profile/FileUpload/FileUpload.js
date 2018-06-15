@@ -2,15 +2,19 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import glamorous from 'glamorous';
 
+import Btn from '../../buttons/Btn/Btn';
+import { colors } from '../../styledComponents';
+
 const Input=glamorous.input({
     display:'none'
 })
 const Label=glamorous.label({
     fontSize:12,
     padding:'  10.5px 20.1px ',
+    marginBottom: 20,
     borderRadius: 4,
     border: '1px solid',
-    borderColor: '#E7E7E7',
+    borderColor: colors.ind,
     backgroundColor:'#384E77',
     color:'white'
 })
@@ -18,8 +22,8 @@ const WholeFile=glamorous.div({
     display:'flex',
     flexDirection:'column',
     alignItems: 'center',
-    justifyContent: 'center',
-    height:'100%',
+    justifyContent: 'space-around',
+    height:'60%',
     width:'100%'
 })
 const Button=glamorous.button({
@@ -90,7 +94,7 @@ export default class FileUpload extends Component {
             </div>
             <div>
 
-                <Button style={{marginTop:'20px'}} type='secondary' onClick={this.sendPhoto}>UPDATE</Button>
+                <Btn style={{marginTop:'20px'}} type='secondary' onClick={this.sendPhoto}>UPDATE</Btn>
             </div>  
             </WholeFile>
         )

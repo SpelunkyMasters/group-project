@@ -302,7 +302,7 @@ const InviteContainer = glamorous.div({
   },
   [mediaQueries.desktop]: {
     marginTop: 12,
-    width: 820,
+    width: '75%',
     height: 150,
     justifyContent: 'space-around',
     alignItems: 'center',
