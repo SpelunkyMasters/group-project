@@ -57,7 +57,7 @@ const PictureEdit=glamorous.div({
 // })
 const InfoPart=glamorous.div({
   position: 'relative',
-  top: 8,
+  top: 30,
   margin: '20px auto',
   backgroundColor: colors.white,
   borderRadius: 4,
@@ -68,7 +68,10 @@ const InfoPart=glamorous.div({
   display: 'flex',
   flexDirection:'column',
   justifyContent: 'space-around',
-  padding: 15
+  padding: 15,
+  [mediaQueries.iPhone678]: {
+    fontSize: 20
+  }
 })
 
 const EditBtnDiv = glamorous.div({
@@ -79,17 +82,26 @@ const EditBtnDiv = glamorous.div({
 })
 
 const P=glamorous.div({
-  margin:'10px 0',
+  margin:'15px 0',
   height:19,
   color:'grey',
   [mediaQueries.iPhone678]: {
-    
+    margin: '20px 0'
+  },
+  [mediaQueries.iPhone678plus]: {
+    margin: '24px 0'
   }
 })
 const Input=glamorous.input({
   fontSize:12,
   width:165,
-  // margin: '10px 0'
+  // margin: 10
+  [mediaQueries.iPhone678]: {
+    fontSize: 20
+  },
+  [mediaQueries.iPhone678plus]: {
+    fontSize: 22
+  }
 })
 const PHeader=glamorous.p({
   color:'black',
