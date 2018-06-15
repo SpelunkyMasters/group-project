@@ -275,6 +275,13 @@
     fill: #cacccd
   }
 
+  .DayPicker_transitionContainer {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px
+  }
+
   .DayPicker_transitionContainer__verticalScrollable {
     padding-top: 20px;
     height: 50px;

@@ -10,13 +10,18 @@ import arrow from '../../assets/svg/thin-arrow-pointing-left.svg'
 import { mediaQueries } from '../styledComponents';
 
 import Avatar from '../Avatar/Avatar';
+import Btn from '../buttons/Btn/Btn';
 
-const Separator = glamorous.hr({
-width: '80%'
-})
+import logoNoText from '../../assets/svg/logoNoText.svg'
+
+import { colors } from '../styledComponents';
 
 const ProfileDiv = glamorous.div({
-  height: '100vh'
+  height: '100vh',
+  backgroundImage: `url(${logoNoText})`,
+  backgroundSize: '180%',
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'left 11px bottom -30px',
 }, ({ theme }) => ({
   backgroundColor: theme.white
 }))
@@ -38,6 +43,7 @@ const HeaderText=glamorous.h1({
   fontSize:30
 })
 const PictureEdit=glamorous.div({
+  marginTop: 20,
   marginLeft: 35,
   display:'flex',
   height:'30vh',
@@ -50,11 +56,18 @@ const PictureEdit=glamorous.div({
 //    marginLeft:20
 // })
 const InfoPart=glamorous.div({
-  height:'50vh',
+  position: 'relative',
+  top: 45,
+  margin: '20px auto',
+  backgroundColor: colors.white,
+  borderRadius: 4,
+  border: '1px solid',
+  borderColor: colors.ind,
+  width: '90vw',
   display: 'flex',
   flexDirection:'column',
   justifyContent: 'space-around',
-  padding:'10px 25px'
+  padding: 20
 })
 const P=glamorous.div({
   margin:'10px 0',
@@ -134,7 +147,7 @@ class Profile extends Component {
        <Avatar size="large"/>
         <FileUpload />
       </PictureEdit>
-      <Separator/>
+  
         {!this.state.edit?
         <InfoPart>
           <div>
@@ -143,7 +156,7 @@ class Profile extends Component {
         <P>Email: <PHeader>{this.state.email}</PHeader></P>
           </div>
           
-        <Button type='secondary' style={{margin:'0 auto'}} onClick={()=>this.setState({edit:true})}>EDIT</Button>
+        <Btn type='secondary' style={{margin:'0 auto'}} onClick={()=>this.setState({edit:true})}>EDIT</Btn>
         </InfoPart>
                       :
         <InfoPart>

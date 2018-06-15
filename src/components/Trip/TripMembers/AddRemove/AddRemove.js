@@ -3,6 +3,7 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import glamorous from 'glamorous';
 import plus from '../../../../assets/img/plus.png';
+import { mediaQueries } from '../../../styledComponents';
 
 
 const EachMember=glamorous.div({
@@ -36,9 +37,22 @@ const EachMember=glamorous.div({
     height:30
   })
   const SearchList=glamorous.div({
+    position: 'fixed',
+    bottom: 178,
     height:'90px',
     overflow:'auto',
-    padding:' 5px 0'
+    padding:' 5px 0',
+    [mediaQueries.iPhone678]: {
+        bottom: 278
+    },
+    [mediaQueries.iPhone678plus]: {
+        bottom: 344,
+        left: 68
+    },
+    [mediaQueries.iPhoneX]: {
+        bottom: 420,
+        left: 47
+    },
   })
 class AddRemove extends Component {
     constructor() {

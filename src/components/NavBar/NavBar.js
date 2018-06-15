@@ -31,7 +31,9 @@ const NavButtonGroup = glamorous.nav({
   [mediaQueries.iPhone678plusLAND]: {
     marginTop: 10
   }
-})
+}, ({ theme }) => ({
+  backgroundColor: theme.white
+}))
 
 const MobileMenu = glamorous.nav({
   height: '100vh',
