@@ -9,7 +9,7 @@ import { mediaQueries } from '../../styledComponents';
 const InviteContainer = glamorous.div({
     height: 60,
     padding: 3,
-    width: 210,
+    width: 200,
     marginBottom: 10,
     border: '1px solid',
     borderRadius: 3,
@@ -21,7 +21,7 @@ const InviteContainer = glamorous.div({
     },
     [mediaQueries.iPhone678]: {
         padding: 5,
-        marginBottom: 20,
+        marginBottom: 22,
         height: 72,
         width: 215
 
@@ -92,7 +92,7 @@ const InviteTextP = glamorous.p({
 const InviteControls = glamorous.div({
     position: 'relative',
     margin: 0,
-    left: 25,
+    left: 18,
     top: 5,
     width: 30,
     cursor: 'pointer',

@@ -11,20 +11,28 @@ import Invite from './Invite/Invite';
 import {getUser, getTrips, getInvites} from '../../ducks/reducer';
 
 import add from '../../assets/svg/add.svg'
-import profile from '../../assets/svg/profile.svg';
+
+import Avatar from '../Avatar/Avatar';
+// import profile from '../../assets/svg/profile.svg';
 
 import logoNoText from '../../assets/svg/logoNoText.svg';
 
+const ProfileDiv = glamorous.div({
+  position: 'absolute',
+  right: 20,
+  top: 1
+})
 
 const HomeHeader = glamorous.header({
   cursor: 'default',
   height: 70,
-  margin: "-10px -10px 0 -15px",
+  margin: "-10px -10px 0 -10px",
   display: 'flex',
-  justifyContent: 'space-around',
+  justifyContent: 'center',
   alignItems: 'center',
   [mediaQueries.iPhone678]: {
-    marginBottom: 20
+    marginBottom: 20,
+    marginRight: -10
   },
   [mediaQueries.iPhoneX]: {
     paddingTop: 10,
@@ -57,6 +65,7 @@ const TripsH1 = glamorous.h1({
   [mediaQueries.iPhone678plusLAND]: {
     position: 'relative',
     left: -170,
+    marginTop: 9
   },
   [mediaQueries.iPhoneX]: {
     marginTop: 2
@@ -108,21 +117,22 @@ const TripH1 = glamorous.h2({
       border: 'none'
   },
   [mediaQueries.iPhone678]: {
-    width: '80%',
+    width: '85%',
     fontSize: 24,
     padding: 15
   },
   [mediaQueries.iPhone678plus]: {
-    width: '80%',
+    width: '87%',
     fontSize: 30,
     padding: 15
   },
   [mediaQueries.iPhoneX]: {
-    width: '94%',
+    width: '90%',
     fontSize: 30,
     padding: 20
   },
   [mediaQueries.desktop]: {
+    width: '70%',
     fontSize: 35,
     padding: 30,
     ':hover': {
@@ -135,6 +145,7 @@ const TripH1 = glamorous.h2({
 }))
 
 const TripContainer = glamorous.div({
+  position: 'relative',
   cursor: 'pointer',
   // padding: 2,
   border: '1px solid #001C55',
@@ -153,7 +164,8 @@ const TripContainer = glamorous.div({
     width: 0
   },
   [mediaQueries.iPhone678]: {
-    padding: 8,
+    paddingTop: 0,
+    // padding: '30px 10px 20px 10px',
     height: 220,
     width: 290
   },
@@ -168,26 +180,27 @@ const TripContainer = glamorous.div({
     float: 'left',
     position: 'relative',
     top: 5,
-    left: 50,
-    height: 220,
-    width: 280
+    left: 30,
+    height: 240,
+    width: 320
   },
 
   [mediaQueries.iPhoneX]: {
+    // paddingTop: 80,
     width: 300,
     height: 300
   },
   [mediaQueries.desktop]: {
     marginTop: 14,
-    width: 900,
-    height: 350
+    width: '60%',
+    height: '40%'
   }
 })
 
   const LargeIcon = glamorous.button({
     cursor: 'pointer',
-    width: 55,
-    height: 55,
+    width: 45,
+    height: 45,
     borderRadius: '50%',
     border: '1px solid',
     borderColor: '#E7E7E7',
@@ -204,29 +217,31 @@ const TripContainer = glamorous.div({
 })
 
 const CreateTripDiv = glamorous.div({
-  position: 'fixed',
-  top: 286,
+  position: 'absolute',
   right: 2,
+  bottom: 2,
+  // top: 286,
+  // right: 2,
   [mediaQueries.iPhone678]: {
-    top: 325,
-    right: 18
+    right: 5,
+    bottom: 5
   },
   [mediaQueries.iPhone678plus]: {
-    top: 355,
-    right: 25
+    right: 3,
+    bottom: 3
   },
   [mediaQueries.iPhone678plusLAND]: {
-    top: 324,
-    right: 375
+    // top: 324,
+    // right: 375
   },
 
   [mediaQueries.iPhoneX]: {
-    top: 416,
-    right: 14
+    // top: 416,
+    // right: 14
   },
   [mediaQueries.desktop]: {
-    top: 465,
-    right: 245
+    // top: 465,
+    // right: 245
   }
 })
     
@@ -246,11 +261,11 @@ const InvitesH1 = glamorous.h1({
     
 const InviteContainer = glamorous.div({
   cursor: 'default',
-  padding: 10,
+  padding: 15,
   border: '1px solid #001C55',
   borderRadius: 5,
   margin: 'auto',
-  height: 158,
+  height: 165,
   width: 240,
   display: 'flex',
   justifyContent: 'center',
@@ -275,18 +290,19 @@ const InviteContainer = glamorous.div({
 
   [mediaQueries.iPhone678plusLAND]: {
     position: 'relative',
-    top: -30,
+    height: 240,
+    top: -42,
     left: 30
   },
 
   [mediaQueries.iPhoneX]: {
     padding: 13,
-    height: 285,
+    height: 200,
     width: 255
   },
   [mediaQueries.desktop]: {
     marginTop: 12,
-    width: 820,
+    width: '75%',
     height: 150,
     justifyContent: 'space-around',
     alignItems: 'center',
@@ -355,16 +371,18 @@ class Home extends Component {
     return (
       <HomeMainDiv> 
         <HomeHeader>
-          <NavLink to="/profile">
-            <MenuImg src={ profile } alt="profile" width="30px"/>
-          </NavLink> 
           <h1>Home</h1>
+          <NavLink to="/profile">
+            <ProfileDiv>
+              <Avatar/>
+            </ProfileDiv>
+          </NavLink> 
         </HomeHeader>
         <TripsH1>Trips</TripsH1>
+        <TripContainer>
         <CreateTripDiv>
           <LargeIcon type="secondary" onClick={ this.createTrip }><img src={ add } alt="new trip" width="25px"/></LargeIcon>
         </CreateTripDiv>
-        <TripContainer>
           { tripList }
         </TripContainer>
         <InvitesH1>Invites</InvitesH1>

@@ -5,6 +5,7 @@ import glamorous from 'glamorous';
 // import home from '../assets/img/home.png';
 
 export const colors = {
+    oxford: '#001C55',
     base: '#464646',
     primary: '#384E77',
     secondary: '#FFD23E',
@@ -104,12 +105,7 @@ export const TripHeader = glamorous.h1({
 
 // Trip Component & Children
 
-export const TripControlDiv = glamorous.div({
-    textAlign: 'center',
-    height: '100vh'
-  }, ({ theme }) => ({
-      backgroundColor: theme.newBlue
-  }))
+
 
 export const EditPosition = glamorous.div({
     width: '50px',

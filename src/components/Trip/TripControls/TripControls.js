@@ -9,7 +9,10 @@ import moment from 'moment';
 
 import { getTrips } from '../../../ducks/reducer';
 
-import { Button, TripControlDiv } from '../../styledComponents';
+import { Button, mediaQueries } from '../../styledComponents';
+import Btn from '../../buttons/Btn/Btn';
+import logo2 from '../../../assets/svg/logo2.svg';
+import deleteIcon from '../../../assets/svg/delete.svg';
 
 
 import Modal from './Modal';
@@ -29,6 +32,18 @@ const TripNameInput = glamorous.input({
     fontSize: 30
 })
 
+const TripControlDiv = glamorous.div({
+    textAlign: 'center',
+    height: 'calc(100vh - 55px)',
+    width: '100vw',
+    backgroundImage: `url(${logo2})`,
+    backgroundRepeat: 'no-repeat',
+    [mediaQueries.desktop]: {
+        backgroundPosition: 'left center',
+        backgroundSize: 1400
+    }
+  })
+
 const TripControlBtns = glamorous.span({
     marginTop: 20,
     display: 'flex',
@@ -37,10 +52,21 @@ const TripControlBtns = glamorous.span({
   })
 
 const DeleteBtnDiv = glamorous.div({
-    height: 300,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'flex-end'
+    position: 'absolute',
+    right: 20,
+    bottom: 20,
+    [mediaQueries.iPhoneX]: {
+        bottom: 80
+    }
+    
+})
+
+const DeleteBtn = glamorous.img({
+    width: 35,
+    [mediaQueries.iPhone678]: {
+        width: 65
+    },
+
 })
 
 const initialStart = moment('Mon Jul 02 2018 12:00:00 GMT-0600');
@@ -110,18 +136,22 @@ class TripControls extends Component {
         if( !this.state.startDate || !this.state.endDate) {
             alert('Please enter your trip dates.')
         } else {
-            let sd = moment(this.state.startDate).toString();
-            let ed = moment(this.state.endDate).toString();
-            
-            axios.put(`/api/trips/${this.props.match.params.id}`, {
-                trip_name: this.state.tripName,
-                startdate: sd,
-                enddate: ed
-            }).then( () => {
-                this.props.getTrips(this.props.user.userid).then( () => {
-                    this.props.history.goBack();
+            if(this.state.tripName.length > 19) {
+                alert('Trip names need to be 19 characters or less.')
+            } else {
+                let sd = moment(this.state.startDate).toString();
+                let ed = moment(this.state.endDate).toString();
+                
+                axios.put(`/api/trips/${this.props.match.params.id}`, {
+                    trip_name: this.state.tripName,
+                    startdate: sd,
+                    enddate: ed
+                }).then( () => {
+                    this.props.getTrips(this.props.user.userid).then( () => {
+                        this.props.history.goBack();
+                    })
                 })
-            })
+            }
         }
     }
 
@@ -180,9 +210,9 @@ class TripControls extends Component {
                 />
                 <br/>
                 <TripControlBtns>
-                    <Button type="ind" icon="close" onClick={ this.cancel }>Cancel</Button>
+                    <Btn type="ind" onClick={ this.cancel }>CANCEL</Btn>
                     
-                    <Button type="secondary" onClick={ this.saveTrip }>Save</Button>
+                    <Btn type="secondary" onClick={ this.saveTrip }>SAVE</Btn>
                 </TripControlBtns>
                 {
                     this.state.deleteModal
@@ -193,7 +223,7 @@ class TripControls extends Component {
                         : null
                 }
                 <DeleteBtnDiv>
-                    <Button type="danger" onClick={ this.toggleDeleteModal }>Delete</Button>
+                    <DeleteBtn src={ deleteIcon } onClick={ this.toggleDeleteModal }/>
                 </DeleteBtnDiv>
             </TripControlDiv>
         );

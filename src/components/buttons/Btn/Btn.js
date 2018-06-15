@@ -4,18 +4,13 @@ import glamorous from 'glamorous';
 
 import { colors } from '../../styledComponents';
 
-const sizes = {
-    small: {height: 25, padding: "5px 10px", width: "auto"},
-    regular: {height: 40, padding: "10px 15px", width: "90px"},
-    large: {height: 50, padding: "15px 20px", width: "100px"}
-}
 
 const StyledBtn = glamorous.button(
     {
         height: 40,
         borderRadius: 4,
         border: '1px solid',
-        borderColor: 'lightgrey',
+        borderColor: colors.ind,
         transition: '0.5s ease-in-out',
         ':hover': {
             transform: 'translateY(2px)' 
@@ -23,8 +18,9 @@ const StyledBtn = glamorous.button(
     },
     props => ({
         backgroundColor: colors[props.type] || colors['default'],
-        color: props.type === 'secondary' ? 'black' : 'white',
-        width: sizes['regular'].width
+        color: props.type === 'secondary' ? '#001C55' : 'white',
+        width: 90,
+        padding: "10px 15px"
         // width: sizes[props.variant].width || sizes['regular'].width
     })
 )
@@ -46,14 +42,13 @@ class Btn extends Component {
 
 Btn.propTypes = {
     type: PropTypes.string,
-    variant: PropTypes.string,
+    padding: PropTypes.string,
     onClick: PropTypes.func
     // children: PropTypes.element.isRequired
 }
 
 Btn.defaultProps = {
-    type: 'danger',
-    variant: 'regular'
+    type: 'ind'
 }
 
 export default Btn;

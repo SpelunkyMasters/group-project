@@ -10,13 +10,18 @@ import arrow from '../../assets/svg/thin-arrow-pointing-left.svg'
 import { mediaQueries } from '../styledComponents';
 
 import Avatar from '../Avatar/Avatar';
+import Btn from '../buttons/Btn/Btn';
 
-const Separator = glamorous.hr({
-width: '80%'
-})
+import logoNoText from '../../assets/svg/logoNoText.svg'
+
+import { colors } from '../styledComponents';
 
 const ProfileDiv = glamorous.div({
-  height: '100vh'
+  height: '100vh',
+  backgroundImage: `url(${logoNoText})`,
+  backgroundSize: '180%',
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'left 11px bottom -30px',
 }, ({ theme }) => ({
   backgroundColor: theme.white
 }))
@@ -38,33 +43,53 @@ const HeaderText=glamorous.h1({
   fontSize:30
 })
 const PictureEdit=glamorous.div({
+  marginTop: 20,
   marginLeft: 35,
   display:'flex',
   height:'30vh',
   flexDirection:'row',
   alignItems: 'center',
 })
-const ProfilePicture=glamorous.img({
-  borderRadius:'50%',
-   height:'120px',
-   marginLeft:20
-})
+// const ProfilePicture=glamorous.img({
+//   borderRadius:'50%',
+//    height:'120px',
+//    marginLeft:20
+// })
 const InfoPart=glamorous.div({
-  height:'50vh',
+  position: 'relative',
+  top: 8,
+  margin: '20px auto',
+  backgroundColor: colors.white,
+  borderRadius: 4,
+  border: '1px solid',
+  borderColor: colors.ind,
+  width: '91vw',
+  height: '35vh',
   display: 'flex',
   flexDirection:'column',
   justifyContent: 'space-around',
-  padding:'10px 25px'
+  padding: 15
 })
+
+const EditBtnDiv = glamorous.div({
+  margin: '10px auto'
+  // width: '100%',
+  // display: 'flex',
+  // justifyContent: 'center'  
+})
+
 const P=glamorous.div({
   margin:'10px 0',
   height:19,
-  color:'grey'
+  color:'grey',
+  [mediaQueries.iPhone678]: {
+    
+  }
 })
 const Input=glamorous.input({
   fontSize:12,
   width:165,
-  margin:0
+  // margin: '10px 0'
 })
 const PHeader=glamorous.p({
   color:'black',
@@ -77,18 +102,18 @@ const ButtonDiv=glamorous.div({
   marginTop:'20px'
 
 })
-const Button=glamorous.button({
-  marginTop:2,
-  height: 40,
-  width:90.38,
-  borderRadius: 4,
-  border: '1px solid',
-  borderColor: '#E7E7E7',
-  },
-  ({theme}) => ({
-    backgroundColor: theme.sunglow
-  })
-  )
+// const Button=glamorous.button({
+//   marginTop:2,
+//   height: 40,
+//   width:90.38,
+//   borderRadius: 4,
+//   border: '1px solid',
+//   borderColor: '#E7E7E7',
+//   },
+//   ({theme}) => ({
+//     backgroundColor: theme.sunglow
+//   })
+//   )
 
 class Profile extends Component {
   constructor(){
@@ -134,16 +159,17 @@ class Profile extends Component {
        <Avatar size="large"/>
         <FileUpload />
       </PictureEdit>
-      <Separator/>
+  
         {!this.state.edit?
         <InfoPart>
           <div>
-        <P>First name: <PHeader>{this.state.first_name}</PHeader></P>
-        <P>Last name: <PHeader>{this.state.last_name}</PHeader></P>
-        <P>Email: <PHeader>{this.state.email}</PHeader></P>
+            <P>First name: <PHeader>{this.state.first_name}</PHeader></P>
+            <P>Last name: <PHeader>{this.state.last_name}</PHeader></P>
+            <P>Email: <PHeader>{this.state.email}</PHeader></P>
           </div>
-          
-        <Button type='secondary' style={{margin:'0 auto'}} onClick={()=>this.setState({edit:true})}>EDIT</Button>
+          <EditBtnDiv>
+            <Btn type='secondary' onClick={()=>this.setState({edit:true})}>EDIT</Btn>
+          </EditBtnDiv>
         </InfoPart>
                       :
         <InfoPart>
@@ -153,8 +179,8 @@ class Profile extends Component {
         <P>Email: <Input style={{width:'200px'}} value={this.state.email} onChange={e=>this.setState({email:e.target.value})}/></P>
           </div>
           <ButtonDiv>
-        <Button onClick={()=>this.saveChanges()}>SAVE</Button>
-        <Button style={{color:'white',backgroundColor:'#384E77'}} onClick={()=>this.cancelChanges()}>CANCEL</Button>
+        <Btn type="secondary" onClick={()=>this.saveChanges()}>SAVE</Btn>
+        <Btn onClick={()=>this.cancelChanges()}>CANCEL</Btn>
           </ButtonDiv>
         </InfoPart>
         }

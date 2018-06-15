@@ -26,6 +26,14 @@ const Members=glamorous.div({
   // backgroundColor: 'magenta',
   overflowY:'scroll'
 })
+
+const SearchMemberDiv = glamorous.div({
+  position: 'relative',
+  display:'flex', 
+  lexDirection:'column',
+  justifyContent:'center',
+  alignItems:'center'
+})
 const Invited=glamorous.div({
   // backgroundColor: 'maroon',
   height: 200,
@@ -289,7 +297,8 @@ deleteFromTrip(i, userid){
           {this.state.invited}
         </Invited>
         {this.state.userid === this.props.user.userid
-          ? <div style={{display:'flex', flexDirection:'column',  justifyContent:'center', alignItems:'center' }}>
+        ///////////////////////////////////////////////////////
+          ? <SearchMemberDiv>
               <InputField placeholder="Add to your Caravan..."value={this.state.filter} onChange={e=>this.setState({filter:e.target.value})} type='text'/>
               {/* showing AddRemove component if input field is not empty */}
 
@@ -298,7 +307,7 @@ deleteFromTrip(i, userid){
                 <AddRemove newInvite={this.newInvite} filter={this.state.filter} tripid={this.props.match.params.id}/>:
                 <p></p>
               }
-            </div>
+            </SearchMemberDiv>
           : <div></div>
         }
         <Members>

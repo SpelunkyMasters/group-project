@@ -27,9 +27,10 @@ const ModalBg = glamorous.div({
     height: '100vh',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    backgroundColor: 'rgba(33, 33, 33, 0.774)'
 }, ({ theme }) => ({
-    backgroundColor: theme.white,
+    // backgroundColor: theme.white,
     color: theme.white
 }))
 
@@ -50,7 +51,7 @@ function Modal(props) {
                 <br/>
                 <ModalControls>
                     <img src={ accept } onClick={ props.affirm } width="40px" alt="accept"/>
-                    <img src={ decline } onClick={ props.cancel } width="60px" alt="decline"/>
+                    <img src={ decline } onClick={ props.cancel } width="40px" alt="decline"/>
                 </ModalControls>
             </ModalMain>
         </ModalBg>                    

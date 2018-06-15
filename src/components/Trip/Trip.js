@@ -20,10 +20,12 @@ import Modal from './TripControls/Modal';
 import menu from '../../assets/svg/menu.svg';
 import edit from '../../assets/svg/edit.svg';
 import leave from '../../assets/svg/leave.svg';
+import TripControls from './TripControls/TripControls';
 
 const StyledTripDiv = glamorous.div({
   padding: 10,
-  height: '100vh'
+  height: '100vh',
+  overflow: 'hidden',
 }, ({ theme }) => ({
   backgroundColor: theme.white
 }))
@@ -144,7 +146,7 @@ class Trip extends Component {
                   this.props.tripOrganizer
                     ? (
                       <EditPosition>
-                        <NavLink to={ `/edit/${id}` }><img src={ edit } alt="edit trip button"onClick={ this.toggleControls } width="28px"/></NavLink>
+                        <NavLink to={ `/trip/${id}/edit` }><img src={ edit } alt="edit trip button"onClick={ this.toggleControls } width="28px"/></NavLink>
                       </EditPosition>)
                     : (
                       <EditPosition>
@@ -167,6 +169,7 @@ class Trip extends Component {
             <Route path="/trip/:id/trip-members" component={ TripMembers } />
             <Route path="/trip/:id/timeline" component={ Timeline } />
             <Route path="/trip/:id/info" component={ PlaceInfo } />
+            <Route path="/trip/:id/edit" component={ TripControls } />
 
             
             {/* <Route path="/trip/:id/group-history" component={} />
