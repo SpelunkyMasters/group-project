@@ -7,6 +7,8 @@ import MainStop from './MainStop'
 import Search from './Search'
 import glamorous, { Div, H2 } from 'glamorous'
 
+
+
 const ItineraryPage = glamorous.div({
   background: '#EEF0F3',
   height: 'calc(100vh - 70px)',
@@ -118,7 +120,7 @@ class Itinerary extends Component {
           alignItems='center'
           justifyContent="center">
           <H2 fontSize="25px" letterSpacing="2px" marginBottom="15px">Itinerary</H2>
-            <AddButton onClick={this.handleAdd}>Add Main Stop</AddButton>
+            <AddButton onClick={this.handleAdd}>Add City</AddButton>
         </Div>
           
           {

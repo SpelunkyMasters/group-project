@@ -5,7 +5,9 @@ import Search from './Search'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getItinerary } from '../../../ducks/reducer'
-import glamorous, {Div} from 'glamorous'
+import glamorous, {Div} from 'glamorous';
+import itineraryadd from '../../../assets/svg/itineraryadd.svg';
+
 
 const MainDiv = glamorous.div({
     display: "flex",
@@ -115,7 +117,7 @@ class MainStop extends Component {
             <MainDiv>
                 <Div display='flex'>
                     <MainName  onClick={this.handleClick}>{mainStop.dest_name}</MainName>
-                        <AddButton onClick={this.handleAddClick}>+</AddButton>
+                        <AddButton onClick={this.handleAddClick}><img src={itineraryadd} alt="add button" width="15px"/></AddButton>
                 </Div>
                 {
                     this.state.clicked ?
