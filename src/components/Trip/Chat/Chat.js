@@ -10,14 +10,16 @@ import sendIcon from '../../../assets/img/send-button.svg'
 import { mediaQueries } from '../../styledComponents';
 
 const ChatBox=glamorous.div({
-  height:'calc(100vh - 70px)',
+  height:'calc(100vh - 60px)',
   padding: '20px',
   width:'106.5%',
-  background: `url('${logo2}') center, no-repeat`,
-  backgroundPosition: 'fixed',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: '700px',
+  // background: `url('${image}') center, no-repeat`,
+  backgroundSize: 'cover',
   marginLeft: '-10px',
+  background: `url('${logo2}') center, no-repeat`,
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: '800px',
   [mediaQueries.iPhone678]:{
     height:'calc(100vh - 64px)',
   },
