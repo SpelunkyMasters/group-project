@@ -23,5 +23,20 @@ module.exports = {
         }
         bubbleSort(newArr)
         return newArr
+    },
+    findBounds: function(latPoints, lngPoints){
+        let sortedLat = this.bubble(latPoints)
+        let sortedLng = this.bubble(lngPoints)
+        let maxLat = sortedLat[sortedLat.length - 1]
+        let minLat = sortedLat[0]
+        let maxLng = sortedLng[sortedLng.length - 1]
+        let minLng = sortedLng[0]
+        let points = [
+            {lat: maxLat, lng: maxLng},
+            {lat: maxLat, lng: minLng},
+            {lat: minLat, lng: maxLng},
+            {lat: minLat, lng: minLng}
+        ]
+        return points
     }
 }

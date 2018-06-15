@@ -162,8 +162,8 @@ class SearchBox extends Component {
                       <option value="" selected>Select One</option> :
                       <option value="" >Select One</option>
                     }
-                      <option value="Main Stop">Main Stop</option>
-                      <option value="Minor Stop">Minor Stop</option>
+                      <option value="Main_Stop">Main Stop</option>
+                      <option value="Minor_Stop">Minor Stop</option>
                     </SelectMenu>
                     </InputAndSelect>
                     <SelectAndButton>
