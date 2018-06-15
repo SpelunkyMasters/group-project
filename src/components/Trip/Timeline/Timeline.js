@@ -100,7 +100,7 @@ const PostName=glamorous.div({
   wordWrap: 'break-word'
 })
 const TimelinePosts=glamorous.div({
-  height:'80%',
+  height:'75%',
   overflow:'auto'
 })
 const LikeButton=glamorous.img({
@@ -200,7 +200,7 @@ if(post_image==='') alert('Choose a photo')
 else{
     //posting new message in data base and sending it to socket
     axios.post('/api/timeline',{post_name, post_image, tripid} ).then(res=>{
-      console.log("POST DATA", res.data)
+      // console.log("POST DATA", res.data)
       var{postid, tripid, post_image, post_name, likes}=res.data
       this.socket.emit('message sent', {
           message:{postid, tripid, post_image, post_name, likes, userid, picture, first_name, last_name, email},
@@ -219,7 +219,7 @@ else{
       })
     //deleting message from database
     axios.delete(`/api/timeline/${postid}`).then(res=>{
-      console.log("ACHTUNG!")
+      // console.log("ACHTUNG!")
     })
   }
 getUrl(url){
@@ -230,7 +230,7 @@ likeIt(postid, likes){
 var like=true
 // checking if array of likes includes this user and assign false if it is
 if(likes)like=!likes.includes(this.props.user.userid)
-console.log('like', like, 'likes', likes)
+// console.log('like', like, 'likes', likes)
 this.socket.emit('message sent', {
   message:[this.props.user.userid ,  null, postid, like],
   room: this.state.room
