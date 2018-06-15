@@ -78,7 +78,7 @@ class Itinerary extends Component {
   }
 
   addToItinerary = (currentMarker) => {
-    axios.post(`/api/itinerary/${this.props.match.params.id}?destType=Main Stop`, currentMarker)
+    axios.post(`/api/itinerary/${this.props.match.params.id}?destType=Main_Stop`, currentMarker)
     .then( (results) => {
       this.props.getItinerary(this.props.match.params.id)
       this.handleAdd();
@@ -118,15 +118,11 @@ class Itinerary extends Component {
           alignItems='center'
           justifyContent="center">
           <H2 fontSize="25px" letterSpacing="2px" marginBottom="15px">Itinerary</H2>
-          {
-            this.props.tripOrganizer ? 
-            <AddButton onClick={this.handleAdd}>Add Main Stop</AddButton> :
-            null
-          }
+            <AddButton onClick={this.handleAdd}>Add Main Stop</AddButton>
         </Div>
           
           {
-            this.state.addClick && this.props.tripOrganizer?
+            this.state.addClick ?
             <Search 
             callback={this.addToItinerary} /> :
             null
@@ -140,7 +136,6 @@ class Itinerary extends Component {
 function mapStateToProps(state) {
   return{
     itinerary: state.itinerary,
-    tripOrganizer: state.tripOrganizer
   }
 }
 export default GoogleApiWrapper({

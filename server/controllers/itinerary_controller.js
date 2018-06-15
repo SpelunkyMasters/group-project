@@ -53,8 +53,8 @@ module.exports = {
         const { destType, destid } = req.query
         const { tripid } = req.params
         const db = req.app.get('db')
-        if( destType === 'Main Stop') {
-            db.trips.get_dests().then(results => {
+        if( destType === 'Main_Stop') {
+            db.trips.get_dests([tripid]).then(results => {
                 let flag = true
                 results.forEach(place => {
                     if(location.place_id === place.place_id) flag = false;
@@ -65,12 +65,12 @@ module.exports = {
                     })
 
                 } else {
-                    res.sendStatus(404)
+                    res.sendStatus(501)
                 }
             })
-        } else if ( destType === 'Minor Stop') {
+        } else if ( destType === 'Minor_Stop') {
             if(destid !== '') {                
-                db.trips.get_subDests().then(results => {
+                db.trips.get_subDests([destid]).then(results => {
                     let flag = true;
                     results.forEach(place => {
                         if(place.place_id === location.place_id) flag = false;
@@ -82,10 +82,10 @@ module.exports = {
                     }
                 })
             } else {
-                res.sendStatus(404)
+                res.sendStatus(500)
             }
         } else {
-            res.sendStatus(404)
+            res.sendStatus(502)
         }
     },
     deleteDestination: (req, res) => {

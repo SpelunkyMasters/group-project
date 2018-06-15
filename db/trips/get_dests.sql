@@ -2,3 +2,4 @@
 -- destination is in here already before adding it
 
 select * from destinations
+where tripid = $1

@@ -2,3 +2,4 @@
 -- before adding it in
 
 select * from sub_dests
+where destid = $1

@@ -24,9 +24,6 @@ const AddButton = glamorous.button({
     border: 'none',
     fontSize: '25px',
     color: '#FFD23E',
-    ':hover': {
-        color:'black'
-    }
 })
 
 const MainName = glamorous.h3({
@@ -77,7 +74,7 @@ class MainStop extends Component {
     }
 
     addToItinerary = (currentMarker) => {
-        axios.post(`/api/itinerary/${this.props.match.params.id}?destType=Minor Stop&destid=${this.props.mainStop.destid}`, currentMarker)
+        axios.post(`/api/itinerary/${this.props.match.params.id}?destType=Minor_Stop&destid=${this.props.mainStop.destid}`, currentMarker)
         .then( (results) => {
           this.props.getItinerary(this.props.match.params.id)
           this.handleAddClick();
@@ -99,8 +96,8 @@ class MainStop extends Component {
     render() {
         const { mainStop } = this.props
         let mainNames = (this.props.index + 1) * 31
-        let subNames = this.props.prevSubCount * 27
-        let position = 187 + mainNames + subNames
+        let subNames = this.props.prevSubCount * 28
+        let position = 188 + mainNames + subNames
 
         let subDests = mainStop.sub_dests.map( stop => {
             return (
@@ -118,20 +115,16 @@ class MainStop extends Component {
             <MainDiv>
                 <Div display='flex'>
                     <MainName  onClick={this.handleClick}>{mainStop.dest_name}</MainName>
-                    {
-                        this.props.tripOrganizer ?
-                        <AddButton onClick={this.handleAddClick}>+</AddButton> :
-                        null
-                    }
+                        <AddButton onClick={this.handleAddClick}>+</AddButton>
                 </Div>
                 {
-                    this.state.clicked && this.props.tripOrganizer?
+                    this.state.clicked ?
                     <DeleteButton onClick={this.deleteDest}>X</DeleteButton> :
                     null
                 }
                 </MainDiv>
             {
-                this.state.addClick && this.props.tripOrganizer?
+                this.state.addClick ?
                 <Search
                 position={position}
                 callback={this.addToItinerary} /> :
@@ -143,10 +136,4 @@ class MainStop extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        tripOrganizer: state.tripOrganizer
-    }
-}
-
-export default withRouter(connect(mapStateToProps, { getItinerary })(MainStop));
+export default withRouter(connect(null, { getItinerary })(MainStop));

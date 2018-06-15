@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 import { connect } from 'react-redux'
 import glamorous from 'glamorous'
+import * as mapFns from '../../../utils/mapFunctions'
 
 const InfoDiv = glamorous.div({
 maxWidth: '65vw',
@@ -39,48 +40,21 @@ class MapContainer extends Component {
         }
     }
 
-    bubble(arr) {
-        let newArr = [...arr]
-        function bubbleSort(arr){
-            for (var j=0; j<arr.length; j++) {
-                let swapped = false;
-                for (var i = 0; i< arr.length - j - 1; i++) {
-                    if (arr[i] > arr[i + 1]) {
-                        swap(arr, i, i+1)
-                        swapped = true;
-                    }
-                }
-                if(!swapped) {
-                    return
-                }
-            }
-        }
-        
-        function swap(arr, i, j) {
-            let temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-            return arr;
-        }
-        bubbleSort(newArr)
-        return newArr
-    }
-
-    findBounds(latPoints, lngPoints) {
-        let sortedLat = this.bubble(latPoints)
-        let sortedLng = this.bubble(lngPoints)
-        let maxLat = sortedLat[sortedLat.length - 1]
-        let minLat = sortedLat[0]
-        let maxLng = sortedLng[sortedLng.length - 1]
-        let minLng = sortedLng[0]
-        let points = [
-            {lat: maxLat, lng: maxLng},
-            {lat: maxLat, lng: minLng},
-            {lat: minLat, lng: maxLng},
-            {lat: minLat, lng: minLng}
-        ]
-        return points
-    }
+    // findBounds(latPoints, lngPoints) {
+    //     let sortedLat = mapFns.bubble(latPoints)
+    //     let sortedLng = mapFns.bubble(lngPoints)
+    //     let maxLat = sortedLat[sortedLat.length - 1]
+    //     let minLat = sortedLat[0]
+    //     let maxLng = sortedLng[sortedLng.length - 1]
+    //     let minLng = sortedLng[0]
+    //     let points = [
+    //         {lat: maxLat, lng: maxLng},
+    //         {lat: maxLat, lng: minLng},
+    //         {lat: minLat, lng: maxLng},
+    //         {lat: minLat, lng: minLng}
+    //     ]
+    //     return points
+    // }
 
   render() {
       const {currentMarker} = this.props
@@ -124,7 +98,7 @@ class MapContainer extends Component {
         })
 
 
-        let points = this.findBounds(latPoints, lngPoints)
+        let points = mapFns.findBounds(latPoints, lngPoints)
         bounds = new this.props.google.maps.LatLngBounds();
         for (let i = 0; i < points.length; i++) {
           bounds.extend(points[i])
@@ -152,7 +126,7 @@ class MapContainer extends Component {
                 zoom={zoom}
                 bounds={bounds}
                 containerStyle={{
-                    height: this.props.tripOrganizer ? 'calc(100% - 151px)' : 'calc(100vh - 70px)',
+                    height: 'calc(100% - 151px)',
                     width:'100%',
                     marginLeft: '-10px',
                 }}
@@ -198,7 +172,6 @@ class MapContainer extends Component {
 function mapStateToProps(state) {
     return {
       itinerary: state.itinerary,
-      tripOrganizer: state.tripOrganizer
     }
   }
 

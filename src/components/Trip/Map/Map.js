@@ -52,16 +52,12 @@ class Map extends Component {
   render() {
     return (
       <div>
-        {
-          this.props.tripOrganizer ?
           <SearchBox 
             updateCurrentMarker={this.updateCurrentMarker} 
             updateItinerary={this.updateItinerary}
             handleDestType={this.handleDestType}
             handleSubDest={this.handleSubDest}
-            destType={this.state.destType} />:
-            null
-        }
+            destType={this.state.destType} />
             <MapContainer 
               currentMarker={this.state.currentMarker} />
       </div>
@@ -73,7 +69,6 @@ function mapStateToProps(state) {
   return {
     itinerary: state.itinerary,
     mapLoading: state.mapLoading,
-    tripOrganizer: state.tripOrganizer
   }
 }
 
