@@ -168,7 +168,7 @@ class SearchBox extends Component {
                     </InputAndSelect>
                     <SelectAndButton>
                   {
-                    this.props.destType === 'Minor Stop' ?
+                    this.props.destType === 'Minor_Stop' ?
                     (
                       <SelectMenu type="minor" onChange={e => this.props.handleSubDest(e.target.value, e)}>
                   <option >--Select One--</option>
