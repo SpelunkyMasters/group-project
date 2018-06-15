@@ -24,9 +24,6 @@ const AddButton = glamorous.button({
     border: 'none',
     fontSize: '25px',
     color: '#FFD23E',
-    ':hover': {
-        color:'black'
-    }
 })
 
 const MainName = glamorous.h3({
