@@ -4,8 +4,9 @@ import axios from 'axios';
 import glamorous from 'glamorous';
 import { withRouter } from 'react-router-dom';
 import {connect} from 'react-redux';
-import { START_DATE, END_DATE, VERTICAL_ORIENTATION } from 'react-dates/constants';
+import { START_DATE, END_DATE, HORIZONTAL_ORIENTATION, VERTICAL_ORIENTATION } from 'react-dates/constants';
 import moment from 'moment';
+import MediaQuery from 'react-responsive';
 
 import { getTrips } from '../../../ducks/reducer';
 
@@ -190,24 +191,47 @@ class TripControls extends Component {
                 } */}
                 <TripNameInput type="text" value={ tripName } placeholder={ tripName } onChange={ e => this.updateName(e.target.value) }/>
                 <br/>
-                <DateRangePicker
-                    showClearDates={ true }
-                    showDefaultInputIcon={ true }
-                    small={ true }
-                    withPortal={ true }
-                    startDate={ this.state.startDate }
-                    startDateId={ START_DATE }    
-                    endDate={ this.state.endDate }
-                    endDateId={ END_DATE }
-                    orientation={ VERTICAL_ORIENTATION }
-                    numberOfMonths={ 2 }
-                    daySize={35}
-                    onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
-                    focusedInput={this.state.focusedInput}
-                    onFocusChange={ focusedInput => this.setState({ focusedInput })}
-                    startDatePlaceholderText="Start"
-                    endDatePlaceholderText="End"
-                />
+                <MediaQuery query="(min-device-width: 768px)" style={{outline: 'none'}
+                }>
+                    <DateRangePicker
+                        showClearDates={ true }
+                        showDefaultInputIcon={ true }
+                        small={ true }
+                        withPortal={ true }
+                        startDate={ this.state.startDate }
+                        startDateId={ START_DATE }    
+                        endDate={ this.state.endDate }
+                        endDateId={ END_DATE }
+                        orientation={ HORIZONTAL_ORIENTATION }
+                        numberOfMonths={ 2 }
+                        daySize={60}
+                        onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+                        focusedInput={this.state.focusedInput}
+                        onFocusChange={ focusedInput => this.setState({ focusedInput })}
+                        startDatePlaceholderText="Start"
+                        endDatePlaceholderText="End"
+                    />
+                </MediaQuery>
+                <MediaQuery query="(max-device-width: 767px)">
+                    <DateRangePicker
+                        showClearDates={ true }
+                        showDefaultInputIcon={ true }
+                        small={ true }
+                        withPortal={ true }
+                        startDate={ this.state.startDate }
+                        startDateId={ START_DATE }    
+                        endDate={ this.state.endDate }
+                        endDateId={ END_DATE }
+                        orientation={ VERTICAL_ORIENTATION }
+                        numberOfMonths={ 2 }
+                        daySize={35}
+                        onDatesChange={({ startDate, endDate }) => this.setState({ startDate, endDate })}
+                        focusedInput={this.state.focusedInput}
+                        onFocusChange={ focusedInput => this.setState({ focusedInput })}
+                        startDatePlaceholderText="Start"
+                        endDatePlaceholderText="End"
+                    />
+                </MediaQuery>
                 <br/>
                 <TripControlBtns>
                     <Btn type="ind" onClick={ this.cancel }>CANCEL</Btn>

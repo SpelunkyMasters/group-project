@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import glamorous from 'glamorous';
 import Message from './Message/Message';
 import image from '../../../assets/img/text_background.png'
+import logo2 from '../../../assets/svg/logo2.svg';
 import sendIcon from '../../../assets/img/send-button.svg'
 import { mediaQueries } from '../../styledComponents';
 
@@ -12,8 +13,10 @@ const ChatBox=glamorous.div({
   height:'calc(100vh - 70px)',
   padding: '20px',
   width:'106.5%',
-  background: `url('${image}') center, no-repeat`,
-  backgroundSize: 'cover',
+  background: `url('${logo2}') center, no-repeat`,
+  backgroundPosition: 'fixed',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: '700px',
   marginLeft: '-10px',
   [mediaQueries.iPhone678]:{
     height:'calc(100vh - 64px)',
