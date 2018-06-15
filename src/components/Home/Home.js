@@ -331,7 +331,6 @@ class Home extends Component {
     const { userid } = this.props.user;
     // New trip is created, then trip data is re-retrieved before redirecting to the new trip page
     axios.post(`/api/trips/${ userid }`).then( res => {
-      console.log(res.data);
       this.props.getTrips( userid ).then( () => {
         this.props.history.push(`/trip/${res.data.tripid}/nav`)
       })

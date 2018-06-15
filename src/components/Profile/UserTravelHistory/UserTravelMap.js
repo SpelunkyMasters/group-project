@@ -87,7 +87,7 @@ class MapContainer extends Component {
                     <Marker 
                         key={i}
                         onClick={this.onMarkerClick}
-                        onDblclick={() => console.log('a')}
+                        // onDblclick={() => console.log('a')}
                         name={place.dest_name}
                         title={place.dest_address}
                         position={{lat: +place.lat, lng: +place.lng}}

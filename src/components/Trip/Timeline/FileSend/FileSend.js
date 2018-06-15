@@ -18,7 +18,7 @@ const Label=glamorous.label({
 
 
 function sendToback(photo){
-    console.log(photo)
+    // console.log(photo)
     return axios.post('/api/photoSend', photo)
 }
 
@@ -49,7 +49,7 @@ export default class FileUpload extends Component {
                 this.props.getUrl(response.data.Location)
             })
         }
-        console.log("FILE IS", file)
+        // console.log("FILE IS", file)
         if(file) {reader.readAsDataURL(file)
 
         }
@@ -58,7 +58,7 @@ export default class FileUpload extends Component {
 
 
     render(){
-        this.state.file && console.log(this.state.photo)
+        // this.state.file && console.log(this.state.photo)
         return (
             <div>
                 <Label>

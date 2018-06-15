@@ -87,7 +87,7 @@ class Trip extends Component {
   }
 
   toggleControls() {
-    console.log(`tripControls is ${this.state.tripControls}`)
+    // console.log(`tripControls is ${this.state.tripControls}`)
     this.state.tripControls
       ? this.setState({tripControls: false})
       : this.setState({tripControls: true})

@@ -28,7 +28,7 @@ describe("Get Invite Action Creator Tests", () => {
         let id = 1;
 
         let action = getInvites(id);
-        console.log(action.payload)
+        // console.log(action.payload)
 
         expect(typeof action.payload).toEqual('object')
     })

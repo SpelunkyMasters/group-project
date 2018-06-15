@@ -11,7 +11,7 @@ module.exports = {
         // const { userid } = req.user
         const { location } = req.body
         const db = req.app.get('db')
-        console.log(location)
+        // console.log(location)
 
         db.travel_history.add_history([req.user.userid, location.name, location.address, location.lat, location.lng, location.place_id]).then(() => {
             res.sendStatus(200)
