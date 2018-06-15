@@ -158,7 +158,7 @@ class TripControls extends Component {
 
     deleteTrip() {
         axios.delete(`/api/trips/${this.props.match.params.id}`).then( res => {
-            console.log('Result: ', res.data)
+            // console.log('Result: ', res.data)
             this.props.getTrips(this.props.user.userid).then( () => {
                 this.toggleDeleteModal();
                 this.props.history.push('/home');
@@ -174,12 +174,12 @@ class TripControls extends Component {
     // }
 
     cancel() {
-        console.log('Cancel button')
+        // console.log('Cancel button')
         this.props.history.goBack();
     }
 
     render() {
-        console.log('History: ', this.props.history)
+        // console.log('History: ', this.props.history)
         const { tripName } = this.state;
  
         return (

@@ -13,7 +13,7 @@ AWS.config.update({
 const S3 = new AWS.S3()
 
 function uploadPhoto(req, res) {
-    console.log('photo in back', req.body.filename, process.env.AWS_ACCESSKEY)
+    // console.log('photo in back', req.body.filename, process.env.AWS_ACCESSKEY)
     let photo = req.body,
         buf = new Buffer(photo.file.replace(/^data:image\/\w+;base64,/, ""), 'base64'),
         params = {
@@ -24,7 +24,7 @@ function uploadPhoto(req, res) {
             ACL: 'public-read'
         }
 
-    console.log(buf)
+    // console.log(buf)
 
     S3.upload(params, (err, data) => {
         if (err){
@@ -32,7 +32,7 @@ function uploadPhoto(req, res) {
         }else{
            const db=req.app.get('db')
            //uploading picture to my s3 and saving link on my database
-           console.log("PICTURE is", data.Location, req.user.userid)
+        //    console.log("PICTURE is", data.Location, req.user.userid)
            db.users.upload_profile_picture([data.Location,req.user.userid])
            .then(()=>res.status(200).send(data))
         }
@@ -41,7 +41,7 @@ function uploadPhoto(req, res) {
     })
 }
 function sendPhoto(req, res) {
-    console.log('photo in back', req.body.filename, process.env.AWS_ACCESSKEY)
+    // console.log('photo in back', req.body.filename, process.env.AWS_ACCESSKEY)
     let photo = req.body,
         buf = new Buffer(photo.file.replace(/^data:image\/\w+;base64,/, ""), 'base64'),
         params = {
@@ -52,10 +52,10 @@ function sendPhoto(req, res) {
             ACL: 'public-read'
         }
 
-    console.log(buf)
+    // console.log(buf)
 
     S3.upload(params, (err, data) => {
-        console.log(err, data)
+        // console.log(err, data)
         if(err){
             res.status(500).send(err);
         } else {

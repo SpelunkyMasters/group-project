@@ -67,7 +67,7 @@ class AddRemove extends Component {
 componentDidMount(){
     //getting all the users that not invited yet,including the ones already in trip
 axios.get(`/api/notinvited/${this.props.tripid}`).then( res => {
-    console.log('users: ', res.data)
+    // console.log('users: ', res.data)
     
           //filtering string from parent
           var str=this.props.filter.toLowerCase();
@@ -147,7 +147,7 @@ sendInvite(i, userid){
         var invite=this.state.user_list.filter(e=>e.userid===userid)[0]
         this.props.newInvite(invite)
        
-        console.log("showList",showList)
+        // console.log("showList",showList)
         this.setState({showList, filteredList})
     })
 }

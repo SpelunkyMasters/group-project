@@ -43,7 +43,6 @@ const Button=glamorous.button({
     )
 
 function sendToback(photo){
-    console.log(photo)
     return axios.post('/api/photoUpload', photo)
 }
 
@@ -80,7 +79,7 @@ export default class FileUpload extends Component {
         event.preventDefault()
 
         sendToback(this.state).then(response => {
-            console.log(response.data)
+            // console.log(response.data)
             window.location.reload()
         })
     }

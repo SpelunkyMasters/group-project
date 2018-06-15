@@ -100,7 +100,7 @@ class Comments extends Component {
 // socket stuff
     this.socket = io();
     this.socket.on(`${this.state.room} dispatched`, data => {
-      console.log(data)
+      // console.log(data)
       this.updateMessage(data);
     })
     this.socket.on('room joined', data => {
@@ -138,7 +138,7 @@ class Comments extends Component {
 }
 deleteMessage(commentid){
   var comments=this.state.comments.filter(e=> e.commentid !== commentid)
-  console.log(comments)
+  // console.log(comments)
   this.setState({comments},()=>{  
     this.socket.emit('message sent', {
       message:[null, comments],
