@@ -3,7 +3,7 @@ import axios from 'axios';
 import glamorous from 'glamorous';
 
 import Btn from '../../buttons/Btn/Btn';
-import { colors } from '../../styledComponents';
+import { colors, mediaQueries } from '../../styledComponents';
 
 const Input=glamorous.input({
     display:'none'
@@ -24,7 +24,10 @@ const WholeFile=glamorous.div({
     alignItems: 'center',
     justifyContent: 'space-around',
     height:'60%',
-    width:'100%'
+    width:'100%',
+    [mediaQueries.desktop]: {
+        width: '30%'
+    }
 })
 const Button=glamorous.button({
     marginTop:2,
@@ -86,16 +89,16 @@ export default class FileUpload extends Component {
         this.state.file && console.log(this.state.photo)
         return (
             <WholeFile>
-            <div>
-            <Label>
-                <Input type="file" onChange={this.handlePhoto}/>
-                CHOOSE
-                </Label>
-            </div>
-            <div>
+                <div>
+                    <Label>
+                        <Input type="file" onChange={this.handlePhoto}/>
+                        CHOOSE
+                    </Label>
+                </div>
+                <div>
 
-                <Btn style={{marginTop:'20px'}} type='secondary' onClick={this.sendPhoto}>UPDATE</Btn>
-            </div>  
+                    <Btn style={{marginTop:'20px'}} type='secondary' onClick={this.sendPhoto}>UPDATE</Btn>
+                </div>  
             </WholeFile>
         )
     }

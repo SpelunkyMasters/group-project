@@ -97,6 +97,7 @@ export const SmallButton = glamorous.button(
 )
 
 export const TripHeader = glamorous.h1({
+    cursor: 'default',
     color: '#F9FBFF',
     fontSize: 32,
     marginBottom: 5,

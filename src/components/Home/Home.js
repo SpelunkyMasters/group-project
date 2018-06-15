@@ -89,16 +89,14 @@ const HomeMainDiv = glamorous.div({
   overflow:'hidden',
   textAlign: 'center',
   backgroundImage: `url(${logoNoText})`,
-  // backgroundBlendMode: 'overlay',
   backgroundSize: '180%',
   backgroundRepeat: 'no-repeat',
-  // backgroundSize: '180%',
   backgroundPosition: 'left 11px bottom -30px',
   [mediaQueries.desktop]: {
     display: 'flex',
     flexDirection: 'column',
     backgroundSize: '100%',
-    backgroundPosition: 'center'
+    backgroundPosition: 'left -31px bottom -230px'
   }
 }, ({ theme }) => ({
   backgroundColor: theme.white,

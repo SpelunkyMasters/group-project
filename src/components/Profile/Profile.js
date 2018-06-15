@@ -49,6 +49,18 @@ const PictureEdit=glamorous.div({
   height:'30vh',
   flexDirection:'row',
   alignItems: 'center',
+  [mediaQueries.iPhone678]: {
+    marginLeft: 50
+  },
+  [mediaQueries.iPhone678plus]: {
+    marginLeft: 63
+  },
+  [mediaQueries.iPhoneX]: {
+    marginLeft: 50
+  },
+  [mediaQueries.desktop]: {
+    marginLeft: '40%'
+  },
 })
 // const ProfilePicture=glamorous.img({
 //   borderRadius:'50%',
@@ -71,7 +83,19 @@ const InfoPart=glamorous.div({
   padding: 15,
   [mediaQueries.iPhone678]: {
     fontSize: 20
-  }
+  },
+  [mediaQueries.iPhone678plus]: {
+    fontSize: 22
+  },
+  [mediaQueries.iPhoneX]: {
+    width: '94vw',
+    fontSize: 24
+  },
+  [mediaQueries.desktop]: {
+    padding: 40,
+    width: '50vw',
+    fontSize: 26
+  },
 })
 
 const EditBtnDiv = glamorous.div({
@@ -90,6 +114,9 @@ const P=glamorous.div({
   },
   [mediaQueries.iPhone678plus]: {
     margin: '24px 0'
+  },
+  [mediaQueries.iPhoneX]: {
+    margin: '26px 0'
   }
 })
 const Input=glamorous.input({
@@ -101,7 +128,10 @@ const Input=glamorous.input({
   },
   [mediaQueries.iPhone678plus]: {
     fontSize: 22
-  }
+  },
+  [mediaQueries.iPhone678plus]: {
+    fontSize: 24
+  },
 })
 const PHeader=glamorous.p({
   color:'black',

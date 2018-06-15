@@ -18,6 +18,9 @@ const ToolTip = glamorous.p({
     [mediaQueries.iPhone678plusLAND]: {
         fontSize:20
     },
+    [mediaQueries.desktop]: {
+        fontSize:25
+    },
 }, ({ theme }) => ({
     color: theme.mainBg,
     [mediaQueries.desktop]: {
@@ -51,6 +54,9 @@ const ContentSquare = glamorous.div({
         margin: 4
     },
     [mediaQueries.desktop]: {
+        padding: 5,
+        height: 200,
+        width: 200,
         transition: '0.2s ease-in-out',
         ':hover': {
             transform: 'translateY(-2px)',

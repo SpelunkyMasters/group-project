@@ -30,7 +30,13 @@ const NavButtonGroup = glamorous.nav({
   },
   [mediaQueries.iPhone678plusLAND]: {
     marginTop: 10
-  }
+  },
+  [mediaQueries.desktop]: {
+    margin: '145px auto 0 auto',
+    height: '50vh',
+    width: '45vw'
+  },
+  
 }, ({ theme }) => ({
   backgroundColor: theme.white
 }))
@@ -54,7 +60,14 @@ const MobileMenu = glamorous.nav({
   backgroundColor: theme.newBlue,
 }))
 
-const MenuCloseButton = glamorous.div({
+const MenuCloseBtn = glamorous.img({
+  width: 25,
+  [mediaQueries.desktop]: {
+    width: 40
+  }
+})
+
+const CloseBtnPosition = glamorous.div({
   position: 'relative',
   left: 125,
   top: -10,
@@ -65,6 +78,13 @@ const MenuCloseButton = glamorous.div({
   [mediaQueries.iPhone678plus]: {
     top: 20,
     left: 170
+  },
+  [mediaQueries.iPhone678plus]: {
+    top: 20,
+    left: 170
+  },
+  [mediaQueries.desktop]: {
+    left: 658,
   },
   // display: 'flex',
   // justifyContent: 'flex-end'
@@ -101,8 +121,10 @@ const StyledMenuLi = glamorous.li({
     }
   },
   [mediaQueries.desktop]: {
-    // padding: 10,
-    fontSize: 32,
+    marginTop: 0,
+    height: 80,
+    padding: 20,
+    fontSize: 36,
     width: '100%',
   },
   
@@ -153,9 +175,9 @@ class NavBar extends Component {
           this.props.navType === 'menu'
             ? (
               <MobileMenu>
-                <MenuCloseButton>
-                  <img src={ close } alt="close menu" onClick={ this.props.closeMenu } width="25px"/>
-                </MenuCloseButton>
+                <CloseBtnPosition>
+                  <MenuCloseBtn src={ close } alt="close menu" onClick={ this.props.closeMenu }/>
+                </CloseBtnPosition>
                 <ol>
                   { navBar }
                   <StyledMenuLi style={{border: 'none'}}><StyledA href={process.env.REACT_APP_LOGOUT}>LOGOUT</StyledA></StyledMenuLi>

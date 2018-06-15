@@ -11,9 +11,9 @@ const StyledBtn = glamorous.button(
         borderRadius: 4,
         border: '1px solid',
         borderColor: colors.ind,
-        transition: '0.5s ease-in-out',
+        transition: '0.3s ease-in-out',
         ':hover': {
-            transform: 'translateY(2px)' 
+            transform: 'translateY(-2px)' 
         }
     },
     props => ({
