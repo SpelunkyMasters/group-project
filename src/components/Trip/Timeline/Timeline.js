@@ -7,14 +7,19 @@ import axios from 'axios';
 import glamorous from 'glamorous';
 import cross from '../../../assets/img/cross.png';
 import heart from '../../../assets/svg/57602.svg';
+import logo2 from '../../../assets/svg/logo2.svg';
 
 const TimelineBox=glamorous.div({
   height:'calc(100vh - 70px)',
-  background: `white`,
   marginLeft: '-10px',
   width:'106.5%',
-  
-})
+  backgroundImage: `url(${logo2})`,
+  backgroundPosition: 'fixed',
+  backgroundRepeat: 'no-repeat',
+  backgroundSize: '700px',
+}, ({ theme }) => ({
+  backgroundColor: theme.white
+}))
 const InputField = glamorous.input({
   fontSize: '13px',
   width: '80%',
