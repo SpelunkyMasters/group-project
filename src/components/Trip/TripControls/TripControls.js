@@ -10,7 +10,7 @@ import MediaQuery from 'react-responsive';
 
 import { getTrips } from '../../../ducks/reducer';
 
-import { Button, mediaQueries } from '../../styledComponents';
+import { mediaQueries } from '../../styledComponents';
 import Btn from '../../buttons/Btn/Btn';
 import logo2 from '../../../assets/svg/logo2.svg';
 import deleteIcon from '../../../assets/svg/delete.svg';
@@ -39,6 +39,10 @@ const TripControlDiv = glamorous.div({
     width: '100vw',
     backgroundImage: `url(${logo2})`,
     backgroundRepeat: 'no-repeat',
+    [mediaQueries.iPhoneX]: {
+        backgroundPosition: 'left center',
+        backgroundSize: 850
+    },
     [mediaQueries.desktop]: {
         backgroundPosition: 'left center',
         backgroundSize: 1400

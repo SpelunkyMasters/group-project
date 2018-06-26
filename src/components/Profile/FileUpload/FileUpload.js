@@ -29,18 +29,6 @@ const WholeFile=glamorous.div({
         width: '30%'
     }
 })
-const Button=glamorous.button({
-    marginTop:2,
-    height: 40,
-    width:90.38,
-    borderRadius: 4,
-    border: '1px solid',
-    borderColor: '#E7E7E7',
-    },
-    ({theme}) => ({
-      backgroundColor: theme.sunglow
-    })
-    )
 
 function sendToback(photo){
     return axios.post('/api/photoUpload', photo)

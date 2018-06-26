@@ -20,7 +20,13 @@ import logoNoText from '../../assets/svg/logoNoText.svg';
 const ProfileDiv = glamorous.div({
   position: 'absolute',
   right: 20,
-  top: 1
+  top: 5,
+  [mediaQueries.iPhone678plus]: {
+    top: 6
+  },
+  [mediaQueries.iPhoneX]: {
+    top: 17
+  },
 })
 
 const HomeHeader = glamorous.header({
@@ -47,15 +53,6 @@ const HomeHeader = glamorous.header({
     backgroundColor: theme.mainBg,
     color: theme.white
 }))
-
-const MenuImg = glamorous.img({
-  padding: 10,
-  // transition: 'border 1s ease-in',
-  
-  // ':hover': {
-  //   border: '1px solid white'
-  // }
-})
 
 const TripsH1 = glamorous.h1({
   margin: '10px 0 5px 0',

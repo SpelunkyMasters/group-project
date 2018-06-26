@@ -4,7 +4,6 @@ import axios from 'axios';
 import {connect} from 'react-redux';
 import glamorous from 'glamorous';
 import Message from './Message/Message';
-import image from '../../../assets/img/text_background.png'
 import logo2 from '../../../assets/svg/logo2.svg';
 import sendIcon from '../../../assets/img/send-button.svg'
 import { mediaQueries } from '../../styledComponents';
@@ -14,7 +13,7 @@ const ChatBox=glamorous.div({
   padding: '20px',
   width:'106.5%',
   // background: `url('${image}') center, no-repeat`,
-  backgroundSize: 'cover',
+  // backgroundSize: 'cover',
   marginLeft: '-10px',
   background: `url('${logo2}') center, no-repeat`,
   backgroundPosition: 'center',
