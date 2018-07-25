@@ -37,7 +37,7 @@ export const Avatar = glamorous.div({
 })
 export const AppHeader = glamorous.header({
     height: 70,
-    margin: "-10px -10px 0 -15px",
+    margin: "-10px -10px 0 -10px",
     display: 'flex',
     justifyContent: 'space-around',
     alignItems: 'center'

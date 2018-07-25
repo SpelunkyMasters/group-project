@@ -9,7 +9,6 @@ import sendIcon from '../../../assets/img/send-button.svg'
 import { mediaQueries } from '../../styledComponents';
 
 const ChatBox=glamorous.div({
-  height:'calc(100vh - 60px)',
   padding: '20px',
   width:'106.5%',
   // background: `url('${image}') center, no-repeat`,
@@ -27,9 +26,21 @@ const ChatBox=glamorous.div({
 }})
 
 const ChatView=glamorous.div({
-  overflow: 'auto',
-  height: 'calc(100vh - 135px)',
+  overflowY: 'scroll',
+  height: '71vh',
   marginBottom: '5px'
+})
+
+const ChatControls = glamorous.div({
+  display: 'flex',
+  justifyContent: 'space-around',
+  alignItems: 'center',
+  marginLeft: -20,
+  width: '100vw',
+  height: '10vh',
+  backgroundColor: 'yellow',
+  position: 'absolute',
+  bottom: 0
 })
 
 const InputField = glamorous.input({
@@ -149,8 +160,10 @@ var messages=this.state.messages.map((e,i)=>{
           <div ref={(el) => { this.el = el; }}></div>
         </ChatView>
         {/* inputing and sending message */}
-        <InputField placeholder="Type a message" value={this.state.input} onChange={e=>this.setState({input:e.target.value})}/>
-        <SendButton onClick={this.sendMessage}><img  width='80%' height='80%' src={sendIcon} alt="send" /></SendButton>
+        <ChatControls>
+          <InputField placeholder="Type a message" value={this.state.input} onChange={e=>this.setState({input:e.target.value})}/>
+          <SendButton onClick={this.sendMessage}><img  width='80%' height='80%' src={sendIcon} alt="send" /></SendButton>
+        </ChatControls>
       </ChatBox>
     );
   }
