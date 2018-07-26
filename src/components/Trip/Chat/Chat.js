@@ -23,7 +23,13 @@ const ChatBox=glamorous.div({
   },
   [mediaQueries.iPhoneX]: {
     height:'calc(100vh - 64px)',
-}})
+  },
+  [mediaQueries.desktop]: {
+    backgroundSize: 1400,
+    // height: '100vh',
+    width: '100%'
+  }
+})
 
 const ChatView=glamorous.div({
   overflowY: 'scroll',
@@ -38,17 +44,26 @@ const ChatControls = glamorous.div({
   marginLeft: -20,
   width: '100vw',
   height: '10vh',
-  backgroundColor: 'yellow',
   position: 'absolute',
-  bottom: 0
-})
+  bottom: 0,
+  [mediaQueries.desktop]: {
+    height: '19vh'
+  }
+}, ({theme}) => ({
+  backgroundColor: theme.lighterBlue
+}))
 
 const InputField = glamorous.input({
-  fontSize: '18px',
+  fontSize: 18,
   width: '66.5vw',
-  height: '25px',
-  padding: '5px',
-  borderRadius: '35px'
+  height: 25,
+  padding: 5,
+  borderRadius: 35,
+  [mediaQueries.desktop]: {
+    width: '70vw',
+    height: 60,
+    fontSize: 25
+  }
 })
 
 const SendButton = glamorous.button({
@@ -57,7 +72,12 @@ height: '39px',
 borderRadius: '50%',
 marginLeft: '10px',
 padding:'6px',
-paddingLeft:'10px'
+paddingLeft:'10px',
+border: '2px solid lightgrey',
+[mediaQueries.desktop]: {
+  width: 60,
+  height: 60
+}
 },
 ({theme}) => ({
   backgroundColor: theme.sunglow

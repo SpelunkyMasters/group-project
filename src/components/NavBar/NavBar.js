@@ -32,9 +32,11 @@ const NavButtonGroup = glamorous.nav({
     marginTop: 10
   },
   [mediaQueries.desktop]: {
-    margin: '145px auto 0 auto',
-    height: '50vh',
-    width: '45vw'
+    minHeight: 670,
+    minWidth: 455,
+    margin: '240px auto 0 auto',
+    height: '40vh',
+    width: '40vw'
   },
   
 }, ({ theme }) => ({
