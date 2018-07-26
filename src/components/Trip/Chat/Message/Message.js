@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import glamorous from 'glamorous';
+import { mediaQueries } from '../../../styledComponents';
 
 const MessageStyle = {
     me: {
@@ -28,13 +29,16 @@ const MessageBox=glamorous.div({
 ({check}) => MessageStyle[check]
 )
 const MessageText=glamorous.div({
-    padding:'10px',
-    borderRadius:'5px',
+    padding: 10,
+    borderRadius: 5,
     maxWidth:'80%',
-    marginTop:'5px',
-    marginBottom: '5px',
+    marginTop: 5,
+    marginBottom: 5,
     wordWrap:'break-word',
-    color:'white'
+    color:'white',
+    [mediaQueries.desktop]: {
+        fontSize: 25
+    }
 },
 ({check}) => MessageTextStyle[check]
 )

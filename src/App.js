@@ -21,6 +21,7 @@ const caravanTheme = {
   lightYellow: '#fdd24b;',
   newBlue: '#829CBC',
   newLightBlue: 'rgb(146, 184, 231)',
+  lighterBlue: '#9ebfe6',
   silver: '#C5C5C5',
   alice: '#F4FAFF',
   darksky: '#86BBD8',

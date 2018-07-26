@@ -9,7 +9,6 @@ import sendIcon from '../../../assets/img/send-button.svg'
 import { mediaQueries } from '../../styledComponents';
 
 const ChatBox=glamorous.div({
-  height:'calc(100vh - 60px)',
   padding: '20px',
   width:'106.5%',
   // background: `url('${image}') center, no-repeat`,
@@ -24,20 +23,47 @@ const ChatBox=glamorous.div({
   },
   [mediaQueries.iPhoneX]: {
     height:'calc(100vh - 64px)',
-}})
+  },
+  [mediaQueries.desktop]: {
+    backgroundSize: 1400,
+    // height: '100vh',
+    width: '100%'
+  }
+})
 
 const ChatView=glamorous.div({
-  overflow: 'auto',
-  height: 'calc(100vh - 135px)',
+  overflowY: 'scroll',
+  height: '71vh',
   marginBottom: '5px'
 })
 
+const ChatControls = glamorous.div({
+  display: 'flex',
+  justifyContent: 'space-around',
+  alignItems: 'center',
+  marginLeft: -20,
+  width: '100vw',
+  height: '10vh',
+  position: 'absolute',
+  bottom: 0,
+  [mediaQueries.desktop]: {
+    height: '19vh'
+  }
+}, ({theme}) => ({
+  backgroundColor: theme.lighterBlue
+}))
+
 const InputField = glamorous.input({
-  fontSize: '18px',
+  fontSize: 18,
   width: '66.5vw',
-  height: '25px',
-  padding: '5px',
-  borderRadius: '35px'
+  height: 25,
+  padding: 5,
+  borderRadius: 35,
+  [mediaQueries.desktop]: {
+    width: '70vw',
+    height: 60,
+    fontSize: 25
+  }
 })
 
 const SendButton = glamorous.button({
@@ -46,7 +72,12 @@ height: '39px',
 borderRadius: '50%',
 marginLeft: '10px',
 padding:'6px',
-paddingLeft:'10px'
+paddingLeft:'10px',
+border: '2px solid lightgrey',
+[mediaQueries.desktop]: {
+  width: 60,
+  height: 60
+}
 },
 ({theme}) => ({
   backgroundColor: theme.sunglow
@@ -149,8 +180,10 @@ var messages=this.state.messages.map((e,i)=>{
           <div ref={(el) => { this.el = el; }}></div>
         </ChatView>
         {/* inputing and sending message */}
-        <InputField placeholder="Type a message" value={this.state.input} onChange={e=>this.setState({input:e.target.value})}/>
-        <SendButton onClick={this.sendMessage}><img  width='80%' height='80%' src={sendIcon} alt="send" /></SendButton>
+        <ChatControls>
+          <InputField placeholder="Type a message" value={this.state.input} onChange={e=>this.setState({input:e.target.value})}/>
+          <SendButton onClick={this.sendMessage}><img  width='80%' height='80%' src={sendIcon} alt="send" /></SendButton>
+        </ChatControls>
       </ChatBox>
     );
   }

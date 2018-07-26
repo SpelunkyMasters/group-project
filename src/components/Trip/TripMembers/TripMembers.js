@@ -8,17 +8,21 @@ import cross from '../../../assets/img/cross.png';
 import * as tripFns from '../../../utils/trips';
 
 import logo2 from '../../../assets/svg/logo2.svg';
+import { mediaQueries } from '../../styledComponents';
 
 const TripMembersBox=glamorous.div({
   height:'calc(100vh - 70px)',
   backgroundImage: `url(${logo2})`,
-  backgroundPosition: 'cover',
+  backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
-  backgroundSize: '700px',
+  backgroundSize: '800px',
   padding:10,
   borderRadius:5,
   width:'106.5%',
-  marginLeft: '-10px'
+  marginLeft: '-10px',
+  [mediaQueries.desktop]: {
+    backgroundPosition: 'center' 
+  }
 })
 const Members=glamorous.div({
   marginTop: 20,
@@ -55,7 +59,12 @@ const EachMember=glamorous.div({
   border:'2px black solid',
   borderRadius:'5px',
   marginBottom:'5px',
-  backgroundColor:'white'
+  backgroundColor:'white',
+  [mediaQueries.desktop]: {
+    width: 400,
+    margin: 'auto'
+  }
+
 })
 const FirstLine=glamorous.div({
   display:'flex',

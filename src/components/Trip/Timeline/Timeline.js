@@ -14,9 +14,9 @@ const TimelineBox=glamorous.div({
   marginLeft: '-10px',
   width:'106.5%',
   backgroundImage: `url(${logo2})`,
-  backgroundPosition: 'fixed',
+  backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
-  backgroundSize: '700px',
+  backgroundSize: '800px',
 }, ({ theme }) => ({
   backgroundColor: theme.white
 }))

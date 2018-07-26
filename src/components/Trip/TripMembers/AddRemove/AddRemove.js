@@ -11,9 +11,13 @@ const EachMember=glamorous.div({
     border:'2px black solid',
     borderRadius:'5px',
     marginBottom:'5px',
-    width:'280px',
-    backgroundColor:'white'
+    width: 280,
+    backgroundColor:'white',
+    [mediaQueries.desktop]: {
+        width: 400
+    }
   })
+
   const FirstLine=glamorous.div({
     display:'flex',
     flexDirection:'row',
