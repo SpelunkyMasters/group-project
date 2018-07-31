@@ -2,16 +2,32 @@ import React, { Component } from 'react';
 import PlacesAutocomplete, { geocodeByAddress } from 'react-places-autocomplete'
 import { connect } from 'react-redux';
 import glamorous from 'glamorous'
+import { mediaQueries } from '../../styledComponents';
+
+const PageHeader = glamorous.div({
+  [mediaQueries.desktop]: {
+    borderBottom: '1px solid #001C55',
+    marginLeft: -10,
+    marginRight: -10,
+    paddingLeft: 45,
+    paddingRight: 45
+  }
+})
 
 const InputField = glamorous.input({
-  fontSize: '13px',
+  fontSize: 13,
   width: '65vw',
-  height: '20px',
+  height: 20,
   padding: '3px 10px',
-  borderRadius: '35px',
-  marginRight: "9px",
+  borderRadius: 35,
+  marginRight: 9,
   border: "none",
   boxShadow: "1px 1px 5px rgba(0, 0, 0, 0.5) inset",
+  [mediaQueries.desktop]: {
+    fontSize: 18,
+    height: 22,
+    width: '80vw'
+  },
   ":focus": {
       outline: 0,
     }
@@ -22,6 +38,10 @@ const InputField = glamorous.input({
     height: '26px',
   padding: '3px 5px',
   borderRadius: '15px',
+  [mediaQueries.desktop]: {
+    fontSize: 18,
+    width: 'min-content'
+  }
 },
 ({type}) => {
   if(type === 'main') {
@@ -44,7 +64,11 @@ const AddButton = glamorous.button({
   padding: '5px 10px',
   height: '25px',
   borderRadius: '5px',
-  marginLeft: '15px',  
+  marginLeft: '15px',
+  [mediaQueries.desktop]: {
+    fontSize: 18,
+    height: 30
+  }  
 })
 
 const InputAndSelect = glamorous.div({
@@ -69,7 +93,8 @@ const SearchSuggestions = glamorous.div({
   zIndex: "1",
   borderRadius: "15px",
   width: "calc(100% - 20px)",
-  backgroundColor: "#fff"
+  backgroundColor: "#fff",
+  
 })
 
 class SearchBox extends Component {
@@ -133,7 +158,7 @@ class SearchBox extends Component {
             onSelect={this.handleSelect}
           >
             {({ getInputProps, suggestions, getSuggestionItemProps }) => (
-              <div>        
+              <PageHeader>        
                 <InputAndSelect>     
                 <InputField
                   {...getInputProps({
@@ -180,7 +205,7 @@ class SearchBox extends Component {
                   
                   <AddButton type='border' onClick={this.addToItinerary}>Add To Itinerary</AddButton>
                   </SelectAndButton>
-              </div>
+              </PageHeader>
             )}
           </PlacesAutocomplete>
         );

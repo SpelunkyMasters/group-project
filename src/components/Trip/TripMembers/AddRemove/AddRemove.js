@@ -41,9 +41,9 @@ const EachMember=glamorous.div({
     height:30
   })
   const SearchList=glamorous.div({
-    position: 'fixed',
-    bottom: 178,
-    height:'90px',
+    position: 'absolute',
+    top: 20,
+    height: 120,
     overflow:'auto',
     padding:' 5px 0',
     [mediaQueries.iPhone678]: {

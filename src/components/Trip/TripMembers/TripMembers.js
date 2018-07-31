@@ -86,7 +86,7 @@ const DeleteButton=glamorous.div({
 const FullName=glamorous.div({
   marginLeft:20
 })
-const InputField = glamorous.input({
+const AddMemberInput = glamorous.input({
   fontSize: '13px',
   width: '65vw',
   height: '20px',
@@ -300,15 +300,18 @@ deleteFromTrip(i, userid){
 
     return (
       <TripMembersBox>
+        <Members>
+        <H2>Members </H2>
+          
+          {this.state.users}
+        </Members>
         <Invited>
         <H2>Invited</H2>
           
-          {this.state.invited}
-        </Invited>
         {this.state.userid === this.props.user.userid
         ///////////////////////////////////////////////////////
           ? <SearchMemberDiv>
-              <InputField placeholder="Add to your Caravan..."value={this.state.filter} onChange={e=>this.setState({filter:e.target.value})} type='text'/>
+              <AddMemberInput placeholder="Add to your Caravan..."value={this.state.filter} onChange={e=>this.setState({filter:e.target.value})} type='text'/>
               {/* showing AddRemove component if input field is not empty */}
 
               {
@@ -319,11 +322,8 @@ deleteFromTrip(i, userid){
             </SearchMemberDiv>
           : <div></div>
         }
-        <Members>
-        <H2>Members </H2>
-          
-          {this.state.users}
-        </Members>
+          {this.state.invited}
+        </Invited>
         
           
       </TripMembersBox>
