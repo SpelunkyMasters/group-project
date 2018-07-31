@@ -269,7 +269,7 @@ var invited=<EachMember key={i}>
                 }
               </SecondLine>
             </EachMember>
-this.setState({invited:[...this.state.invited, invited], invitedList:[...this.state.invitedList, e]})
+this.setState({invited:[...this.state.invited, invited], invitedList:[...this.state.invitedList, e], filter: ''})
   }
 deleteFromTrip(i, userid){
     //deleting user from database
@@ -306,23 +306,23 @@ deleteFromTrip(i, userid){
           {this.state.users}
         </Members>
         <Invited>
-        <H2>Invited</H2>
+          <H2>Invited</H2>
           
-        {this.state.userid === this.props.user.userid
-        ///////////////////////////////////////////////////////
-          ? <SearchMemberDiv>
-              <AddMemberInput placeholder="Add to your Caravan..."value={this.state.filter} onChange={e=>this.setState({filter:e.target.value})} type='text'/>
-              {/* showing AddRemove component if input field is not empty */}
-
-              {
-                this.state.filter.length>0?
-                <AddRemove newInvite={this.newInvite} filter={this.state.filter} tripid={this.props.match.params.id}/>:
-                <p></p>
-              }
-            </SearchMemberDiv>
-          : <div></div>
-        }
           {this.state.invited}
+          {this.state.userid === this.props.user.userid
+          ///////////////////////////////////////////////////////
+            ? <SearchMemberDiv>
+                <AddMemberInput placeholder="Add to your Caravan..."value={this.state.filter} onChange={e=>this.setState({filter:e.target.value})} type='text'/>
+                {/* showing AddRemove component if input field is not empty */}
+
+                {
+                  this.state.filter.length>0?
+                  <AddRemove newInvite={this.newInvite} filter={this.state.filter} tripid={this.props.match.params.id}/>:
+                  <p></p>
+                }
+              </SearchMemberDiv>
+            : <div></div>
+          }
         </Invited>
         
           
