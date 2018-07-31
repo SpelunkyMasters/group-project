@@ -86,7 +86,7 @@ const DeleteButton=glamorous.div({
 const FullName=glamorous.div({
   marginLeft:20
 })
-const InputField = glamorous.input({
+const AddMemberInput = glamorous.input({
   fontSize: '13px',
   width: '65vw',
   height: '20px',
@@ -269,7 +269,7 @@ var invited=<EachMember key={i}>
                 }
               </SecondLine>
             </EachMember>
-this.setState({invited:[...this.state.invited, invited], invitedList:[...this.state.invitedList, e]})
+this.setState({invited:[...this.state.invited, invited], invitedList:[...this.state.invitedList, e], filter: ''})
   }
 deleteFromTrip(i, userid){
     //deleting user from database
@@ -300,30 +300,30 @@ deleteFromTrip(i, userid){
 
     return (
       <TripMembersBox>
-        <Invited>
-        <H2>Invited</H2>
-          
-          {this.state.invited}
-        </Invited>
-        {this.state.userid === this.props.user.userid
-        ///////////////////////////////////////////////////////
-          ? <SearchMemberDiv>
-              <InputField placeholder="Add to your Caravan..."value={this.state.filter} onChange={e=>this.setState({filter:e.target.value})} type='text'/>
-              {/* showing AddRemove component if input field is not empty */}
-
-              {
-                this.state.filter.length>0?
-                <AddRemove newInvite={this.newInvite} filter={this.state.filter} tripid={this.props.match.params.id}/>:
-                <p></p>
-              }
-            </SearchMemberDiv>
-          : <div></div>
-        }
         <Members>
         <H2>Members </H2>
           
           {this.state.users}
         </Members>
+        <Invited>
+          <H2>Invited</H2>
+          
+          {this.state.invited}
+          {this.state.userid === this.props.user.userid
+          ///////////////////////////////////////////////////////
+            ? <SearchMemberDiv>
+                <AddMemberInput placeholder="Add to your Caravan..."value={this.state.filter} onChange={e=>this.setState({filter:e.target.value})} type='text'/>
+                {/* showing AddRemove component if input field is not empty */}
+
+                {
+                  this.state.filter.length>0?
+                  <AddRemove newInvite={this.newInvite} filter={this.state.filter} tripid={this.props.match.params.id}/>:
+                  <p></p>
+                }
+              </SearchMemberDiv>
+            : <div></div>
+          }
+        </Invited>
         
           
       </TripMembersBox>
