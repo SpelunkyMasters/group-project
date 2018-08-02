@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import glamorous from 'glamorous';
+import { mediaQueries } from '../../../styledComponents';
 
 const Input=glamorous.input({
     display:'none'
@@ -12,7 +13,10 @@ const Label=glamorous.label({
     border: '1px solid',
     borderColor: '#E7E7E7',
     backgroundColor:'#384E77',
-    color:'white'
+    color:'white',
+    [mediaQueries.desktop]: {
+        fontSize: 22
+    }
 })
 
 

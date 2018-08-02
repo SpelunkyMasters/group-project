@@ -8,19 +8,33 @@ import glamorous from 'glamorous';
 import cross from '../../../assets/img/cross.png';
 import heart from '../../../assets/svg/57602.svg';
 import logo2 from '../../../assets/svg/logo2.svg';
+import { mediaQueries } from '../../styledComponents'
 
 const TimelineBox=glamorous.div({
-  height:'calc(100vh - 70px)',
-  marginLeft: '-10px',
+  height:'calc(100vh - 54px)',
+  marginLeft: -10,
   width:'106.5%',
-  backgroundImage: `url(${logo2})`,
+  background: `url('${logo2}')`,
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
-  backgroundSize: '800px',
+  backgroundSize: 800,
+  [mediaQueries.iPhone678]: {
+    height:'calc(100vh - 21px)',
+  },  
+  [mediaQueries.iPhone678plus]: {
+    height:'calc(100vh + 2px)',
+  },  
+  [mediaQueries.iPhoneX]: {
+    height:'calc(100vh + 25px)',
+  },  
+  [mediaQueries.desktop]: {
+    backgroundSize: 1800,
+    height:'calc(100vh - 28px)',
+  }
 }, ({ theme }) => ({
   backgroundColor: theme.white
 }))
-const InputField = glamorous.input({
+const PhotoTitleInput = glamorous.input({
   fontSize: '13px',
   width: '80%',
   margin:'0 auto',
@@ -30,6 +44,12 @@ const InputField = glamorous.input({
   marginRight: "9px",
   border: "none",
   boxShadow: "1px 1px 5px rgba(0, 0, 0, 0.5) inset",
+  [mediaQueries.desktop]: {
+    // width: '40%',
+    height: 40,
+    margin: 0,
+    fontSize: 25
+  },
   ":focus": {
       outline: 0,
     }
@@ -40,7 +60,10 @@ const FirstPart=glamorous.div({
   padding:20,
   alignItems: 'center',
   justifyContent: 'space-between',
-  overflow:'auto'
+  overflow:'auto',
+  [mediaQueries.desktop]: {
+    padding: 40
+  }
 })
 const FirstHalf=glamorous.div({
   height:'100%',
@@ -49,22 +72,38 @@ const FirstHalf=glamorous.div({
   flexDirection:'column',
   justifyContent: 'space-around',
   alignItems: 'space-between',
+  [mediaQueries.desktop]: {
+    marginTop: -10,
+  }
 })
-const SecondHalf=glamorous.div({
+const UploadControls=glamorous.div({
   height:33,
   display:'flex',
   flexDirection:'row',
   justifyContent:'space-around',
-  alignItems:'center'
+  alignItems:'center',
+  [mediaQueries.desktop]: {
+    width: '80%',
+    justifyContent: 'space-between',
+    marginTop: 20,
+    marginLeft: 10,
+  }
 })
 const PrePost=glamorous.img({
-  height:'70px',
-  border:'1px black solid'
-
+  height: 70,
+  border:'1px black solid',
+  [mediaQueries.desktop]: {
+    marginLeft: 120,
+    height: 150
+  },
 })
 const ProfilePictureDiv=glamorous.div({
-  height:'39px',
-  width:'39px'
+  height: 39,
+  width: 39,
+  [mediaQueries.desktop]: {
+    height: 90,
+    width: 90 
+  }
 })
 const ProfilePicture=glamorous.img({
   borderRadius:'50%',
@@ -78,6 +117,12 @@ const PostButton=glamorous.button({
   borderRadius: 4,
   border: '1px solid',
   borderColor: '#E7E7E7',
+  [mediaQueries.desktop]: {
+    fontSize: 22,
+    width: 100,
+    height: 42,
+    // padding:'  6px 5.3px ',
+  },
   },
   ({theme}) => ({
     backgroundColor: theme.sunglow
@@ -93,7 +138,10 @@ const UserInfo=glamorous.div({
 const Name=glamorous.div({
   marginLeft:5,
   width:'275px',
-  height:'100%'
+  height:'100%',
+  [mediaQueries.desktop]: {
+    fontSize: 20
+  }
 })
 const PostName=glamorous.div({
   marginLeft:'5px',
@@ -262,22 +310,22 @@ var posts=this.state.posts.map((e,i)=>{
     return (
       <TimelineBox>
           <FirstPart>
-          {this.state.url===''?
-          <div>
-          <PrePost src='http://www.pixedelic.com/themes/geode/demo/wp-content/uploads/sites/4/2014/04/placeholder.png'alt='placeholder'/>
-          </div>:
-          <div>
-          <PrePost src={this.state.url} alt="post"/>
-          </div>}
-          <FirstHalf>
-          <InputField placeholder="Type in header" value={this.state.input} onChange={e=>this.setState({input:e.target.value})}/>
-          <SecondHalf>
-          <FileSend getUrl={this.getUrl}/>
-          <div>
-          <PostButton onClick={this.sendMessage}> POST </PostButton>
-          </div>
-          </SecondHalf>
-          </FirstHalf>
+            {this.state.url===''?
+            <div>
+              <PrePost src='http://www.pixedelic.com/themes/geode/demo/wp-content/uploads/sites/4/2014/04/placeholder.png'alt='placeholder'/>
+            </div>:
+            <div>
+              <PrePost src={this.state.url} alt="post"/>
+            </div>}
+            <FirstHalf>
+              <PhotoTitleInput placeholder="Name your photo" value={this.state.input} onChange={e=>this.setState({input:e.target.value})}/>
+              <UploadControls>
+                <FileSend getUrl={this.getUrl}/>
+                <div>
+                  <PostButton onClick={this.sendMessage}> POST </PostButton>
+                </div>
+              </UploadControls>
+            </FirstHalf>
 
           </FirstPart>
         <TimelinePosts>
