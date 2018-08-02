@@ -11,21 +11,19 @@ import { mediaQueries } from '../../styledComponents';
 const ChatBox=glamorous.div({
   padding: '20px',
   width:'106.5%',
-  // background: `url('${image}') center, no-repeat`,
-  // backgroundSize: 'cover',
   marginLeft: '-10px',
-  background: `url('${logo2}') center, no-repeat`,
+  background: `url('${logo2}')`,
   backgroundPosition: 'center',
   backgroundRepeat: 'no-repeat',
   backgroundSize: '800px',
   [mediaQueries.iPhone678]:{
-    height:'calc(100vh - 64px)',
+    // height:'calc(100vh - 64px)',
   },
   [mediaQueries.iPhoneX]: {
     height:'calc(100vh - 64px)',
   },
   [mediaQueries.desktop]: {
-    backgroundSize: 1400,
+    backgroundSize: 1800,
     // height: '100vh',
     width: '100%'
   }
@@ -46,6 +44,12 @@ const ChatControls = glamorous.div({
   height: '10vh',
   position: 'absolute',
   bottom: 0,
+  [mediaQueries.iPhone678]: {
+    height: '12vh'
+  },
+  [mediaQueries.iPhone678plus]: {
+    height: '14vh'
+  },
   [mediaQueries.desktop]: {
     height: '19vh'
   }
