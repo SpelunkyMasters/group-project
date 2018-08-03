@@ -54,7 +54,7 @@ const ChatControls = glamorous.div({
     height: '19vh'
   }
 }, ({theme}) => ({
-  backgroundColor: theme.lighterBlue
+  backgroundColor: theme.mainBg
 }))
 
 const InputField = glamorous.input({

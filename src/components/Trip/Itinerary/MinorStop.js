@@ -1,19 +1,37 @@
 import React, { Component } from 'react';
-import glamorous, { P } from 'glamorous'
+import glamorous from 'glamorous'
+import { mediaQueries } from '../../styledComponents';
 
 const DeleteButton = glamorous.button({
     background: 'none',
     border: 'none',
     fontSize: '13px',
-    marginBottom: '10px'
+    marginBottom: '10px',
+    [mediaQueries.desktop]: {
+        fontSize: 22,
+        position: 'relative',
+        right: 1150
+    } 
 })
 
 const MinorDiv = glamorous.div({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-    alighItems: 'center'
+    alighItems: 'center',
+    [mediaQueries.desktop]: {
+        paddingLeft: 40
+    }
 })
+
+const MinorStopP = glamorous.p({
+    fontSize: 17,
+    marginLeft: 25,
+    marginBottom: 10,
+    [mediaQueries.desktop]: {
+        fontSize: 28
+    }
+});
 
 class MinorStop extends Component {
     constructor() {
@@ -46,9 +64,8 @@ class MinorStop extends Component {
         const { minorStop } = this.props
         return (
         <MinorDiv>
-            <P fontSize='17px' marginLeft="25px" marginBottom="10px"
-            // margin="10px 25px"
-             onClick={this.handleNameClick}>{minorStop.sub_dest_name}</P>
+            <MinorStopP
+             onClick={this.handleNameClick}>{minorStop.sub_dest_name}</MinorStopP>
             {
                 this.state.clicked ? 
                 <DeleteButton onClick={() => this.props.deleteSubDest(minorStop.sub_destid)}>X</DeleteButton> :

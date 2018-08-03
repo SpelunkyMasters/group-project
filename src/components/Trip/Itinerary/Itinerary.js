@@ -3,9 +3,40 @@ import { getItinerary } from '../../../ducks/reducer'
 import { connect } from 'react-redux'
 import { GoogleApiWrapper } from 'google-maps-react'
 import axios from 'axios'
+import MediaQuery from 'react-responsive';
+import glamorous, { Div } from 'glamorous'
+import * as glamor from 'glamor';
+
 import MainStop from './MainStop'
 import Search from './Search'
-import glamorous, { Div, H2 } from 'glamorous'
+import { mediaQueries } from '../../styledComponents';
+
+import logosolid from '../../../assets/svg/logosolid.svg';
+
+const itinAnimations = props => {
+  const caravanLogoGrow = glamor.css.keyframes({
+    // 'from': { transform: 'rotate(0deg)'},
+    // 'to': { transform: 'rotate(360deg)'}
+    '0%': { transform: 'scale(1)'},
+    '50%': { transform: 'scale(1.15)'},
+    '100%': { transform: 'scale(1)'}
+  })
+  return {animation: `${caravanLogoGrow} 60s infinite`}
+  // return {animation: `${caravanLogoSpin} 1.5s infinite ease-in-out`}
+}
+
+const CaravanLogo = glamorous.img({
+  position: 'fixed',
+  top: 250,
+  left: 600
+},
+  itinAnimations,
+  {
+      [mediaQueries.desktop]: {
+      width: 1300
+    }
+  }
+);
 
 
 
@@ -16,15 +47,28 @@ const ItineraryPage = glamorous.div({
 })
 
 const AddButton = glamorous.button({
-  fontSize: '13px',
+  fontSize: 13,
   border: '1px solid black',
   backgroundColor: '#FFD23E',
   padding: '5px 10px',
-  height: '25px',
-  borderRadius: '5px',
-  width:'125px',
-  marginBottom: '10px' 
-})
+  height: 25,
+  borderRadius: 5,
+  width: 125,
+  marginBottom: 10,
+  [mediaQueries.desktop]: {
+    fontSize: 22,
+    height: 34
+  }
+});
+
+const ItineraryH2 = glamorous.h2({
+  fontSize: 25,
+  letterSpacing: 2,
+  marginBottom: 15,
+  [mediaQueries.desktop]: {
+    fontSize: 30
+  }
+});
 
 class Itinerary extends Component {
   constructor() {
@@ -119,7 +163,7 @@ class Itinerary extends Component {
           flexDirection="column" 
           alignItems='center'
           justifyContent="center">
-          <H2 fontSize="25px" letterSpacing="2px" marginBottom="15px">Itinerary</H2>
+          <ItineraryH2>Itinerary</ItineraryH2>
             <AddButton onClick={this.handleAdd}>Add City</AddButton>
         </Div>
           
@@ -130,6 +174,9 @@ class Itinerary extends Component {
             null
           }
           {itin}
+          <MediaQuery query="(min-device-width: 768px)">
+            <CaravanLogo src={ logosolid } alt="caravan logo" className="caravanLogoSpin"/>
+          </MediaQuery>
       </ItineraryPage>
     );
   }

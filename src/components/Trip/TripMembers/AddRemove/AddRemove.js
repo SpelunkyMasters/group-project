@@ -4,19 +4,20 @@ import {connect} from 'react-redux';
 import glamorous from 'glamorous';
 import plus from '../../../../assets/img/plus.png';
 import { mediaQueries } from '../../../styledComponents';
+import { EachMember, MemberProfileImg, MemberNameEmailDiv } from '../TripMembers';
 
 
-const EachMember=glamorous.div({
-    padding:'5px',
-    border:'2px black solid',
-    borderRadius:'5px',
-    marginBottom:'5px',
-    width: 280,
-    backgroundColor:'white',
-    [mediaQueries.desktop]: {
-        width: 400
-    }
-  })
+// const EachMember=glamorous.div({
+//     padding:'5px',
+//     border:'2px black solid',
+//     borderRadius:'5px',
+//     marginBottom:'5px',
+//     width: 280,
+//     backgroundColor:'white',
+//     [mediaQueries.desktop]: {
+//         width: 400
+//     }
+//   })
 
   const FirstLine=glamorous.div({
     display:'flex',
@@ -36,10 +37,10 @@ const EachMember=glamorous.div({
       height:'12px'
   })
 
-  const Img=glamorous.img({
-    borderRadius:'50%',
-    height:30
-  })
+//   const Img=glamorous.img({
+//     borderRadius:'50%',
+//     height:30
+//   })
   const SearchList=glamorous.div({
     position: 'absolute',
     top: 20,
@@ -56,6 +57,9 @@ const EachMember=glamorous.div({
     [mediaQueries.iPhoneX]: {
         bottom: 420,
         left: 47
+    },
+    [mediaQueries.desktop]: {
+        top: 50,
     },
   })
 class AddRemove extends Component {
@@ -87,8 +91,8 @@ axios.get(`/api/notinvited/${this.props.tripid}`).then( res => {
           var showList=filteredList.map((e,i)=>{
               return <EachMember key={i}>
                         <FirstLine>
-                        <Img src={e.picture} alt="profile" />
-                        <div>{e.first_name} {e.last_name} </div>
+                        <MemberProfileImg src={e.picture} alt="profile" />
+                        <MemberNameEmailDiv>{e.first_name} {e.last_name} </MemberNameEmailDiv>
                         <DeleteButton onClick={()=>this.sendInvite(i, e.userid)}>
                         <img src={plus} alt="add" height='12px'/>
                         </DeleteButton> 
@@ -121,8 +125,8 @@ componentWillReceiveProps(nextProps){
             var showList=filteredList.map((e,i)=>{
                 return <EachMember key={i}>
                             <FirstLine>
-                                <Img src={e.picture} alt="profile" />
-                                <div>{e.first_name} {e.last_name} </div>
+                                <MemberProfileImg src={e.picture} alt="profile" />
+                                <MemberNameEmailDiv>{e.first_name} {e.last_name} </MemberNameEmailDiv>
                                 <DeleteButton onClick={()=>this.sendInvite(i, e.userid)}>
                                     <img src={plus} alt="add" height='12px'/>
                                 </DeleteButton> 
@@ -139,8 +143,8 @@ sendInvite(i, userid){
         var showList=filteredList.map((e,i)=>{
             return <EachMember key={i}>
                       <FirstLine>
-                      <Img src={e.picture} alt="profile" />
-                      <div>{e.first_name} {e.last_name} </div>
+                      <MemberProfileImg src={e.picture} alt="profile" />
+                      <MemberNameEmailDiv>{e.first_name} {e.last_name} </MemberNameEmailDiv>
                       <DeleteButton onClick={()=>this.sendInvite(i, e.userid)}>
                       <img src={plus} alt="add" height='12px'/>
                       </DeleteButton> 
