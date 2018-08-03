@@ -101,7 +101,10 @@ export const TripHeader = glamorous.h1({
     color: '#F9FBFF',
     fontSize: 32,
     marginBottom: 5,
-    textAlign: 'center'
+    textAlign: 'center',
+    [mediaQueries.desktop]: {
+        fontSize: 38
+    }
 })
 
 // Trip Component & Children

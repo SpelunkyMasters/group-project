@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+
 import glamorous from 'glamorous';
 import * as glamor from 'glamor';
 
@@ -63,7 +64,7 @@ const AnimatedLogo = glamorous.img(
       width: 1400
     }
   }
-)
+);
 
 class TripLoader extends Component {
   componentDidMount() {

@@ -7,12 +7,16 @@ import { connect } from 'react-redux'
 import { getItinerary } from '../../../ducks/reducer'
 import glamorous, {Div} from 'glamorous';
 import itineraryadd from '../../../assets/svg/itineraryadd.svg';
+import { mediaQueries } from '../../styledComponents';
 
 
 const MainDiv = glamorous.div({
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
+    [mediaQueries.desktop]: {
+        padding: '10px 0 10px 30px'
+    }
 })
 
 const DeleteButton = glamorous.button({
@@ -20,6 +24,13 @@ const DeleteButton = glamorous.button({
     border: 'none',
     fontSize: '17px'
 })
+
+const AddImg = glamorous.img({
+    width: 15,
+    [mediaQueries.desktop]: {
+        width: 26
+    }
+});
 
 const AddButton = glamorous.button({
     background: 'none',
@@ -31,7 +42,10 @@ const AddButton = glamorous.button({
 const MainName = glamorous.h3({
     fontSize: '22px',
     fontWeight: "600",
-    paddingBottom: '10px'
+    paddingBottom: '10px',
+    [mediaQueries.desktop]: {
+        fontSize: 36
+    }
 })
 
 class MainStop extends Component {
@@ -117,7 +131,7 @@ class MainStop extends Component {
             <MainDiv>
                 <Div display='flex'>
                     <MainName  onClick={this.handleClick}>{mainStop.dest_name}</MainName>
-                        <AddButton onClick={this.handleAddClick}><img src={itineraryadd} alt="add button" width="15px"/></AddButton>
+                        <AddButton onClick={this.handleAddClick}><AddImg src={itineraryadd} alt="add button"/></AddButton>
                 </Div>
                 {
                     this.state.clicked ?

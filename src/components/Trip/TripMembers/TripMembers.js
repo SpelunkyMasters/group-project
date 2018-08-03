@@ -21,14 +21,19 @@ const TripMembersBox=glamorous.div({
   width:'106.5%',
   marginLeft: '-10px',
   [mediaQueries.desktop]: {
-    backgroundPosition: 'center' 
+    backgroundSize: 1800,
+    // height: '100vh',
+    width: '100%'
   }
 })
 const Members=glamorous.div({
   marginTop: 20,
   height: 200,
   // backgroundColor: 'magenta',
-  overflowY:'scroll'
+  overflowY:'scroll',
+  [mediaQueries.desktop]: {
+    height: '35vh',
+  }
 })
 
 const SearchMemberDiv = glamorous.div({
@@ -36,33 +41,48 @@ const SearchMemberDiv = glamorous.div({
   display:'flex', 
   lexDirection:'column',
   justifyContent:'center',
-  alignItems:'center'
+  alignItems:'center',
+  [mediaQueries.desktop]: {
+    top: 10
+  }
 })
 const Invited=glamorous.div({
   // backgroundColor: 'maroon',
   height: 200,
-  overflowY:'scroll'
+  overflowY:'scroll',
+  [mediaQueries.desktop]: {
+    height: '30vh',
+  }
 })
 
 
-const H2=glamorous.h2({
+const TripMembersH2=glamorous.h2({
   textAlign: 'center',
   paddingBottom:'10px',
-  letterSpacing: '5px'
+  letterSpacing: '5px',
+  [mediaQueries.desktop]: {
+    fontSize: 30
+  }
 })
-const Img=glamorous.img({
+
+export const MemberProfileImg=glamorous.img({
   borderRadius:'50%',
-  height:30
+  height:30,
+  [mediaQueries.desktop]: {
+    height: 60
+  }
 })
-const EachMember=glamorous.div({
-  padding:'5px',
+export const EachMember=glamorous.div({
+  padding:5,
   border:'2px black solid',
-  borderRadius:'5px',
-  marginBottom:'5px',
+  borderRadius: 5,
+  marginBottom: 5,
   backgroundColor:'white',
   [mediaQueries.desktop]: {
-    width: 400,
-    margin: 'auto'
+
+    width: 370,
+    margin: 'auto',
+    marginBottom: 10,
   }
 
 })
@@ -81,10 +101,13 @@ const SecondLine=glamorous.div({
 const DeleteButton=glamorous.div({
   backgroundColor:'transparent',
    border:'none',
-    height:'12px'
+    height:'12px',
 })
-const FullName=glamorous.div({
-  marginLeft:20
+export const MemberNameEmailDiv=glamorous.div({
+  marginLeft:20,
+  [mediaQueries.desktop]: {
+    fontSize: 25
+  }
 })
 const AddMemberInput = glamorous.input({
   fontSize: '13px',
@@ -97,7 +120,12 @@ const AddMemberInput = glamorous.input({
   boxShadow: "1px 1px 5px rgba(0, 0, 0, 0.5) inset",
   ":focus": {
       outline: 0,
-     }
+     },
+  [mediaQueries.desktop]: {
+    fontSize: 22,
+    height: 35,
+    width: 400
+  }
 })
 
 
@@ -130,8 +158,8 @@ class TripMembers extends Component {
        var users=this.props.users.map((e, i)=>{
       return (<EachMember key={i}>
                 <FirstLine>
-                  <Img src={e.picture} alt="profile"/> 
-                  <FullName>{e.first_name} {e.last_name}</FullName>
+                  <MemberProfileImg src={e.picture} alt="profile"/> 
+                  <MemberNameEmailDiv>{e.first_name} {e.last_name}</MemberNameEmailDiv>
                 </FirstLine>
                 <SecondLine>
                   <div>{e.email}</div>
@@ -152,8 +180,8 @@ class TripMembers extends Component {
       var invited=res.data.map((e, i)=>{
         return (<EachMember key={i}>
                   <FirstLine>
-                    <Img src={e.picture} alt="profile" /> 
-                    <FullName> {e.first_name} {e.last_name}</FullName>
+                    <MemberProfileImg src={e.picture} alt="profile" /> 
+                    <MemberNameEmailDiv> {e.first_name} {e.last_name}</MemberNameEmailDiv>
                   </FirstLine>
                   <SecondLine>
                     <div>{e.email}</div>
@@ -182,8 +210,8 @@ class TripMembers extends Component {
       var users=this.props.users.map((e, i)=>{
         return (<EachMember key={i}>
                   <FirstLine>
-                    <Img src={e.picture} alt="profile"/> 
-                    <FullName>{e.first_name} {e.last_name}</FullName>
+                    <MemberProfileImg src={e.picture} alt="profile"/> 
+                    <MemberNameEmailDiv>{e.first_name} {e.last_name}</MemberNameEmailDiv>
                   </FirstLine>
                   <SecondLine>
                     <div>{e.email}</div>
@@ -204,11 +232,11 @@ class TripMembers extends Component {
         var invited=res.data.map((e, i)=>{
           return (<EachMember key={i}>
                     <FirstLine>
-                      <Img src={e.picture} alt="profile" /> 
-                      <FullName> {e.first_name} {e.last_name}</FullName>
+                      <MemberProfileImg src={e.picture} alt="profile" /> 
+                      <MemberNameEmailDiv> {e.first_name} {e.last_name}</MemberNameEmailDiv>
                     </FirstLine>
                     <SecondLine>
-                      <div>{e.email}</div>
+                      <MemberNameEmailDiv>{e.email}</MemberNameEmailDiv>
                       {userid === this.props.user.userid?
                       <DeleteButton onClick={()=>this.deleteFromInvited(i, e.userid)}>
                       <img src={cross} alt="delete" height='12px'/>
@@ -234,8 +262,8 @@ class TripMembers extends Component {
       var invited=invitedList.map((e, i)=>{
         return (<EachMember key={i}>
                   <FirstLine>
-                    <Img src={e.picture} alt="profile" /> 
-                    <FullName> {e.first_name} {e.last_name}</FullName>
+                    <MemberProfileImg src={e.picture} alt="profile" /> 
+                    <MemberNameEmailDiv> {e.first_name} {e.last_name}</MemberNameEmailDiv>
                   </FirstLine>
                   <SecondLine>
                     <div>{e.email}</div>
@@ -256,8 +284,8 @@ class TripMembers extends Component {
 var i=this.state.invited.length;
 var invited=<EachMember key={i}>
               <FirstLine>
-                <Img src={e.picture} alt="profile" />
-                 <FullName>{e.first_name} {e.last_name}</FullName>
+                <MemberProfileImg src={e.picture} alt="profile" />
+                 <MemberNameEmailDiv>{e.first_name} {e.last_name}</MemberNameEmailDiv>
               </FirstLine>
               <SecondLine>
                 <div>{e.email}</div>
@@ -279,8 +307,8 @@ deleteFromTrip(i, userid){
       var users=propsUsers.map((e, i)=>{
         return (<EachMember key={i}>
                   <FirstLine>
-                    <Img src={e.picture} alt="profile"/> 
-                    <FullName>{e.first_name} {e.last_name}</FullName>
+                    <MemberProfileImg src={e.picture} alt="profile"/> 
+                    <MemberNameEmailDiv>{e.first_name} {e.last_name}</MemberNameEmailDiv>
                   </FirstLine>
                   <SecondLine>
                     <div>{e.email}</div>
@@ -301,18 +329,18 @@ deleteFromTrip(i, userid){
     return (
       <TripMembersBox>
         <Members>
-        <H2>Members </H2>
+        <TripMembersH2>Members </TripMembersH2>
           
           {this.state.users}
         </Members>
         <Invited>
-          <H2>Invited</H2>
+          <TripMembersH2>Invited</TripMembersH2>
           
           {this.state.invited}
           {this.state.userid === this.props.user.userid
           ///////////////////////////////////////////////////////
             ? <SearchMemberDiv>
-                <AddMemberInput placeholder="Add to your Caravan..."value={this.state.filter} onChange={e=>this.setState({filter:e.target.value})} type='text'/>
+                <AddMemberInput placeholder="Enter name" value={this.state.filter} onChange={e=>this.setState({filter:e.target.value})} type='text'/>
                 {/* showing AddRemove component if input field is not empty */}
 
                 {
